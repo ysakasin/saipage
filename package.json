@@ -1,0 +1,25 @@
+{
+  "name": "dice-room",
+  "version": "0.0.0",
+  "description": "A TRPG session tool",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --open --hot",
+    "build": "webpack --progress --hide-modules"
+  },
+  "author": "SAKATA Sinji",
+  "license": "MIT",
+  "dependencies": {
+    "css-loader": "^0.28.11",
+    "ts-loader": "^4.1.0",
+    "typescript": "^2.7.2",
+    "vue": "^2.5.16",
+    "vue-class-component": "^6.2.0",
+    "vue-loader": "^14.2.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.12",
+    "webpack-dev-server": "^3.1.1"
+  },
+  "private": true
+}
