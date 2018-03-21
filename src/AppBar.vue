@@ -14,7 +14,7 @@
     <v-btn icon>
       <v-icon>volume_up</v-icon>
     </v-btn>
-    <v-btn icon>
+    <v-btn icon @click="settings = true">
       <v-icon>settings</v-icon>
     </v-btn>
     <v-menu bottom left>
@@ -31,6 +31,7 @@
   <v-navigation-drawer v-model="drawer" absolute>
     <Nav />
   </v-navigation-drawer>
+  <Settings v-model="settings" @close="settings = false" />
   </div>
 </template>
 
@@ -38,10 +39,12 @@
 import Vue from 'vue'
 import Component from 'vue-class-component'
 import Nav from './Nav.vue'
+import Settings from './Settings.vue'
 
 @Component({
   components: {
     Nav,
+    Settings,
   }
 })
 export default class AppBar extends Vue {
@@ -50,6 +53,7 @@ export default class AppBar extends Vue {
       username: "酒田　シンジ",
       title: "滅びの立会人と創造の観測者と",
       drawer: null,
+      settings: false,
       a1: null,
       states: ["CoC", "DiceBot", "Shinobigami", "Kancore"],
       items: [
