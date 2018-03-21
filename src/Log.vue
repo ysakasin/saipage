@@ -1,0 +1,51 @@
+<template>
+  <v-card>
+    <v-list>
+      <template v-for="(item, i) in items">
+        <v-list-tile :key="i">
+          <v-list-tile-content class="log">
+            <v-list-tile-sub-title>{{ item.username }}</v-list-tile-sub-title>
+            <v-list-tile-title>{{ item.body }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
+  </v-card>
+</template>
+
+<script lang="ts">
+import Vue from 'vue'
+import Component from 'vue-class-component'
+
+@Component
+export default class Log extends Vue {
+  data () {
+    return {
+      items : [
+        {username: "sakasin", body: "1D100 -> 90"},
+        {username: "sakasin", body: "choice[foo,bar,baz] -> foo"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
+      ]
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.log {
+  user-select: text;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+</style>
+
+
+

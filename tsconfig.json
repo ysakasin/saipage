@@ -5,6 +5,9 @@
     "module": "es2015",
     "moduleResolution": "node",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
   },
   "include": [
     "./src/**/*"
