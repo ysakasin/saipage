@@ -2,11 +2,11 @@
   <div>
   <v-toolbar>
     <v-icon>room</v-icon>
-    <v-toolbar-title>{{ title }}</v-toolbar-title>
+    <v-toolbar-title>{{ roomName }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn flat large class="hidden-xs-only">
       <v-icon class="nameicon">account_circle</v-icon>
-      <span>{{ username }}</span>
+      <span>{{ userName }}</span>
     </v-btn>
     <v-btn icon class="hidden-sm-and-up">
       <v-icon>account_circle</v-icon>
@@ -50,8 +50,6 @@ import Settings from './Settings.vue'
 export default class AppBar extends Vue {
   data () {
     return {
-      username: "酒田　シンジ",
-      title: "滅びの立会人と創造の観測者と",
       drawer: null,
       settings: false,
       a1: null,
@@ -63,6 +61,14 @@ export default class AppBar extends Vue {
         {title: "ルームから退出", disabled: false},
       ]
     }
+  }
+
+  get userName() {
+    return this.$store.state.userName;
+  }
+
+  get roomName() {
+    return this.$store.state.roomName;
   }
 }
 </script>

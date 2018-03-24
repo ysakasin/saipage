@@ -20,7 +20,7 @@
                 <v-text-field
                   name="roomname"
                   label="ルーム名"
-                  v-model="roomname"
+                  v-model.lazy="roomName"
                 ></v-text-field>
               </v-list-tile>
               <v-list-tile avatar>
@@ -83,7 +83,6 @@ export default class Settings extends Vue{
   }
   data () {
     return {
-      roomname: "ほげ",
       diceanimation: true,
       sound: true,
       systeminfo: true,
@@ -98,6 +97,14 @@ export default class Settings extends Vue{
         {title: "baz"},
       ]
     }
+  }
+
+  get roomName () {
+    return this.$store.state.roomName;
+  }
+
+  set roomName (newName) {
+    this.$store.commit("changeRoomName", newName);
   }
 }
 </script>

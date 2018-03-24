@@ -5,14 +5,19 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    username: "ななし",
+    roomName: "滅びの立会人と創造の観測者と",
+    userName: "ななし",
+    gameType: "DiceBot",
     logs: new Array(),
     diceAnimationQueue: new Array(),
     readyAnimation: true,
   },
   mutations: {
-    changeName(state, newName) {
-      state.username = newName;
+    changeRoomName(state, newName) {
+      state.roomName = newName;
+    },
+    changeUserName(state, newName) {
+      state.userName = newName;
     },
     appendLog(state, log) {
       state.logs.unshift(log);

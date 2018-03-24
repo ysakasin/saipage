@@ -77,8 +77,12 @@ export default class Tool extends Vue{
     this.$data.command = ""
   }
 
-  get username() {
-    return this.$store.state.username
+  get userName() {
+    return this.$store.state.userName
+  }
+
+  get gameType() {
+    return this.$store.state.gameType
   }
 
   diceroll() {
@@ -86,7 +90,7 @@ export default class Tool extends Vue{
     bcdice.setCollectRandResult(true)
 
     let result = bcdice.dice_command()
-    const log = {username: this.username, body: result[0]}
+    const log = {username: this.userName, body: result[0]}
     let diceResults = this.getDiceResults()
     console.log(diceResults)
 
