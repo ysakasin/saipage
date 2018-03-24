@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify';
-import Vuex from 'vuex';
-import App from './App.vue';
-import 'vuetify/dist/vuetify.min.css';
+import Vue from "vue";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import Vuex from "vuex";
+import App from "./App.vue";
 
-import store from './store';
+import store from "./store";
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
-new Vue({
-  el: '#app',
+const app = new Vue({
+  el: "#app",
+  render: (h) => h(App),
   store,
-  render: h => h(App)
 });
