@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-list>
-      <template v-for="(item, i) in items">
+      <template v-for="(item, i) in logs">
         <v-list-tile :key="i">
           <v-list-tile-content class="log">
             <v-list-tile-sub-title>{{ item.username }}</v-list-tile-sub-title>
@@ -16,25 +16,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import store from './store'
 
 @Component
 export default class Log extends Vue {
-  data () {
-    return {
-      items : [
-        {username: "sakasin", body: "1D100 -> 90"},
-        {username: "sakasin", body: "choice[foo,bar,baz] -> foo"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-        {username: "sakasin", body: "1D100<=70 -> 64 -> 成功"},
-      ]
-    }
+  get logs() {
+    return this.$store.state.logs
   }
 }
 </script>

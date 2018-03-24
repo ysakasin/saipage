@@ -3,8 +3,9 @@
     <AppBar />
     <v-container grid-list-lg>
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 style="position: relative">
           <Tool />
+          <DiceArea />
         </v-flex>
         <v-flex xs12>
           <Log />
@@ -21,11 +22,13 @@ import Component from 'vue-class-component'
 import AppBar from './AppBar.vue'
 import Log from './Log.vue'
 import Tool from './Tool.vue'
+import DiceArea from './DiceArea.vue'
 @Component({
   components: {
     AppBar,
     Tool,
-    Log
+    Log,
+    DiceArea,
   }
 })
 export default class App extends Vue {}

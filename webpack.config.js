@@ -3,6 +3,7 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: './src/main.ts',
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
@@ -32,6 +33,10 @@ module.exports = {
           'style-loader',
           'css-loader',
         ]
+      },
+      {
+        test: /\.png$/,
+        use: 'url-loader',
       },
       {
         test: /\.vue$/,

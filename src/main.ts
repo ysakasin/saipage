@@ -1,15 +1,16 @@
 import Vue from 'vue';
-// import VueMdc from 'vue-mdc';
-// import VueMaterial from 'vue-material';
 import Vuetify from 'vuetify';
+import Vuex from 'vuex';
 import App from './App.vue';
-// import 'vue-mdc/dist/vue-mdc.css';
-// import 'vue-material/dist/vue-material.min.css';
 import 'vuetify/dist/vuetify.min.css';
 
+import store from './store';
+
 Vue.use(Vuetify);
+Vue.use(Vuex);
 
 new Vue({
   el: '#app',
+  store,
   render: h => h(App)
 });

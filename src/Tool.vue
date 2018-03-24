@@ -1,14 +1,16 @@
 <template>
   <v-card>
+    <form v-on:submit.prevent="diceroll">
     <v-text-field
       label="コマンドを入力..."
-      v-model="name"
+      v-model="command"
       single-line
       hide-details
       full-width
       v-on:focus="help = true"
       v-on:blur="help = false"
     ></v-text-field>
+    </form>
     <v-divider />
     <transition
     v-on:before-enter="beforeEnter"
@@ -33,12 +35,16 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import store from './store'
+import BCDice from 'bcdice-js'
+
+const bcdice = new BCDice()
 
 @Component
 export default class Tool extends Vue{
   data () {
     return {
-      name: '',
+      command: '',
       help: false,
       system: 'クトゥルフ神話TRPG',
       systeminfo: `【ダイスボット】チャットにダイス用の文字を入力するとダイスロールが可能
@@ -65,6 +71,48 @@ export default class Tool extends Vue{
         "1D100<=?",
       ]
     }
+  }
+
+  clearForm() {
+    this.$data.command = ""
+  }
+
+  get username() {
+    return this.$store.state.username
+  }
+
+  diceroll() {
+    bcdice.setMessage(this.$data.command)
+    bcdice.setCollectRandResult(true)
+
+    let result = bcdice.dice_command()
+    const log = {username: this.username, body: result[0]}
+    let diceResults = this.getDiceResults()
+    console.log(diceResults)
+
+    this.$store.commit('appendLog', log)
+    this.$store.commit('pushDice', diceResults)
+    this.clearForm()
+  }
+
+  getDiceResults() {
+    const randResults = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]}})
+    console.log(randResults)
+    const drawableResults = randResults.reduce((acc, result) => {
+      if (this.isDrawable(result)) {
+        if (result.face == 100) {
+          acc.push({face: 100, value: Math.floor(result.value / 10)})
+          acc.push({face:  10, value: result.value % 10})
+        } else {
+          acc.push(result)
+        }
+      }
+      return acc
+    }, [])
+    return drawableResults
+  }
+  isDrawable(result) : Boolean {
+    return result.face == 100
   }
   beforeEnter(el) {
       // アコーディオンを閉じた状態にする
