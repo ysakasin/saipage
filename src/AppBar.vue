@@ -4,11 +4,11 @@
     <v-icon>room</v-icon>
     <v-toolbar-title>{{ roomName }}</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn flat large class="hidden-xs-only">
+    <v-btn flat large class="hidden-xs-only" @click="userNameDialog = true">
       <v-icon class="nameicon">account_circle</v-icon>
       <span>{{ userName }}</span>
     </v-btn>
-    <v-btn icon class="hidden-sm-and-up">
+    <v-btn icon class="hidden-sm-and-up" @click="userNameDialog = true">
       <v-icon>account_circle</v-icon>
     </v-btn>
     <v-btn icon>
@@ -32,6 +32,23 @@
     <Nav />
   </v-navigation-drawer>
   <Settings v-model="settings" @close="settings = false" />
+  <v-dialog v-model="userNameDialog" max-width="500px">
+    <v-card>
+      <v-card-title>
+        名前を変更
+      </v-card-title>
+      <v-card-text>
+        <v-text-field
+          label="名前"
+          v-model.lazy="userName"
+          autofocus
+        ></v-text-field>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" flat @click.stop="userNameDialog=false">閉じる</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
   </div>
 </template>
 
@@ -52,6 +69,7 @@ export default class AppBar extends Vue {
     return {
       drawer: null,
       settings: false,
+      userNameDialog: false,
       a1: null,
       states: ["CoC", "DiceBot", "Shinobigami", "Kancore"],
       items: [
@@ -65,6 +83,10 @@ export default class AppBar extends Vue {
 
   get userName() {
     return this.$store.state.userName;
+  }
+
+  set userName(newName : String) {
+    this.$store.commit("changeUserName", newName);
   }
 
   get roomName() {
