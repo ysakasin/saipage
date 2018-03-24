@@ -112,7 +112,7 @@ export default class Tool extends Vue{
     return drawableResults
   }
   isDrawable(result) : Boolean {
-    return result.face == 100
+    return result.face == 100 || result.face == 10 || result.face == 4 || result.face == 6 || result.face == 8
   }
   beforeEnter(el) {
       // アコーディオンを閉じた状態にする

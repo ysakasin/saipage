@@ -48,42 +48,66 @@ export default class Dice extends Vue {
   z-index: 1000;
 }
 
-.dice-100 {
-  background: url(assets/100_dice.png) no-repeat;
+.dice-4 {
+  background: url(assets/4_dice.png) no-repeat;
+  &.active {
+    animation: roll4 0.4s steps(4) 2, move_y 0.8s linear;
+  }
+}
+
+@keyframes roll4 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -400px 0;
+  }
+}
+
+.dice-6 {
+  background: url(assets/6_dice.png) no-repeat;
+  &.active {
+    animation: roll6 0.8s steps(6), move_y 0.8s linear;
+  }
+}
+
+@keyframes roll6 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -600px 0;
+  }
+}
+
+.dice-8 {
+  background: url(assets/8_dice.png) no-repeat;
+  &.active {
+    animation: roll8 0.8s steps(8), move_y 0.8s linear;
+  }
+}
+
+@keyframes roll8 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -800px 0;
+  }
+}
+
+.dice-10 {
+  background: url(assets/10_dice.png) no-repeat;
   &.active {
     animation: roll10 0.8s steps(10), move_y 0.8s linear;
   }
 }
 
-.value-1 {
-  background-position: 0 0;
-}
-.value-2 {
-  background-position: -100px 0;
-}
-.value-3 {
-  background-position: -200px 0;
-}
-.value-4 {
-  background-position: -300px 0;
-}
-.value-5 {
-  background-position: -400px 0;
-}
-.value-6 {
-  background-position: -500px 0;
-}
-.value-7 {
-  background-position: -600px 0;
-}
-.value-8 {
-  background-position: -700px 0;
-}
-.value-9 {
-  background-position: -800px 0;
-}
-.value-10, .value-0 {
-  background-position: -900px 0;
+.dice-100 {
+  background: url(assets/100_dice.png) no-repeat;
+  &.active {
+    animation: roll10 0.8s steps(10), move_y 0.8s linear;
+  }
 }
 
 @keyframes roll10 {
@@ -93,6 +117,15 @@ export default class Dice extends Vue {
   to {
     background-position: -1000px 0;
   }
+}
+
+@for $i from 1 through 20 {
+  .value-#{$i} {
+    background-position-x: -100px * ($i - 1);
+  }
+}
+.value-0 {
+  background-position: -900px 0;
 }
 
 @keyframes rightmove {
