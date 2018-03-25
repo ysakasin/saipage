@@ -32,23 +32,7 @@
     <Nav />
   </v-navigation-drawer>
   <Settings v-model="settings" @close="settings = false" />
-  <v-dialog v-model="userNameDialog" max-width="500px">
-    <v-card>
-      <v-card-title>
-        名前を変更
-      </v-card-title>
-      <v-card-text>
-        <v-text-field
-          label="名前"
-          v-model.lazy="userName"
-          autofocus
-        ></v-text-field>
-      </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" flat @click.stop="userNameDialog=false">閉じる</v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <UserNameDialog v-model="userNameDialog" @close="userNameDialog = false" />
   </div>
 </template>
 
@@ -57,11 +41,13 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import Nav from './Nav.vue'
 import Settings from './Settings.vue'
+import UserNameDialog from './UserNameDialog.vue'
 
 @Component({
   components: {
     Nav,
     Settings,
+    UserNameDialog,
   }
 })
 export default class AppBar extends Vue {
@@ -83,10 +69,6 @@ export default class AppBar extends Vue {
 
   get userName() {
     return this.$store.state.userName;
-  }
-
-  set userName(newName : String) {
-    this.$store.commit("changeUserName", newName);
   }
 
   get roomName() {
