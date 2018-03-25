@@ -38,8 +38,6 @@ import Component from 'vue-class-component'
 import store from './store'
 import BCDice from 'bcdice-js'
 
-const bcdice = new BCDice()
-
 @Component
 export default class Tool extends Vue{
   data () {
@@ -86,12 +84,15 @@ export default class Tool extends Vue{
   }
 
   diceroll() {
+    const bcdice = new BCDice()
+    bcdice.setGameByTitle(this.gameType)
     bcdice.setMessage(this.$data.command)
     bcdice.setCollectRandResult(true)
 
     let result = bcdice.dice_command()
+    console.log(result)
     const log = {username: this.userName, body: result[0]}
-    let diceResults = this.getDiceResults()
+    let diceResults = this.getDiceResults(bcdice)
     console.log(diceResults)
 
     this.$store.commit('appendLog', log)
@@ -99,7 +100,7 @@ export default class Tool extends Vue{
     this.clearForm()
   }
 
-  getDiceResults() {
+  getDiceResults(bcdice) {
     const randResults = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]}})
     console.log(randResults)
     const drawableResults = randResults.reduce((acc, result) => {
@@ -149,5 +150,3 @@ export default class Tool extends Vue{
   white-space: pre;
 }
 </style>
-
-

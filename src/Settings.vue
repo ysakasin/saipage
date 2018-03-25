@@ -1,10 +1,7 @@
 <template>
   <v-dialog
-        fullscreen
-        transition="dialog-bottom-transition"
-        v-model="value"
+        v-model="isShow"
         :overlay="false"
-        scrollable
       >
         <v-card tile>
           <v-toolbar card dark>
@@ -25,9 +22,11 @@
               </v-list-tile>
               <v-list-tile avatar>
                 <v-select
-                  :items="select"
+                  :items="diceBots"
                   label="ダイスボット"
-                  item-value="text"
+                  item-text="name"
+                  item-value="gameType"
+                  v-model="gameType"
                 ></v-select>
               </v-list-tile>
             </v-list>
@@ -71,6 +70,19 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
+import {DiceBotLoader} from 'bcdice-js'
+
+const diceBots = DiceBotLoader.collectDiceBotDescriptions().map((x) => {
+  return {name: x[2], gameType: x[1]}
+})
+
+diceBots.sort((a, b) => {
+  if (a.name > b.name) {
+    return 1;
+  } else {
+    return -1;
+  }
+})
 
 @Component({
   props: {
@@ -86,16 +98,17 @@ export default class Settings extends Vue{
       diceanimation: true,
       sound: true,
       systeminfo: true,
-      select: [
-        {text: "coc"},
-        {text: "lhz"},
-        {text: "sw"},
-      ],
-      items: [
-        {title: "foo"},
-        {title: "bar"},
-        {title: "baz"},
-      ]
+      diceBots: diceBots,
+    }
+  }
+
+  get isShow() {
+    return this.$props.value
+  }
+
+  set isShow(val : Boolean) {
+    if (!val) {
+      this.close()
     }
   }
 
@@ -106,6 +119,13 @@ export default class Settings extends Vue{
   set roomName (newName) {
     this.$store.commit("changeRoomName", newName);
   }
+
+  get gameType() {
+    return this.$store.state.gameType;
+  }
+
+  set gameType(newType) {
+    this.$store.commit("updateGameType", newType);
+  }
 }
 </script>
-

@@ -14,7 +14,7 @@
     <v-btn icon>
       <v-icon>volume_up</v-icon>
     </v-btn>
-    <v-btn icon @click="settings = true">
+    <v-btn icon @click.stop="settings = true">
       <v-icon>settings</v-icon>
     </v-btn>
     <v-menu bottom left>
@@ -77,7 +77,6 @@ export default class AppBar extends Vue {
 }
 </script>
 
-
 <style lang="scss">
 .dice-select {
   width: 100px;
@@ -86,4 +85,3 @@ export default class AppBar extends Vue {
   padding-right: 8px;
 }
 </style>
-

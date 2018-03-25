@@ -19,6 +19,9 @@ const store = new Vuex.Store({
     changeUserName(state, newName) {
       state.userName = newName;
     },
+    updateGameType(state, newType) {
+      state.gameType = newType;
+    },
     appendLog(state, log) {
       state.logs.unshift(log);
     },
