@@ -14,14 +14,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
-import store from './store'
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import store from './store';
 
 @Component
 export default class Log extends Vue {
   get logs() {
-    return this.$store.state.logs
+    return this.$store.state.logs;
   }
 }
 </script>

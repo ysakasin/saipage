@@ -2,8 +2,12 @@
   <v-app>
     <AppBar />
     <v-container grid-list-lg>
-      <v-layout row wrap>
-        <v-flex xs12 style="position: relative">
+      <v-layout
+        row
+        wrap>
+        <v-flex
+          xs12
+          style="position: relative">
           <Tool />
           <DiceArea />
         </v-flex>
@@ -16,13 +20,13 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
-import AppBar from './AppBar.vue'
-import Log from './Log.vue'
-import Tool from './Tool.vue'
-import DiceArea from './DiceArea.vue'
+import AppBar from './AppBar.vue';
+import Log from './Log.vue';
+import Tool from './Tool.vue';
+import DiceArea from './DiceArea.vue';
 @Component({
   components: {
     AppBar,

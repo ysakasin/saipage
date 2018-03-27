@@ -1,12 +1,17 @@
 <template>
-  <div class="dice-container" v-bind:class="{active: isActive}">
-    <div class="dice" v-bind:class="[diceClass, valueClass, {active: isActive}]" @click="hide()"></div>
+  <div
+    :class="{active: isActive}"
+    class="dice-container">
+    <div
+      :class="[diceClass, valueClass, {active: isActive}]"
+      class="dice"
+      @click="hide()"/>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import Vue from 'vue';
+import Component from 'vue-class-component';
 
 @Component({
   props: {
@@ -16,18 +21,17 @@ import Component from 'vue-class-component'
 })
 export default class Dice extends Vue {
   get diceClass() {
-    return "dice-" + this.$props.face
+    return 'dice-' + this.$props.face;
   }
   get valueClass() {
-    return "value-" + this.$props.value
+    return 'value-' + this.$props.value;
   }
   get isActive() {
-    return !this.$store.state.readyAnimation
+    return !this.$store.state.readyAnimation;
   }
 
   hide() {
-    console.log("hide")
-    this.$emit('hide')
+    this.$emit('hide');
   }
 }
 </script>
@@ -136,7 +140,7 @@ export default class Dice extends Vue {
     transform: translateX(0px);
   }
 }
- 
+
 @keyframes move_y {
   0% {
     transform: translateY(-16em);

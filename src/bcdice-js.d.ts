@@ -1,19 +1,19 @@
 declare module 'bcdice-js' {
   class BCDice {
     constructor();
-    gameName() : string;
-    getHelpMessage() : string;
-    setGameByTitle(title: string) : void;
-    setMessage(msg: string) : void;
-    setCollectRandResult(flag: boolean) : void;
-    dice_command() : [string, boolean];
-    getRandResults() : [number, number][];
+    gameName(): string;
+    getHelpMessage(): string;
+    setGameByTitle(title: string): void;
+    setMessage(msg: string): void;
+    setCollectRandResult(flag: boolean): void;
+    dice_command(): [string, boolean];
+    getRandResults(): [number, number][];
   }
 
   class DiceBotLoader {
     constructor();
-    static loadUnknownGame(gameType: string) : BCDice;
-    static collectDiceBotDescriptions() : [string, string, string][];
+    static loadUnknownGame(gameType: string): BCDice;
+    static collectDiceBotDescriptions(): [string, string, string][];
   }
 
   export default BCDice;

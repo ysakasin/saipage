@@ -1,0 +1,15 @@
+{
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "typescript-eslint-parser"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended",
+    "typescript"
+  ],
+  "rules": {
+    "no-trailing-spaces": "error",
+    "typescript/explicit-member-accessibility": "none"
+  }
+}
