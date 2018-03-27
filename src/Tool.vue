@@ -94,10 +94,10 @@ export default class Tool extends Vue{
     this.clearForm()
   }
 
-  getDiceResults(bcdice) {
-    const randResults = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]}})
+  getDiceResults(bcdice : BCDice) {
+    const randResults : Result[] = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]}})
     console.log(randResults)
-    const drawableResults = randResults.reduce((acc, result) => {
+    const drawableResults = randResults.reduce((acc : Result[], result : Result) => {
       if (this.isDrawable(result)) {
         if (result.face == 100) {
           acc.push({face: 100, value: Math.floor(result.value / 10)})
@@ -110,28 +110,27 @@ export default class Tool extends Vue{
     }, [])
     return drawableResults
   }
-  isDrawable(result) : Boolean {
+  isDrawable(result : Result) : boolean {
     return result.face == 100 || result.face == 10 || result.face == 4 || result.face == 6 || result.face == 8
   }
-  beforeEnter(el) {
-      // アコーディオンを閉じた状態にする
-      el.style.height = '0'
-    }
 
-    enter(el) {
-      // アコーディオンのコンテンツの高さを指定して開く
-      el.style.height = el.scrollHeight + 'px'
-    }
+  beforeEnter(el : HTMLElement) {
+    el.style.height = '0'
+  }
+  enter(el : HTMLElement) {
+    el.style.height = el.scrollHeight + 'px'
+  }
+  beforeLeave(el : HTMLElement) {
+    el.style.height = el.scrollHeight + 'px'
+  }
+  leave(el : HTMLElement) {
+    el.style.height = '0'
+  }
+}
 
-    beforeLeave(el) {
-      // アコーディオンを閉じた状態にする
-      el.style.height = el.scrollHeight + 'px'
-    }
-
-    leave(el) {
-      // アコーディオンのコンテンツの高さを指定して開く
-      el.style.height = '0'
-    }
+interface Result {
+  face: number,
+  value: number,
 }
 </script>
 

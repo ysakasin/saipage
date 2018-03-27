@@ -72,7 +72,12 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import {DiceBotLoader} from 'bcdice-js'
 
-const diceBots = DiceBotLoader.collectDiceBotDescriptions().map((x) => {
+interface DiceBotInfo {
+  name: string,
+  gameType: string,
+}
+
+const diceBots : DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map((x) => {
   return {name: x[2], gameType: x[1]}
 })
 
@@ -106,7 +111,7 @@ export default class Settings extends Vue{
     return this.$props.value
   }
 
-  set isShow(val : Boolean) {
+  set isShow(val : boolean) {
     if (!val) {
       this.close()
     }

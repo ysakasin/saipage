@@ -35,7 +35,7 @@ export default class UserNameDialog extends Vue {
     return this.$store.state.userName;
   }
 
-  set userName(newName : String) {
+  set userName(newName : string) {
     this.$store.commit("changeUserName", newName);
   }
 
