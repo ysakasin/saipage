@@ -7,7 +7,7 @@
         名前を変更
       </v-card-title>
       <v-card-text>
-        <form @submit.prevent="close()">
+        <form @submit.prevent="isActive = false">
           <v-text-field
             v-model.lazy="userName"
             label="名前"
@@ -20,7 +20,7 @@
         <v-btn
           color="primary"
           flat
-          @click.stop="close()">閉じる</v-btn>
+          @click.stop="isActive = false">閉じる</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -33,19 +33,31 @@ import Component from 'vue-class-component';
 @Component({
   props: {
     value: Boolean
+  },
+  watch: {
+    value(val : boolean) {
+      if (val != this.$data.isActive) {
+        this.$data.isActive = val;
+      }
+    },
+    isActive(val : boolean) {
+      this.$emit("input", val);
+    }
   }
 })
 export default class UserNameDialog extends Vue {
+  data() {
+    return {
+      isActive: false
+    };
+  }
+
   get userName() {
     return this.$store.state.userName;
   }
 
   set userName(newName : string) {
     this.$store.commit('changeUserName', newName);
-  }
-
-  close() {
-    this.$emit('close');
   }
 }
 </script>

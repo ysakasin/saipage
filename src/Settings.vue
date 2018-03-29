@@ -1,6 +1,6 @@
 <template>
   <v-dialog
-    v-model="isShow"
+    v-model="isActive"
     :overlay="false"
   >
     <v-card tile>
@@ -10,7 +10,7 @@
         <v-btn
           icon
           dark
-          @click.native="close()">
+          @click.native="isActive = false">
           <v-icon>close</v-icon>
         </v-btn>
         <v-toolbar-title>設定</v-toolbar-title>
@@ -107,29 +107,27 @@ diceBots.sort((a, b) => {
 @Component({
   props: {
     value: Boolean
+  },
+  watch: {
+    value(val : boolean) {
+      if (val != this.$data.isActive) {
+        this.$data.isActive = val;
+      }
+    },
+    isActive(val : boolean) {
+      this.$emit("input", val);
+    }
   }
 })
 export default class Settings extends Vue{
-  close () {
-    this.$emit('close');
-  }
   data () {
     return {
+      isActive: false,
       diceanimation: true,
       sound: true,
       systeminfo: true,
       diceBots: diceBots,
     };
-  }
-
-  get isShow() {
-    return this.$props.value;
-  }
-
-  set isShow(val : boolean) {
-    if (!val) {
-      this.close();
-    }
   }
 
   get roomName () {

@@ -28,8 +28,8 @@
     <v-btn
       v-for="(command, i) in shortcuts"
       :key="i"
-      @click.stop="dicerollByText(command)"
-      depressed>{{ command }}</v-btn>
+      depressed
+      @click.stop="dicerollByText(command)">{{ command }}</v-btn>
     <v-btn
       icon
       @click.stop="edit = true">

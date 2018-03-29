@@ -47,7 +47,7 @@
     </v-toolbar>
     <Settings
       v-model="settings"
-      @close="settings = false" />
+    />
     <UserNameDialog
       v-model="userNameDialog"
       @close="userNameDialog = false" />
