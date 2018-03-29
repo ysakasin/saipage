@@ -13,6 +13,7 @@
   "dependencies": {
     "bcdice-js": "^0.7.4",
     "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",

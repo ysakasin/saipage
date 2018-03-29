@@ -39,6 +39,17 @@ module.exports = {
         use: 'url-loader',
       },
       {
+        test: /\.mp3$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]'
+            }
+          }
+        ]
+      },
+      {
         test: /\.vue$/,
         use: 'vue-loader',
       }

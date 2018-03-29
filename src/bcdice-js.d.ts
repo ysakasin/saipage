@@ -19,3 +19,8 @@ declare module 'bcdice-js' {
   export default BCDice;
   export {DiceBotLoader};
 }
+
+declare module '*.mp3' {
+  const content: string;
+  export = content
+}

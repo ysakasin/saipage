@@ -12,6 +12,11 @@ const store = new Vuex.Store({
     logs: new Array(),
     diceAnimationQueue: new Array(),
     readyAnimation: true,
+    settings: {
+      playSound: true,
+      playDiceAnimation: true,
+      showSystemInfo: true,
+    }
   },
   mutations: {
     changeRoomName(state, newName) {
@@ -51,6 +56,15 @@ const store = new Vuex.Store({
         state.readyAnimation = true;
       }
     },
+    updateSoundSetting(state, val: boolean) {
+      state.settings.playSound = val;
+    },
+    updateAnimationSetting(state, val: boolean) {
+      state.settings.playDiceAnimation = val;
+    },
+    updateSystemInfoSetting(state, val: boolean) {
+      state.settings.showSystemInfo = val;
+    }
   },
 });
 export default store;

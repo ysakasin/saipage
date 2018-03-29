@@ -56,7 +56,7 @@
           <v-list-tile avatar>
             <v-list-tile-action>
               <v-switch
-                v-model="sound"
+                v-model="playSound"
                 color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
@@ -124,7 +124,6 @@ export default class Settings extends Vue{
     return {
       isActive: false,
       diceanimation: true,
-      sound: true,
       systeminfo: true,
       diceBots: diceBots,
     };
@@ -144,6 +143,13 @@ export default class Settings extends Vue{
 
   set gameType(newType) {
     this.$store.commit('updateGameType', newType);
+  }
+
+  get playSound() {
+    return this.$store.state.settings.playSound;
+  }
+  set playSound(val : boolean) {
+    this.$store.commit('updateSoundSetting', val);
   }
 }
 </script>

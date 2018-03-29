@@ -8,6 +8,9 @@
         :value="result.value"
         @hide="draw = false" />
     </template>
+    <audio preload>
+      <source :src="soundData">
+    </audio>
   </div>
 </template>
 
@@ -15,6 +18,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import Dice from './Dice.vue';
+import * as soundData from './assets/dice_roll.mp3';
 
 @Component({
   components: {
@@ -25,14 +29,36 @@ export default class DiceArea extends Vue {
   data () {
     return {
       draw: false,
+      soundData: soundData,
     };
   }
 
   get animationTarget() {
+    if (this.playSound) {
+      this.play();
+    }
     setTimeout(this.nextAnimation, 1000);
     let queue = this.$store.state.diceAnimationQueue;
     this.$data.draw = true;
     return queue[0];
+  }
+
+  get playSound() {
+    return this.$store.state.settings.playSound;
+  }
+
+  getAudio () {
+    if (this.$el !== undefined) {
+      return this.$el.querySelectorAll('audio')[0];
+    }
+    return null;
+  }
+
+  play() {
+    const audio = this.getAudio();
+    if (audio != null) {
+      audio.play();
+    }
   }
 
   showDice () {

@@ -18,8 +18,11 @@
         @click="userNameDialog = true">
         <v-icon>account_circle</v-icon>
       </v-btn>
-      <v-btn icon>
-        <v-icon>volume_up</v-icon>
+      <v-btn
+        icon
+        @click.stop="playSound = !playSound">
+        <v-icon v-if="playSound">volume_up</v-icon>
+        <v-icon v-else>volume_off</v-icon>
       </v-btn>
       <v-btn
         icon
@@ -88,6 +91,13 @@ export default class AppBar extends Vue {
 
   get roomName() {
     return this.$store.state.roomName;
+  }
+
+  get playSound() {
+    return this.$store.state.settings.playSound;
+  }
+  set playSound(val : boolean) {
+    this.$store.commit('updateSoundSetting', val);
   }
 }
 </script>
