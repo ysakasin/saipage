@@ -24,7 +24,15 @@ const store = new Vuex.Store({
       state.gameType = newType;
     },
     addShortcut(state, shortcut) {
-      state.shortcuts.push(shortcut);
+      if (state.shortcuts.indexOf(shortcut) == -1) {
+        state.shortcuts.push(shortcut);
+      }
+    },
+    removeShortcut(state, shortcut) {
+      const newList = state.shortcuts.filter((i) => { return i != shortcut; });
+      if (state.shortcuts != newList) {
+        state.shortcuts = newList;
+      }
     },
     appendLog(state, log) {
       state.logs.unshift(log);

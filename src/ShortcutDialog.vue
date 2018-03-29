@@ -14,7 +14,19 @@
             autofocus
           />
         </form>
+        <v-chip
+          v-for="(command, i) in shortcuts"
+          :key="i"
+          close
+          @input="remove(command)">{{ command }}</v-chip>
       </v-card-text>
+      <v-card-actions>
+        <v-spacer/>
+        <v-btn
+          color="primary"
+          flat
+          @click.stop="isActive = false">閉じる</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 
@@ -49,6 +61,14 @@ export default class ShortcutDialog extends Vue {
   add () {
     this.$store.commit('addShortcut', this.$data.command);
     this.$data.command = '';
+  }
+
+  remove (command : string) {
+    this.$store.commit('removeShortcut', command);
+  }
+
+  get shortcuts() {
+    return this.$store.state.shortcuts;
   }
 }
 </script>
