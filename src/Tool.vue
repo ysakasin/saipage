@@ -28,6 +28,7 @@
     <v-btn
       v-for="(command, i) in shortcuts"
       :key="i"
+      @click.stop="dicerollByText(command)"
       depressed>{{ command }}</v-btn>
     <v-btn
       icon
@@ -89,9 +90,13 @@ export default class Tool extends Vue{
   }
 
   diceroll() {
+    this.dicerollByText(this.$data.command);
+    this.clearForm();
+  }
+  dicerollByText(text : string) {
     const bcdice = new BCDice();
     bcdice.setGameByTitle(this.gameType);
-    bcdice.setMessage(this.$data.command);
+    bcdice.setMessage(text);
     bcdice.setCollectRandResult(true);
 
     let result = bcdice.dice_command();
@@ -100,7 +105,6 @@ export default class Tool extends Vue{
 
     this.$store.commit('appendLog', log);
     this.$store.commit('pushDice', diceResults);
-    this.clearForm();
   }
 
   getDiceResults(bcdice : BCDice) {
