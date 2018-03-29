@@ -8,6 +8,7 @@ const store = new Vuex.Store({
     roomName: '滅びの立会人と創造の観測者と',
     userName: 'ななし',
     gameType: 'DiceBot',
+    shortcuts: new Array(),
     logs: new Array(),
     diceAnimationQueue: new Array(),
     readyAnimation: true,
@@ -21,6 +22,9 @@ const store = new Vuex.Store({
     },
     updateGameType(state, newType) {
       state.gameType = newType;
+    },
+    addShortcut(state, shortcut) {
+      state.shortcuts.push(shortcut);
     },
     appendLog(state, log) {
       state.logs.unshift(log);

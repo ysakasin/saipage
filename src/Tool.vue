@@ -26,12 +26,15 @@
       </div>
     </transition>
     <v-btn
-      v-for="(command, i) in commands"
+      v-for="(command, i) in shortcuts"
       :key="i"
       depressed>{{ command }}</v-btn>
-    <v-btn icon>
+    <v-btn
+      icon
+      @click.stop="edit = true">
       <v-icon>add</v-icon>
     </v-btn>
+    <ShortcutDialog v-model="edit" />
   </v-card>
 </template>
 
@@ -41,18 +44,19 @@ import Component from 'vue-class-component';
 import store from './store';
 import BCDice, {DiceBotLoader} from 'bcdice-js';
 
-@Component
+import ShortcutDialog from './ShortcutDialog.vue';
+
+@Component({
+  components: {
+    ShortcutDialog
+  }
+})
 export default class Tool extends Vue{
   data () {
     return {
       command: '',
       help: false,
-      commands: [
-        '1D100',
-        '1D6',
-        '1D20',
-        '1D100<=?',
-      ]
+      edit: false,
     };
   }
 
@@ -66,6 +70,10 @@ export default class Tool extends Vue{
 
   get gameType() {
     return this.$store.state.gameType;
+  }
+
+  get shortcuts() {
+    return this.$store.state.shortcuts;
   }
 
   get diceBot() {
@@ -96,7 +104,7 @@ export default class Tool extends Vue{
   }
 
   getDiceResults(bcdice : BCDice) {
-    const randResults : Result[] = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]};});
+    const randResults:   Result[] = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]};});
     const drawableResults = randResults.reduce((acc : Result[], result : Result) => {
       if (this.isDrawable(result)) {
         if (result.face == 100) {
