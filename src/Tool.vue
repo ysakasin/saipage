@@ -100,11 +100,14 @@ export default class Tool extends Vue{
     bcdice.setCollectRandResult(true);
 
     let result = bcdice.dice_command();
-    const log = {username: this.userName, body: result[0]};
     let diceResults = this.getDiceResults(bcdice);
+    const log : Log = {
+      userName: this.userName,
+      body: result[0],
+      drawables: diceResults
+    };
 
-    this.$store.commit('appendLog', log);
-    this.$store.commit('pushDice', diceResults);
+    this.$store.commit('appendLogBuffer', log);
   }
 
   getDiceResults(bcdice : BCDice) {

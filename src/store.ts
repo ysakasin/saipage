@@ -3,21 +3,24 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const state: State = {
+  roomName: '滅びの立会人と創造の観測者と',
+  userName: 'ななし',
+  gameType: 'DiceBot',
+  shortcuts: [],
+  logs: [],
+  logBuffer: [],
+  readyAnimation: true,
+  activeAnimation: false,
+  settings: {
+    playSound: true,
+    playDiceAnimation: true,
+    showSystemInfo: true,
+  }
+};
+
 const store = new Vuex.Store({
-  state: {
-    roomName: '滅びの立会人と創造の観測者と',
-    userName: 'ななし',
-    gameType: 'DiceBot',
-    shortcuts: new Array(),
-    logs: new Array(),
-    diceAnimationQueue: new Array(),
-    readyAnimation: true,
-    settings: {
-      playSound: true,
-      playDiceAnimation: true,
-      showSystemInfo: true,
-    }
-  },
+  state,
   mutations: {
     changeRoomName(state, newName) {
       state.roomName = newName;
@@ -33,28 +36,37 @@ const store = new Vuex.Store({
         state.shortcuts.push(shortcut);
       }
     },
-    removeShortcut(state, shortcut) {
+    removeShortcut(state, shortcut: string) {
       const newList = state.shortcuts.filter((i) => { return i != shortcut; });
       if (state.shortcuts != newList) {
         state.shortcuts = newList;
       }
     },
-    appendLog(state, log) {
-      state.logs.unshift(log);
-    },
-    pushDice(state, diceResults) {
+    appendLogBuffer(state, log: Log) {
+      if (!state.settings.playDiceAnimation) {
+        state.logs.unshift(log);
+        return;
+      }
+
       if (state.readyAnimation) {
-        state.diceAnimationQueue.shift();
         state.readyAnimation = false;
       }
-      state.diceAnimationQueue.push(diceResults);
+      state.logBuffer.push(log);
+    },
+    appendLog(state, log: Log) {
+      state.logs.unshift(log);
     },
     nextAnimation(state) {
-      if (state.diceAnimationQueue.length > 1) {
-        state.diceAnimationQueue.shift();
-      } else {
+      state.logBuffer.shift();
+      if (state.logBuffer.length < 1) {
         state.readyAnimation = true;
       }
+    },
+    activateAnimation(state) {
+      state.activeAnimation = true;
+    },
+    deactivateAnimation(state) {
+      state.activeAnimation = false;
     },
     updateSoundSetting(state, val: boolean) {
       state.settings.playSound = val;
@@ -66,5 +78,10 @@ const store = new Vuex.Store({
       state.settings.showSystemInfo = val;
     }
   },
+  getters: {
+    readyAnimation(state) {
+      return state.readyAnimation;
+    }
+  }
 });
 export default store;

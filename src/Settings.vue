@@ -45,7 +45,7 @@
           <v-list-tile avatar>
             <v-list-tile-action>
               <v-switch
-                v-model="diceanimation"
+                v-model="playDiceAnimation"
                 color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
@@ -123,7 +123,6 @@ export default class Settings extends Vue{
   data () {
     return {
       isActive: false,
-      diceanimation: true,
       systeminfo: true,
       diceBots: diceBots,
     };
@@ -150,6 +149,13 @@ export default class Settings extends Vue{
   }
   set playSound(val : boolean) {
     this.$store.commit('updateSoundSetting', val);
+  }
+
+  get playDiceAnimation() {
+    return this.$store.state.settings.playDiceAnimation;
+  }
+  set playDiceAnimation(val : boolean) {
+    this.$store.commit('updateAnimationSetting', val);
   }
 }
 </script>

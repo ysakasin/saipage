@@ -27,7 +27,7 @@ export default class Dice extends Vue {
     return 'value-' + this.$props.value;
   }
   get isActive() {
-    return !this.$store.state.readyAnimation;
+    return this.$store.state.activeAnimation;
   }
 
   hide() {

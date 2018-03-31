@@ -1,6 +1,6 @@
 <template>
   <div class="dice-area">
-    <template v-for="(result, i) in animationTarget">
+    <template v-for="(result, i) in target.drawables">
       <Dice
         v-if="draw"
         :key="i"
@@ -30,21 +30,41 @@ export default class DiceArea extends Vue {
     return {
       draw: false,
       soundData: soundData,
+      target: [],
     };
   }
 
-  get animationTarget() {
-    if (this.playSound) {
-      this.play();
+  mounted() {
+    this.$store.watch((state) => { return state.readyAnimation; }, (val, old) => {
+      if (val == false) {
+        this.playAnimation();
+      }
+    });
+  }
+
+  playAnimation() {
+    if (!this.playDiceAnimation) {
+      return;
     }
-    setTimeout(this.nextAnimation, 1000);
-    let queue = this.$store.state.diceAnimationQueue;
+    this.play();
+    const target = this.$store.state.logBuffer[0];
     this.$data.draw = true;
-    return queue[0];
+    this.$data.target = target;
+    if (target.drawables.length > 0) {
+      this.$store.commit('activateAnimation');
+      setTimeout(this.deactivateAnimation, 900);
+    } else {
+      this.$store.commit('appendLog', target);
+    }
+    setTimeout(this.nextAnimation, 1200);
   }
 
   get playSound() {
     return this.$store.state.settings.playSound;
+  }
+
+  get playDiceAnimation() {
+    return this.$store.state.settings.playDiceAnimation;
   }
 
   getAudio () {
@@ -55,8 +75,14 @@ export default class DiceArea extends Vue {
   }
 
   play() {
+    if (!this.playSound) {
+      return;
+    }
+
     const audio = this.getAudio();
     if (audio != null) {
+      audio.pause();
+      audio.currentTime = 0;
       audio.play();
     }
   }
@@ -69,8 +95,16 @@ export default class DiceArea extends Vue {
     this.$data.draw = false;
   }
 
+  deactivateAnimation() {
+    this.$store.commit('deactivateAnimation');
+    this.$store.commit('appendLog', this.$data.target);
+  }
+
   nextAnimation() {
     this.$store.commit('nextAnimation');
+    if (!this.$store.state.readyAnimation) {
+      this.playAnimation();
+    }
   }
 }
 </script>
@@ -79,6 +113,7 @@ export default class DiceArea extends Vue {
 .dice-area {
   position: absolute;
   top: 100px;
+  z-index: 1000;
 }
 </style>
 
