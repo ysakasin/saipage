@@ -67,7 +67,7 @@
           <v-list-tile avatar>
             <v-list-tile-action>
               <v-switch
-                v-model="systeminfo"
+                v-model="showSystemInfo"
                 color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
@@ -123,7 +123,6 @@ export default class Settings extends Vue{
   data () {
     return {
       isActive: false,
-      systeminfo: true,
       diceBots: diceBots,
     };
   }
@@ -156,6 +155,13 @@ export default class Settings extends Vue{
   }
   set playDiceAnimation(val : boolean) {
     this.$store.commit('updateAnimationSetting', val);
+  }
+
+  get showSystemInfo() {
+    return this.$store.state.settings.showSystemInfo;
+  }
+  set showSystemInfo(val : boolean) {
+    this.$store.commit('updateSystemInfoSetting', val);
   }
 }
 </script>

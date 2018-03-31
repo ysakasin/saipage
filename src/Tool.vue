@@ -7,7 +7,7 @@
         single-line
         hide-details
         full-width
-        @focus="help = true"
+        @focus="help = showSystemInfo"
         @blur="help = false"
       />
     </form>
@@ -87,6 +87,10 @@ export default class Tool extends Vue{
 
   get systeminfo() {
     return this.diceBot.getHelpMessage();
+  }
+
+  get showSystemInfo() {
+    return this.$store.state.settings.showSystemInfo;
   }
 
   diceroll() {
