@@ -82,7 +82,7 @@ export default class DiceArea extends Vue {
     const audio = this.getAudio();
     if (audio != null) {
       audio.pause();
-      audio.currentTime = 0;
+      audio.currentTime = 0.15;
       audio.play();
     }
   }
