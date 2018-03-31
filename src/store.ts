@@ -70,12 +70,32 @@ const store = new Vuex.Store({
     },
     updateSoundSetting(state, val: boolean) {
       state.settings.playSound = val;
+      localStorage.setItem('settings', JSON.stringify(state.settings));
     },
     updateAnimationSetting(state, val: boolean) {
       state.settings.playDiceAnimation = val;
+      localStorage.setItem('settings', JSON.stringify(state.settings));
     },
     updateSystemInfoSetting(state, val: boolean) {
       state.settings.showSystemInfo = val;
+      localStorage.setItem('settings', JSON.stringify(state.settings));
+    },
+    loadSettings(state) {
+      const str = localStorage.getItem('settings');
+      if (str == null) {
+        return;
+      }
+
+      let settings = JSON.parse(str);
+      if (settings.playSound != null) {
+        state.settings.playSound = settings.playSound;
+      }
+      if (settings.playDiceAnimation != null) {
+        state.settings.playDiceAnimation = settings.playDiceAnimation;
+      }
+      if (settings.showSystemInfo != null) {
+        state.settings.showSystemInfo = settings.showSystemInfo;
+      }
     }
   },
   getters: {

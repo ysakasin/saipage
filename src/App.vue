@@ -35,7 +35,11 @@ import DiceArea from './DiceArea.vue';
     DiceArea,
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  mounted () {
+    this.$store.commit('loadSettings');
+  }
+}
 </script>
 
 <style lang="scss">
