@@ -15,6 +15,7 @@ declare interface Log {
 }
 
 declare interface State {
+  roomId: string;
   roomName: string;
   userName: string;
   gameType: string;

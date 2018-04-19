@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import socket from './socket';
 
 Vue.use(Vuex);
 
 const state: State = {
+  roomId: 'deadbeef',
   roomName: '滅びの立会人と創造の観測者と',
   userName: 'ななし',
   gameType: 'DiceBot',
@@ -16,12 +18,15 @@ const state: State = {
     playSound: true,
     playDiceAnimation: true,
     showSystemInfo: true,
-  }
+  },
 };
 
 const store = new Vuex.Store({
   state,
   mutations: {
+    setRoomId(state, roomId) {
+      state.roomId = roomId;
+    },
     changeRoomName(state, newName) {
       state.roomName = newName;
     },
@@ -37,7 +42,7 @@ const store = new Vuex.Store({
       }
     },
     removeShortcut(state, shortcut: string) {
-      const newList = state.shortcuts.filter((i) => { return i != shortcut; });
+      const newList = state.shortcuts.filter((i) => i != shortcut);
       if (state.shortcuts != newList) {
         state.shortcuts = newList;
       }
@@ -86,7 +91,7 @@ const store = new Vuex.Store({
         return;
       }
 
-      let settings = JSON.parse(str);
+      const settings = JSON.parse(str);
       if (settings.playSound != null) {
         state.settings.playSound = settings.playSound;
       }
@@ -96,12 +101,21 @@ const store = new Vuex.Store({
       if (settings.showSystemInfo != null) {
         state.settings.showSystemInfo = settings.showSystemInfo;
       }
-    }
+    },
+  },
+  actions: {
+    joinRoom(context, roomId: string) {
+      context.commit('setRoomId', roomId);
+      socket.emit('join', roomId);
+    },
+    sendLog(context, log: Log) {
+      socket.emit('log', log);
+    },
   },
   getters: {
     readyAnimation(state) {
       return state.readyAnimation;
-    }
-  }
+    },
+  },
 });
 export default store;
