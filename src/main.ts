@@ -4,6 +4,7 @@ import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import Vuex from 'vuex';
 import App from './App.vue';
+import Lobby from './Lobby.vue';
 
 import socket from './socket';
 import store from './store';
@@ -15,6 +16,7 @@ Vue.use(Vuex);
 const router =  new VueRouter({
   mode: 'history',
   routes: [
+    {path: '/', component: Lobby},
     {path: '/room/:roomId', component: App},
   ],
 });
