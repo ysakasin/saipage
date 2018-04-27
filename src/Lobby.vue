@@ -11,19 +11,31 @@
         <v-flex xs12>
           <v-list >
             <v-subheader>ルーム一覧</v-subheader>
-            <template v-for="(item, index) in items">
-              <router-link :to="{path: '/room/' + item.roomId}" :key="item.roomId" tag="div">
-              <v-list-tile @click="">
+            <template v-for="item in items">
+              <v-list-tile
+                :to="{path: '/room/' + item.roomId}"
+                :key="item.roomId">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.roomId }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
-              </router-link>
             </template>
           </v-list>
         </v-flex>
+        <v-btn
+          color="pink"
+          dark
+          fab
+          fixed
+          bottom
+          right
+          @click.stop="roomMake = true" >
+          <v-icon>add</v-icon>
+        </v-btn>
+
       </v-layout>
     </v-container>
+    <RoomMakeDialog v-model="roomMake" />
   </v-app>
 </template>
 
@@ -31,16 +43,10 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-// import AppBar from './AppBar.vue';
-// import Log from './Log.vue';
-// import Tool from './Tool.vue';
-// import DiceArea from './DiceArea.vue';
+import RoomMakeDialog from './RoomMakeDialog.vue';
 @Component({
   components: {
-    // AppBar,
-    // Tool,
-    // Log,
-    // DiceArea,
+    RoomMakeDialog,
   }
 })
 export default class Lobby extends Vue {
@@ -48,10 +54,11 @@ export default class Lobby extends Vue {
     return {
       items: [
         {
-          roomId: "hoge"
+          roomId: 'hoge'
         }
-      ]
-    }
+      ],
+      roomMake: false,
+    };
   }
   // mounted () {
     // this.$store.commit('loadSettings');
