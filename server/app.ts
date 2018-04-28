@@ -41,6 +41,7 @@ export class ChatServer {
     this.io.on('connect', (socket: any) => {
       console.log('Connected client on port %s.', this.port);
       socket.on('join', (roomId: string) => {
+        console.log('[server](join): %s', roomId);
         socket.join(roomId);
         socket.roomId = roomId;
       });
@@ -48,6 +49,11 @@ export class ChatServer {
       socket.on('log', (m: any) => {
         console.log('[server](message): %s', JSON.stringify(m));
         this.io.to(socket.roomId).emit('log', m);
+      });
+
+      socket.on('roomName', (roomName: string) => {
+        console.log('[server](roomName): %s', roomName);
+        this.io.to(socket.roomId).emit('roomName', roomName);
       });
 
       socket.on('disconnect', () => {

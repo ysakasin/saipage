@@ -30,3 +30,7 @@ const app = new Vue({
 socket.on('log', (log: Log) => {
   store.commit('appendLogBuffer', log);
 });
+
+socket.on('roomName', (roomName: string) => {
+  store.commit('updateRoomName', roomName);
+});

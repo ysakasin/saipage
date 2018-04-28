@@ -22,9 +22,10 @@
           <v-subheader>ルーム設定</v-subheader>
           <v-list-tile avatar>
             <v-text-field
-              v-model.lazy="roomName"
+              :value="roomName"
               name="roomname"
               label="ルーム名"
+              @change="v => roomName = v"
             />
           </v-list-tile>
           <v-list-tile avatar>
@@ -132,7 +133,7 @@ export default class Settings extends Vue{
   }
 
   set roomName (newName) {
-    this.$store.commit('changeRoomName', newName);
+    this.$store.dispatch('updateRoomName', newName);
   }
 
   get gameType() {

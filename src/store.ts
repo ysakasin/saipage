@@ -28,7 +28,7 @@ const store = new Vuex.Store({
     setRoomId(state, roomId) {
       state.roomId = roomId;
     },
-    changeRoomName(state, newName) {
+    updateRoomName(state, newName) {
       state.roomName = newName;
     },
     changeUserName(state, newName) {
@@ -112,7 +112,7 @@ const store = new Vuex.Store({
       context.commit('setRoomId', roomId);
       axios.get('/api/v1/room/' + roomId)
         .then(res => {
-          context.commit('changeRoomName', res.data.roomName);
+          context.commit('updateRoomName', res.data.roomName);
           context.commit('updateGameType', res.data.gameType);
           context.commit('initLog', res.data.logs);
           socket.emit('join', roomId);
@@ -120,6 +120,9 @@ const store = new Vuex.Store({
     },
     sendLog(context, log: Log) {
       socket.emit('log', log);
+    },
+    updateRoomName(context, roomName: string) {
+      socket.emit('roomName', roomName);
     },
   },
   getters: {
