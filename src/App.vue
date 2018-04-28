@@ -38,6 +38,7 @@ import DiceArea from './DiceArea.vue';
 export default class App extends Vue {
   mounted () {
     this.$store.commit('loadSettings');
+    this.$store.dispatch('joinRoom', {roomId: this.$route.params.roomId});
   }
 }
 </script>
@@ -47,5 +48,3 @@ h1 {
   text-align: center;
 }
 </style>
-
-

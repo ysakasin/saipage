@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import socket from './socket';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
 const state: State = {
   roomId: 'deadbeef',
-  roomName: '滅びの立会人と創造の観測者と',
+  roomName: 'ロード中...',
   userName: 'ななし',
   gameType: 'DiceBot',
   shortcuts: [],
@@ -61,6 +62,9 @@ const store = new Vuex.Store({
     appendLog(state, log: Log) {
       state.logs.unshift(log);
     },
+    initLog(state, logs: Log[]) {
+      state.logs = logs;
+    },
     nextAnimation(state) {
       state.logBuffer.shift();
       if (state.logBuffer.length < 1) {
@@ -106,7 +110,13 @@ const store = new Vuex.Store({
   actions: {
     joinRoom(context, roomId: string) {
       context.commit('setRoomId', roomId);
-      socket.emit('join', roomId);
+      axios.get('/api/v1/room/' + roomId)
+        .then(res => {
+          context.commit('changeRoomName', res.data.roomName);
+          context.commit('updateGameType', res.data.gameType);
+          context.commit('initLog', res.data.logs);
+          socket.emit('join', roomId);
+        });
     },
     sendLog(context, log: Log) {
       socket.emit('log', log);

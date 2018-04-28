@@ -23,6 +23,11 @@ app.get('/room/:roomId', (req, res) => {
 
 app.post('/api/v1/room/create', (req, res) => {
   console.log(req.body);
-  res.json({roomId: "deadbeef"});
+  res.json({roomId: 'deadbeef'});
+});
+
+app.get('/api/v1/room/:roomId', (req, res) => {
+  console.log('/api/v1/room');
+  res.json({roomName: 'テストルーム', gameType: 'Cthulhu', logs: []});
 });
 export { app };
