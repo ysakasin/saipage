@@ -12,7 +12,7 @@
             <v-layout wrap>
               <v-flex xs12>
                 <v-text-field
-                  v-model.lazy="command"
+                  v-model.lazy="roomName"
                   label="ルーム名を入力..."
                   autofocus
                 />
@@ -38,7 +38,7 @@
           <v-btn
             color="primary"
             depressed
-            @click.native="isActive = false">作成する</v-btn>
+            @click.native="createRoom()">作成する</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -49,6 +49,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import {DiceBotLoader} from 'bcdice-js';
+import axios from 'axios';
 
 interface DiceBotInfo {
   name: string;
@@ -80,20 +81,17 @@ export default class RoomMakeDialog extends Vue {
       isActive: false,
       roomName: '',
       diceBots: diceBots,
+      gameType: '',
     };
   }
 
-  add () {
-    this.$store.commit('addShortcut', this.$data.command);
-    this.$data.command = '';
-  }
-
-  remove (command : string) {
-    this.$store.commit('removeShortcut', command);
-  }
-
-  get shortcuts() {
-    return this.$store.state.shortcuts;
+  createRoom() {
+    axios.post('/api/v1/room/create', {roomName: this.$data.roomName, gameType: this.$data.gameType})
+      .then(response => {
+        console.log(response.data) // mockData
+        console.log(response.status) // 200
+        this.$router.push("/room/" + response.data.roomId);
+      })
   }
 }
 </script>
