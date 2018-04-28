@@ -124,6 +124,9 @@ const store = new Vuex.Store({
     updateRoomName(context, roomName: string) {
       socket.emit('roomName', roomName);
     },
+    updateGameType(context, gameType: string) {
+      socket.emit('gameType', gameType);
+    },
   },
   getters: {
     readyAnimation(state) {

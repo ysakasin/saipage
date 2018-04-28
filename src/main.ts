@@ -34,3 +34,7 @@ socket.on('log', (log: Log) => {
 socket.on('roomName', (roomName: string) => {
   store.commit('updateRoomName', roomName);
 });
+
+socket.on('gameType', (gameType: string) => {
+  store.commit('updateGameType', gameType);
+});

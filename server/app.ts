@@ -56,6 +56,11 @@ export class ChatServer {
         this.io.to(socket.roomId).emit('roomName', roomName);
       });
 
+      socket.on('gameType', (gameType: string) => {
+        console.log('[server](gameType): %s', gameType);
+        this.io.to(socket.roomId).emit('gameType', gameType);
+      });
+
       socket.on('disconnect', () => {
         console.log('Client disconnected');
       });
