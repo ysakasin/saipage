@@ -48,7 +48,7 @@ export class ChatServer {
 
       socket.on('log', (m: any) => {
         console.log('[server](message): %s', JSON.stringify(m));
-        this.io.to(socket.roomId).emit('log', m);
+        socket.broadcast.to(socket.roomId).emit('log', m);
       });
 
       socket.on('roomName', (roomName: string) => {

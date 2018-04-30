@@ -119,6 +119,7 @@ const store = new Vuex.Store({
         });
     },
     sendLog(context, log: Log) {
+      context.commit('appendLogBuffer', log);
       socket.emit('log', log);
     },
     updateRoomName(context, roomName: string) {

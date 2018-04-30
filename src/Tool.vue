@@ -111,7 +111,7 @@ export default class Tool extends Vue{
       drawables: diceResults
     };
 
-    this.$store.commit('appendLogBuffer', log);
+    this.$store.dispatch('sendLog', log);
   }
 
   getDiceResults(bcdice : BCDice) {

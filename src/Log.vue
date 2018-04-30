@@ -4,7 +4,7 @@
       <template v-for="(item, i) in logs">
         <v-list-tile :key="i">
           <v-list-tile-content class="log">
-            <v-list-tile-sub-title>{{ item.username }}</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{ item.userName }}</v-list-tile-sub-title>
             <v-list-tile-title>{{ item.body }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -33,6 +33,3 @@ export default class Log extends Vue {
   padding-bottom: 0.5rem;
 }
 </style>
-
-
-
