@@ -2,6 +2,8 @@
   <v-dialog
     v-model="isActive"
     :overlay="false"
+    fullscreen
+    scrollable
   >
     <v-card tile>
       <v-toolbar
