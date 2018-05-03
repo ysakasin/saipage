@@ -16,7 +16,7 @@
                 :to="{path: '/room/' + item.roomId}"
                 :key="item.roomId">
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.roomId }}</v-list-tile-title>
+                  <v-list-tile-title>{{ item.roomName }}</v-list-tile-title>
                 </v-list-tile-content>
               </v-list-tile>
             </template>
@@ -42,27 +42,26 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import axios from 'axios';
 
 import RoomMakeDialog from './RoomMakeDialog.vue';
 @Component({
   components: {
-    RoomMakeDialog,
+    RoomMakeDialog
   }
 })
 export default class Lobby extends Vue {
   data() {
     return {
-      items: [
-        {
-          roomId: 'hoge'
-        }
-      ],
-      roomMake: false,
+      items: [],
+      roomMake: false
     };
   }
-  // mounted () {
-    // this.$store.commit('loadSettings');
-  // }
+  mounted() {
+    axios.get('/api/v1/rooms').then(res => {
+      this.$data.items = res.data;
+    });
+  }
 }
 </script>
 
