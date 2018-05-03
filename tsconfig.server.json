@@ -1,9 +1,20 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
-    "target": "es5"
+    "target": "es5",
+    "module": "commonjs",
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "typeRoots": [
+      "./types",
+      "node_modules/@types"
+    ],
+    "esModuleInterop": true
   },
   "include": [
-    "./server/*.ts"
+    "./server/*.ts",
+    "./types"
   ]
 }

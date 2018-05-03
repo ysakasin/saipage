@@ -1,9 +1,9 @@
 import { ChatServer } from './app';
-import * as express from 'express';
-import * as path from 'path';
-import * as bodyParser from 'body-parser';
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
 import DataStore from './datastore';
-const nanoid = require('nanoid');
+import nanoid from 'nanoid';
 
 let app = new ChatServer().getApp();
 let dataStore = new DataStore({ url: 'localhost:27017' });
