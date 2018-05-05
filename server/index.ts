@@ -6,7 +6,7 @@ import DataStore from './datastore';
 import nanoid from 'nanoid';
 
 let app = new ChatServer().getApp();
-let dataStore = new DataStore({ url: 'localhost:27017' });
+let dataStore = DataStore.obj;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -41,7 +41,7 @@ app.post('/api/v1/room/create', (req, res) => {
 });
 
 app.get('/api/v1/room/:roomId', (req, res) => {
-  dataStore.findRoom(req.params.id, (err: any, room: any) => {
+  dataStore.findRoom(req.params.roomId, (err: any, room: any) => {
     res.json(room);
   });
 });

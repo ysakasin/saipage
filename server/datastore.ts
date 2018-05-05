@@ -2,8 +2,16 @@ import { MongoClient, ObjectId, Db } from 'mongodb';
 import { connect } from 'net';
 
 export default class DataStore {
+  private static _obj: DataStore;
   private client: MongoClient;
   private db: Db;
+
+  public static get obj(): DataStore {
+    if (!this._obj) {
+      this._obj = new DataStore({});
+    }
+    return this._obj;
+  }
 
   constructor(config: any) {
     MongoClient.connect('mongodb://localhost:27017', (err, client) => {
@@ -26,6 +34,14 @@ export default class DataStore {
   }
 
   public findRoom(id: string, callback: any) {
-    this.db.collection('rooms').findOne({ id }, callback);
+    this.db.collection('rooms').findOne({ roomId: id }, callback);
+  }
+
+  public updateRoomName(id: string, roomName: string) {
+    this.db.collection('rooms').update({ roomId: id }, { $set: { roomName } });
+  }
+
+  public updateGameType(id: string, gameType: string) {
+    this.db.collection('rooms').update({ roomId: id }, { $set: { gameType } });
   }
 }

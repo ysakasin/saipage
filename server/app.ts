@@ -1,6 +1,9 @@
 import { createServer, Server } from 'http';
 import express from 'express';
 import socketIo from 'socket.io';
+import DataStore from './datastore';
+
+let dataStore = DataStore.obj;
 
 export class ChatServer {
   public static readonly PORT: number = 8080;
@@ -54,11 +57,13 @@ export class ChatServer {
       socket.on('roomName', (roomName: string) => {
         console.log('[server](roomName): %s', roomName);
         this.io.to(socket.roomId).emit('roomName', roomName);
+        dataStore.updateRoomName(socket.roomId, roomName);
       });
 
       socket.on('gameType', (gameType: string) => {
         console.log('[server](gameType): %s', gameType);
         this.io.to(socket.roomId).emit('gameType', gameType);
+        dataStore.updateGameType(socket.roomId, gameType);
       });
 
       socket.on('disconnect', () => {
