@@ -44,4 +44,8 @@ export default class DataStore {
   public updateGameType(id: string, gameType: string) {
     this.db.collection('rooms').update({ roomId: id }, { $set: { gameType } });
   }
+
+  public appendLog(roomId: string, log: any) {
+    this.db.collection('rooms').update({ roomId }, { $push: { logs: log } });
+  }
 }

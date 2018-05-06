@@ -63,7 +63,9 @@ const store = new Vuex.Store({
       state.logs.unshift(log);
     },
     initLog(state, logs: Log[]) {
-      state.logs = logs;
+      if (logs) {
+        state.logs = logs.reverse();
+      }
     },
     nextAnimation(state) {
       state.logBuffer.shift();
