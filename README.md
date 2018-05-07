@@ -1,4 +1,4 @@
-# dice-room
+# Dicebox
 
 A TRPG session tool
 

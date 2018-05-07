@@ -17,7 +17,7 @@ export default class DataStore {
     MongoClient.connect('mongodb://localhost:27017', (err, client) => {
       if (err) throw err;
       this.client = client;
-      this.db = this.client.db('dice-room');
+      this.db = this.client.db('dicebox');
     });
   }
 
