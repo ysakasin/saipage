@@ -1,4 +1,4 @@
-# Dicebox
+# Saibox
 
 A TRPG session tool
 

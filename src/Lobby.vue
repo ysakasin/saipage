@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar>
       <v-icon>public</v-icon>
-      <v-toolbar-title>ロビー Dicebox</v-toolbar-title>
+      <v-toolbar-title>ロビー Saibox</v-toolbar-title>
     </v-toolbar>
     <v-container grid-list-lg>
       <v-layout
