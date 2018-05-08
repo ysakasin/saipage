@@ -13,11 +13,11 @@ Vue.use(VueRouter);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
-const router =  new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   routes: [
-    {path: '/', component: Lobby},
-    {path: '/room/:roomId', component: App},
+    { path: '/', component: Lobby },
+    { path: '/room/:roomId', component: App },
   ],
 });
 
@@ -38,3 +38,11 @@ socket.on('roomName', (roomName: string) => {
 socket.on('gameType', (gameType: string) => {
   store.commit('updateGameType', gameType);
 });
+
+socket.on('addShortcut', (shortcut: string) => {
+  store.commit('addShortcut', shortcut);
+})
+
+socket.on('removeShortcut', (shortcut: string) => {
+  store.commit('removeShortcut', shortcut);
+})

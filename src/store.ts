@@ -37,6 +37,9 @@ const store = new Vuex.Store({
     updateGameType(state, newType) {
       state.gameType = newType;
     },
+    initShortcuts(state, shortcuts) {
+      state.shortcuts = shortcuts || [];
+    },
     addShortcut(state, shortcut) {
       if (state.shortcuts.indexOf(shortcut) == -1) {
         state.shortcuts.push(shortcut);
@@ -117,6 +120,7 @@ const store = new Vuex.Store({
           context.commit('updateRoomName', res.data.roomName);
           context.commit('updateGameType', res.data.gameType);
           context.commit('initLog', res.data.logs);
+          context.commit('initShortcuts', res.data.shortcuts);
           socket.emit('join', roomId);
         });
     },
@@ -130,6 +134,14 @@ const store = new Vuex.Store({
     updateGameType(context, gameType: string) {
       socket.emit('gameType', gameType);
     },
+    addShortcut(context, shortcut: string) {
+      context.commit('addShortcut', shortcut);
+      socket.emit('addShortcut', shortcut);
+    },
+    removeShortcut(context, shortcut: string) {
+      context.commit('removeShortcut', shortcut);
+      socket.emit('removeShortcut', shortcut);
+    }
   },
   getters: {
     readyAnimation(state) {

@@ -67,6 +67,18 @@ export class ChatServer {
         dataStore.updateGameType(socket.roomId, gameType);
       });
 
+      socket.on('addShortcut', (shortcut: string) => {
+        console.log('[server](addShortcut): %s', shortcut);
+        socket.broadcast.to(socket.roomId).emit('addShortcut', shortcut);
+        dataStore.addShortcut(socket.roomId, shortcut);
+      })
+
+      socket.on('removeShortcut', (shortcut: string) => {
+        console.log('[server](removeShortcut): %s', shortcut);
+        socket.broadcast.to(socket.roomId).emit('removeShortcut', shortcut);
+        dataStore.removeShortcut(socket.roomId, shortcut);
+      })
+
       socket.on('disconnect', () => {
         console.log('Client disconnected');
       });

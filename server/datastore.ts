@@ -48,4 +48,12 @@ export default class DataStore {
   public appendLog(roomId: string, log: any) {
     this.db.collection('rooms').update({ roomId }, { $push: { logs: log } });
   }
+
+  public addShortcut(roomId: string, shortcut: string) {
+    this.db.collection('rooms').update({ roomId }, { $addToSet: { shortcuts: shortcut } });
+  }
+
+  public removeShortcut(roomId: string, shortcut: string) {
+    this.db.collection('rooms').update({ roomId }, { $pull: { shortcuts: shortcut } });
+  }
 }
