@@ -19,7 +19,10 @@
                   <v-list-tile-title>{{ item.roomName }}</v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
-                  <v-btn icon ripple @click.stop.prevent="deleteDaialog = true; deleteTarget = item">
+                  <v-btn
+                    icon
+                    ripple
+                    @click.stop.prevent="deleteDaialog = true; deleteTarget = item">
                     <v-icon color="grey lighten-1">delete</v-icon>
                   </v-btn>
                 </v-list-tile-action>
@@ -41,17 +44,25 @@
       </v-layout>
     </v-container>
     <RoomMakeDialog v-model="roomMake" />
-    <v-dialog v-model="deleteDaialog" max-width="500px">
-        <v-card>
-          <v-card-title class="headline">ルームの削除</v-card-title>
-          <v-card-text>ルーム「{{ deleteTarget.roomName }}」を削除しますか？</v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" flat @click.stop.prevent="deleteDaialog = false">やめる</v-btn>
-            <v-btn color="error" depressed @click.stop.prevent="deleteRoom()">削除する</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+    <v-dialog
+      v-model="deleteDaialog"
+      max-width="500px">
+      <v-card>
+        <v-card-title class="headline">ルームの削除</v-card-title>
+        <v-card-text>ルーム「{{ deleteTarget.roomName }}」を削除しますか？</v-card-text>
+        <v-card-actions>
+          <v-spacer/>
+          <v-btn
+            color="primary"
+            flat
+            @click.stop.prevent="deleteDaialog = false">やめる</v-btn>
+          <v-btn
+            color="error"
+            depressed
+            @click.stop.prevent="deleteRoom()">削除する</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-app>
 </template>
 
