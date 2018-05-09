@@ -4,11 +4,13 @@
   "description": "A TRPG session tool",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --open --hot",
-    "build": "webpack --progress --hide-modules",
-    "lint": "eslint --fix src/*.vue src/*.ts server/*.ts",
-    "server": "gulp && node dist/index.js",
-    "watch": "webpack --watch"
+    "webpack": "webpack --progress --hide-modules",
+    "webpack-dev": "webpack-dev-server --open --hot",
+    "webpack-watch": "webpack --watch",
+    "serv": "npm run server-dev",
+    "server-build": "tsc",
+    "server-dev": "npm run server-build && node dist/server/index.js",
+    "lint": "eslint --fix src/*.vue src/*.ts server/*.ts"
   },
   "author": "SAKATA Sinji",
   "license": "MIT",

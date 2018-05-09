@@ -3,8 +3,8 @@ import { connect } from 'net';
 
 export default class DataStore {
   private static _obj: DataStore;
-  private client: MongoClient;
-  private db: Db;
+  private client: MongoClient | undefined;
+  private db: Db | undefined;
 
   public static get obj(): DataStore {
     if (!this._obj) {
@@ -22,38 +22,41 @@ export default class DataStore {
   }
 
   public quit() {
-    this.client.close();
+    if (this.client) {
+      this.client.close();
+      this.client = undefined;
+    }
   }
 
   public createRoom(doc: any) {
-    this.db.collection('rooms').insert(doc);
+    this.db!.collection('rooms').insert(doc);
   }
 
   public findAllRooms(callback: any) {
-    this.db.collection('rooms').find().toArray(callback);
+    this.db!.collection('rooms').find().toArray(callback);
   }
 
   public findRoom(id: string, callback: any) {
-    this.db.collection('rooms').findOne({ roomId: id }, callback);
+    this.db!.collection('rooms').findOne({ roomId: id }, callback);
   }
 
   public updateRoomName(id: string, roomName: string) {
-    this.db.collection('rooms').update({ roomId: id }, { $set: { roomName } });
+    this.db!.collection('rooms').update({ roomId: id }, { $set: { roomName } });
   }
 
   public updateGameType(id: string, gameType: string) {
-    this.db.collection('rooms').update({ roomId: id }, { $set: { gameType } });
+    this.db!.collection('rooms').update({ roomId: id }, { $set: { gameType } });
   }
 
   public appendLog(roomId: string, log: any) {
-    this.db.collection('rooms').update({ roomId }, { $push: { logs: log } });
+    this.db!.collection('rooms').update({ roomId }, { $push: { logs: log } });
   }
 
   public addShortcut(roomId: string, shortcut: string) {
-    this.db.collection('rooms').update({ roomId }, { $addToSet: { shortcuts: shortcut } });
+    this.db!.collection('rooms').update({ roomId }, { $addToSet: { shortcuts: shortcut } });
   }
 
   public removeShortcut(roomId: string, shortcut: string) {
-    this.db.collection('rooms').update({ roomId }, { $pull: { shortcuts: shortcut } });
+    this.db!.collection('rooms').update({ roomId }, { $pull: { shortcuts: shortcut } });
   }
 }

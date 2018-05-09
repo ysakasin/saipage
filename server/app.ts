@@ -13,27 +13,11 @@ export class ChatServer {
   private port: string | number;
 
   constructor() {
-    this.createApp();
-    this.config();
-    this.createServer();
-    this.sockets();
-    this.listen();
-  }
-
-  private createApp(): void {
     this.app = express();
-  }
-
-  private createServer(): void {
     this.server = createServer(this.app);
-  }
-
-  private config(): void {
     this.port = process.env.PORT || ChatServer.PORT;
-  }
-
-  private sockets(): void {
     this.io = socketIo(this.server);
+    this.listen();
   }
 
   private listen(): void {
