@@ -10,6 +10,7 @@
   ],
   "rules": {
     "no-trailing-spaces": "error",
+    "no-console": "off",
     "typescript/explicit-member-accessibility": "none"
   }
 }

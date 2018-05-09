@@ -41,8 +41,8 @@ socket.on('gameType', (gameType: string) => {
 
 socket.on('addShortcut', (shortcut: string) => {
   store.commit('addShortcut', shortcut);
-})
+});
 
 socket.on('removeShortcut', (shortcut: string) => {
   store.commit('removeShortcut', shortcut);
-})
+});
