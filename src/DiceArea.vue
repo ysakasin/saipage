@@ -27,7 +27,7 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import Dice from './Dice.vue';
-import * as soundData from './assets/dice_roll.mp3';
+import soundData from './assets/dice_roll.mp3';
 
 @Component({
   components: {
