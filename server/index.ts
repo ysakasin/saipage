@@ -5,8 +5,10 @@ import bodyParser from 'body-parser';
 import DataStore from './datastore';
 import nanoid from 'nanoid';
 
-let app = new ChatServer().getApp();
-let dataStore = DataStore.obj;
+const chatServer = new ChatServer();
+const app = chatServer.getApp();
+const io = chatServer.getIo();
+const dataStore = DataStore.obj;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,6 +45,21 @@ app.post('/api/v1/room/create', (req, res) => {
 app.get('/api/v1/room/:roomId', (req, res) => {
   dataStore.findRoom(req.params.roomId, (err: any, room: any) => {
     res.json(room);
+  });
+});
+
+app.delete('/api/v1/rooms/:roomId', (req, res) => {
+  const roomId = req.params.roomId;
+  const sockets = io.to(roomId).connected;
+  for (let socketId in sockets) {
+    sockets[socketId].disconnect(true);
+  }
+  dataStore.deleteRoom(roomId, (err: any, result: any) => {
+    if (!err) {
+      res.json({ok: true});
+    } else {
+      res.json({ok: false});
+    }
   });
 });
 export { app };

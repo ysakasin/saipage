@@ -72,4 +72,8 @@ export class ChatServer {
   public getApp(): express.Application {
     return this.app;
   }
+
+  public getIo(): socketIo.Server {
+    return this.io;
+  }
 }

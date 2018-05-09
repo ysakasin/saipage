@@ -40,6 +40,10 @@ export default class DataStore {
     this.db!.collection('rooms').findOne({ roomId: id }, callback);
   }
 
+  public deleteRoom(id: string, callback: any) {
+    this.db!.collection('rooms').remove({ roomId: id }, callback);
+  }
+
   public updateRoomName(id: string, roomName: string) {
     this.db!.collection('rooms').update({ roomId: id }, { $set: { roomName } });
   }
