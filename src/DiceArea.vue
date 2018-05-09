@@ -1,5 +1,14 @@
 <template>
   <div class="dice-area">
+    <div>
+      <div
+        v-show="draw"
+        :class="{success: isSuccess, failure: isFailure, active: isActive}"
+        class="result"
+        @click.stop="draw = false">
+        {{ commandResult }}
+      </div>
+    </div>
     <template v-for="(result, i) in target.drawables">
       <Dice
         v-if="draw"
@@ -106,6 +115,28 @@ export default class DiceArea extends Vue {
       this.playAnimation();
     }
   }
+
+  get commandResult(): string {
+    const result = this.$data.target.body;
+    if (!result) {
+      return '';
+    }
+    const strs = result.split('＞');
+    console.log(strs[strs.length - 1]);
+    return strs[strs.length - 1];
+  }
+
+  get isSuccess(): boolean {
+    return this.commandResult.includes('成功');
+  }
+
+  get isFailure(): boolean {
+    return this.commandResult.includes('失敗');
+  }
+
+  get isActive(): boolean {
+    return this.$store.state.activeAnimation;
+  }
 }
 </script>
 
@@ -115,6 +146,39 @@ export default class DiceArea extends Vue {
   top: 100px;
   z-index: 1000;
 }
+
+.result {
+  display: inline-block;
+  font-size: 1.5rem;
+  min-width: 100px;
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin-left: 10px;
+  text-align: center;
+  border: solid 1px #e0e0e0;
+  background-color: #fff;
+
+  &.active {
+    animation: showing 0.8s step-end;
+  }
+
+  &.success {
+    border: solid 1px #81C784;
+    background-color: #C8E6C9 !important;
+  }
+
+  &.failure {
+    border: solid 1px #E57373;
+    background-color: #FFCDD2 !important;
+  }
+}
+
+@keyframes showing {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 </style>
-
-
