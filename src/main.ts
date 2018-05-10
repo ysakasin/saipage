@@ -26,31 +26,3 @@ const app = new Vue({
   store,
   router,
 });
-
-socket.on('log', (log: Log) => {
-  store.commit('appendLogBuffer', log);
-});
-
-socket.on('roomName', (roomName: string) => {
-  store.commit('updateRoomName', roomName);
-});
-
-socket.on('gameType', (gameType: string) => {
-  store.commit('updateGameType', gameType);
-});
-
-socket.on('addShortcut', (shortcut: string) => {
-  store.commit('addShortcut', shortcut);
-});
-
-socket.on('removeShortcut', (shortcut: string) => {
-  store.commit('removeShortcut', shortcut);
-});
-
-socket.on('disconnect', () => {
-  store.commit('disconnected');
-});
-
-socket.on('reconnect', () => {
-  store.commit('connected');
-});

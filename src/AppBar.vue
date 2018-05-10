@@ -39,11 +39,8 @@
         </v-btn>
         <v-list>
           <v-list-tile
-            v-for="(item, i) in items"
-            :key="i"
-            :disabled="item.disabled"
-            @click="false">
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            :to="'/'">
+            <v-list-tile-title>ルームから退出</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
@@ -73,15 +70,7 @@ export default class AppBar extends Vue {
   data () {
     return {
       settings: false,
-      userNameDialog: false,
-      a1: null,
-      states: ['CoC', 'DiceBot', 'Shinobigami', 'Kancore'],
-      items: [
-        {title: 'ログを保存', disabled: true},
-        {title: 'ショートカットを保存', disabled: true},
-        {title: 'ショートカットを読み込む', disabled: true},
-        {title: 'ルームから退出', disabled: false},
-      ]
+      userNameDialog: false
     };
   }
 
