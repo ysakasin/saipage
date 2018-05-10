@@ -20,6 +20,7 @@ const state: State = {
     playDiceAnimation: true,
     showSystemInfo: true,
   },
+  disconnected: false,
 };
 
 const store = new Vuex.Store({
@@ -111,6 +112,12 @@ const store = new Vuex.Store({
         state.settings.showSystemInfo = settings.showSystemInfo;
       }
     },
+    connected(state) {
+      state.disconnected = false;
+    },
+    disconnected(state) {
+      state.disconnected = true;
+    }
   },
   actions: {
     joinRoom(context, roomId: string) {

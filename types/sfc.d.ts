@@ -29,4 +29,5 @@ declare interface State {
     playDiceAnimation: boolean;
     showSystemInfo: boolean;
   };
+  disconnected: boolean;
 }

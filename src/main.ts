@@ -46,3 +46,11 @@ socket.on('addShortcut', (shortcut: string) => {
 socket.on('removeShortcut', (shortcut: string) => {
   store.commit('removeShortcut', shortcut);
 });
+
+socket.on('disconnect', () => {
+  store.commit('disconnected');
+});
+
+socket.on('reconnect', () => {
+  store.commit('connected');
+});
