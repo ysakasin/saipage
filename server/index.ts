@@ -50,9 +50,13 @@ app.get('/api/v1/room/:roomId', (req, res) => {
 
 app.delete('/api/v1/rooms/:roomId', (req, res) => {
   const roomId = req.params.roomId;
-  const sockets = io.to(roomId).connected;
+  const room = io.of('/').adapter.rooms[roomId];
+  const sockets = room ? room.sockets : [];
   for (let socketId in sockets) {
-    sockets[socketId].disconnect(true);
+    const socket = io.of('/').sockets[socketId];
+    if (socket) {
+      socket.disconnect(true);
+    }
   }
   dataStore.deleteRoom(roomId, (err: any, result: any) => {
     if (!err) {
