@@ -30,6 +30,7 @@ socket.on('disconnect', () => {
 
 socket.on('reconnect', () => {
   store.commit('connected');
+  store.dispatch('joinRoom', store.state.roomId);
 });
 
 export default socket;
