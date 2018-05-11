@@ -2,7 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './src/main.ts',
+  entry: './client/main.ts',
   mode: 'development',
   output: {
     path: path.resolve(__dirname, './dist'),

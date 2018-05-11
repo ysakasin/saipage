@@ -10,7 +10,7 @@
     "serv": "npm run server-dev",
     "server-build": "tsc",
     "server-dev": "npm run server-build && node dist/server/index.js",
-    "lint": "eslint --fix src/*.vue src/*.ts server/*.ts"
+    "lint": "eslint --fix client/*.vue client/*.ts server/*.ts"
   },
   "author": "SAKATA Sinji",
   "license": "MIT",
@@ -37,7 +37,7 @@
     "url-loader": "^1.0.1",
     "vue": "^2.5.16",
     "vue-class-component": "^6.2.0",
-    "vue-loader": "^15.0.9",
+    "vue-loader": "^14.2.2",
     "vue-router": "^3.0.1",
     "vue-template-compiler": "^2.5.16",
     "vuetify": "^1.0.17",
