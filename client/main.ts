@@ -17,7 +17,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/', component: Lobby },
-    { path: '/room/:roomId', component: App },
+    { path: '/rooms/:roomId', component: App },
   ],
 });
 

@@ -122,7 +122,7 @@ const store = new Vuex.Store({
   actions: {
     joinRoom(context, roomId: string) {
       context.commit('setRoomId', roomId);
-      axios.get('/api/v1/room/' + roomId)
+      axios.get('/api/v1/rooms/' + roomId)
         .then(res => {
           context.commit('updateRoomName', res.data.roomName);
           context.commit('updateGameType', res.data.gameType);

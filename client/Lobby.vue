@@ -13,7 +13,7 @@
             <v-subheader>ルーム一覧</v-subheader>
             <template v-for="item in items">
               <v-list-tile
-                :to="{path: '/room/' + item.roomId}"
+                :to="{path: '/rooms/' + item.roomId}"
                 :key="item.roomId">
                 <v-list-tile-content>
                   <v-list-tile-title>{{ item.roomName }}</v-list-tile-title>

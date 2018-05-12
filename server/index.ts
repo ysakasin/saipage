@@ -18,11 +18,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
-app.get('/room', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
-});
-
-app.get('/room/:roomId', (req, res) => {
+app.get('/rooms/:roomId', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
 });
 
@@ -32,7 +28,7 @@ app.get('/api/v1/rooms', (req, res) => {
   });
 });
 
-app.post('/api/v1/room/create', (req, res) => {
+app.post('/api/v1/rooms/create', (req, res) => {
   const doc = {
     roomId: nanoid(12),
     roomName: req.body.roomName,
@@ -42,7 +38,7 @@ app.post('/api/v1/room/create', (req, res) => {
   res.json(doc);
 });
 
-app.get('/api/v1/room/:roomId', (req, res) => {
+app.get('/api/v1/rooms/:roomId', (req, res) => {
   dataStore.findRoom(req.params.roomId, (err: any, room: any) => {
     res.json(room);
   });

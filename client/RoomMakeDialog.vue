@@ -86,9 +86,9 @@ export default class RoomMakeDialog extends Vue {
   }
 
   createRoom() {
-    axios.post('/api/v1/room/create', {roomName: this.$data.roomName, gameType: this.$data.gameType})
+    axios.post('/api/v1/rooms/create', {roomName: this.$data.roomName, gameType: this.$data.gameType})
       .then(response => {
-        this.$router.push('/room/' + response.data.roomId);
+        this.$router.push('/rooms/' + response.data.roomId);
       });
   }
 }
