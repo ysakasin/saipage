@@ -17,6 +17,7 @@
       </v-layout>
     </v-container>
     <DisconnectedDialog />
+    <PasswordDialog />
   </v-app>
 </template>
 
@@ -30,6 +31,7 @@ import Log from './Log.vue';
 import Tool from './Tool.vue';
 import DiceArea from './DiceArea.vue';
 import DisconnectedDialog from './DisconnectedDialog.vue';
+import PasswordDialog from './PasswordDialog.vue';
 @Component({
   components: {
     AppBar,
@@ -37,6 +39,7 @@ import DisconnectedDialog from './DisconnectedDialog.vue';
     Log,
     DiceArea,
     DisconnectedDialog,
+    PasswordDialog,
   }
 })
 export default class App extends Vue {

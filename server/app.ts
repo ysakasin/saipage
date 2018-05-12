@@ -27,10 +27,18 @@ export class ChatServer {
 
     this.io.on('connect', (socket: any) => {
       console.log('Connected client on port %s.', this.port);
-      socket.on('join', (roomId: string) => {
-        console.log('[server](join): %s', roomId);
-        socket.join(roomId);
-        socket.roomId = roomId;
+      socket.on('join', (params: any) => {
+        const roomId: string = params.roomId;
+        const password: string = params.password;
+        dataStore.auth(roomId, password, (authed) => {
+          if (authed) {
+            console.log('[server](join): %s', roomId);
+            socket.join(roomId);
+            socket.roomId = roomId;
+          } else {
+            socket.disconnect(true);
+          }
+        });
       });
 
       socket.on('log', (log: any) => {

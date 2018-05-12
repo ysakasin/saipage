@@ -31,4 +31,6 @@ declare interface State {
     showSystemInfo: boolean;
   };
   disconnected: boolean;
+  needPassword: boolean;
+  password: string;
 }

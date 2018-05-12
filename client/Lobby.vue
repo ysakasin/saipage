@@ -16,7 +16,12 @@
                 :to="{path: '/rooms/' + item.roomId}"
                 :key="item.roomId">
                 <v-list-tile-content>
-                  <v-list-tile-title>{{ item.roomName }}</v-list-tile-title>
+                  <v-list-tile-title>
+                    {{ item.roomName }}
+                    <v-icon
+                      v-if="item.hashedPassword != ''"
+                      small>locked</v-icon>
+                  </v-list-tile-title>
                 </v-list-tile-content>
                 <v-list-tile-action>
                   <v-btn

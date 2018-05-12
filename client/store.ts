@@ -21,6 +21,8 @@ const state: State = {
     showSystemInfo: true,
   },
   disconnected: false,
+  needPassword: false,
+  password: '',
 };
 
 const store = new Vuex.Store({
@@ -117,18 +119,30 @@ const store = new Vuex.Store({
     },
     disconnected(state) {
       state.disconnected = true;
+    },
+    needPassword(state) {
+      state.needPassword = true;
+    },
+    updatePassword(state, password: string) {
+      state.password = password;
+      state.needPassword = false;
     }
   },
   actions: {
     joinRoom(context, roomId: string) {
       context.commit('setRoomId', roomId);
-      axios.get('/api/v1/rooms/' + roomId)
+      axios.post('/api/v1/rooms/' + roomId, {password: context.state.password})
         .then(res => {
           context.commit('updateRoomName', res.data.roomName);
           context.commit('updateGameType', res.data.gameType);
           context.commit('initLog', res.data.logs);
           context.commit('initShortcuts', res.data.shortcuts);
-          socket.emit('join', roomId);
+          socket.emit('join', {roomId, password: context.state.password});
+        })
+        .catch(error => {
+          if (error.response.status == 403) {
+            context.commit('needPassword');
+          }
         });
     },
     sendLog(context, log: Log) {

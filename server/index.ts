@@ -4,6 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import DataStore from './datastore';
 import nanoid from 'nanoid';
+import bcrypt from 'bcrypt';
 
 const chatServer = new ChatServer();
 const app = chatServer.getApp();
@@ -29,19 +30,33 @@ app.get('/api/v1/rooms', (req, res) => {
 });
 
 app.post('/api/v1/rooms/create', (req, res) => {
+  const password = req.body.password;
+  const hashedPassword = password == '' ? '' : bcrypt.hashSync(password, 10);
   const doc = {
     roomId: nanoid(12),
     roomName: req.body.roomName,
     gameType: req.body.gameType || 'DiceBot',
+    hashedPassword,
     createdAt: new Date(),
   };
   dataStore.createRoom(doc);
   res.json(doc);
 });
 
-app.get('/api/v1/rooms/:roomId', (req, res) => {
+app.post('/api/v1/rooms/:roomId', (req, res) => {
   dataStore.findRoom(req.params.roomId, (err: any, room: any) => {
-    res.json(room);
+    if (!room) {
+      res.status(404).json({});
+    } else if (room.hashedPassword) {
+      const password = req.body.password || '';
+      if (bcrypt.compareSync(password, room.hashedPassword)) {
+        res.json(room);
+      } else {
+        res.status(403).json({});
+      }
+    } else {
+      res.json(room);
+    }
   });
 });
 

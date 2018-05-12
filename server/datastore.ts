@@ -1,5 +1,6 @@
 import { MongoClient, ObjectId, Db } from 'mongodb';
 import { connect } from 'net';
+import bcrypt from 'bcrypt';
 
 export default class DataStore {
   private static _obj: DataStore;
@@ -26,6 +27,20 @@ export default class DataStore {
       this.client.close();
       this.client = undefined;
     }
+  }
+
+  public auth(roomId: string, password: string, callback: (authed: boolean) => void) {
+    this.findRoom(roomId, (error: any, result: any) => {
+      if (error) {
+        callback(false);
+      } else if (!result.hashedPassword) { // '' is false
+        callback(true);
+      } else if (bcrypt.compareSync(password, result.hashedPassword)) {
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
   }
 
   public createRoom(doc: any) {

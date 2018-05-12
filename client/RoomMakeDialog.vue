@@ -26,6 +26,23 @@
                   item-value="gameType"
                 />
               </v-flex>
+              <v-flex
+                v-if="enablePassword"
+                xs12>
+                <v-text-field
+                  v-model.lazy="password"
+                  :append-icon="visiblePassword ? 'visibility' : 'visibility_off'"
+                  :append-icon-cb="() => (visiblePassword = !visiblePassword)"
+                  :type="visiblePassword ? 'text' : 'password'"
+                  label="パスワード"
+                />
+              </v-flex>
+              <v-flex xs12>
+                <v-checkbox
+                  v-model="enablePassword"
+                  label="パスワード付きルームにする"
+                />
+              </v-flex>
             </v-layout>
           </v-container>
         </v-card-text>
@@ -81,12 +98,23 @@ export default class RoomMakeDialog extends Vue {
       isActive: false,
       roomName: '',
       diceBots: diceBots,
-      gameType: '',
+      gameType: 'DiceBot',
+      password: '',
+      enablePassword: false,
+      visiblePassword: false,
     };
   }
 
   createRoom() {
-    axios.post('/api/v1/rooms/create', {roomName: this.$data.roomName, gameType: this.$data.gameType})
+    if (!this.$data.enablePassword) {
+      this.$data.password = '';
+    }
+    const data = {
+      roomName: this.$data.roomName,
+      gameType: this.$data.gameType,
+      password: this.$data.password,
+    };
+    axios.post('/api/v1/rooms/create', data)
       .then(response => {
         this.$router.push('/rooms/' + response.data.roomId);
       });
