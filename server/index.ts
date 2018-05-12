@@ -32,7 +32,8 @@ app.post('/api/v1/rooms/create', (req, res) => {
   const doc = {
     roomId: nanoid(12),
     roomName: req.body.roomName,
-    gameType: req.body.gameType,
+    gameType: req.body.gameType || 'DiceBot',
+    createdAt: new Date(),
   };
   dataStore.createRoom(doc);
   res.json(doc);
