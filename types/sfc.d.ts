@@ -12,6 +12,7 @@ declare interface Log {
   userName: string;
   body: string;
   drawables: Dice[];
+  timestamp: Date;
 }
 
 declare interface State {

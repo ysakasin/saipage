@@ -108,7 +108,8 @@ export default class Tool extends Vue{
     const log : Log = {
       userName: this.userName,
       body: result[0],
-      drawables: diceResults
+      drawables: diceResults,
+      timestamp: new Date(),
     };
 
     this.$store.dispatch('sendLog', log);
