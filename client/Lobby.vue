@@ -54,16 +54,36 @@
       max-width="500px">
       <v-card>
         <v-card-title class="headline">ルームの削除</v-card-title>
-        <v-card-text>ルーム「{{ deleteTarget.roomName }}」を削除しますか？</v-card-text>
+
+        <v-card-text>
+          「{{ deleteTarget.roomName }}」を削除しますか？
+          <v-container grid-list-md v-if="deleteTarget.hashedPassword">
+            <v-layout wrap>
+              <v-flex xs12>
+                <v-text-field
+                  v-model.lazy="password"
+                  :append-icon="visiblePassword ? 'visibility' : 'visibility_off'"
+                  :append-icon-cb="() => (visiblePassword = !visiblePassword)"
+                  :type="visiblePassword ? 'text' : 'password'"
+                  :error="failedAuth"
+                  :error-messages="errorMessages"
+                  label="パスワードを入力..."
+                  autofocus=""
+                />
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
         <v-card-actions>
           <v-spacer/>
           <v-btn
             color="primary"
             flat
-            @click.stop.prevent="deleteDaialog = false">やめる</v-btn>
+            @click.stop.prevent="password = ''; deleteDaialog = false">やめる</v-btn>
           <v-btn
             color="error"
             depressed
+            :disabled="deleteTarget.hashedPassword != '' && password == ''"
             @click.stop.prevent="deleteRoom()">削除する</v-btn>
         </v-card-actions>
       </v-card>
@@ -88,7 +108,11 @@ export default class Lobby extends Vue {
       items: [],
       roomMake: false,
       deleteDaialog: false,
-      deleteTarget: {}
+      password: '',
+      visiblePassword: false,
+      failedAuth: false,
+      deleteTarget: {},
+      errorMessages: [],
     };
   }
   mounted() {
@@ -100,10 +124,17 @@ export default class Lobby extends Vue {
     });
   }
   deleteRoom() {
-    axios.delete(`/api/v1/rooms/${this.$data.deleteTarget.roomId}`).then(res => {
+    const data = {
+      roomId: this.$data.deleteTarget.roomId,
+      password: this.$data.password,
+    };
+    axios.post('/api/v1/rooms/delete', data).then(res => {
       this.$data.deleteDaialog = false;
       this.$data.deleteTarget = {};
       this.loadRooms();
+    }).catch(error => {
+      this.$data.failedAuth = true;
+      this.$data.errorMessages = 'パスワードが一致しませんでした';
     });
   }
 }

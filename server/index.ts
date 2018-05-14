@@ -43,6 +43,33 @@ app.post('/api/v1/rooms/create', (req, res) => {
   res.json(doc);
 });
 
+app.post('/api/v1/rooms/delete', (req, res) => {
+  const roomId = req.body.roomId;
+  const password = req.body.password;
+  dataStore.auth(roomId, password, (authed) => {
+    if (!authed) {
+      res.status(403).json({ok: false});
+      return;
+    }
+    const room = io.of('/').adapter.rooms[roomId];
+    const sockets = room ? room.sockets : [];
+    for (let socketId in sockets) {
+      const socket = io.of('/').sockets[socketId];
+      if (socket) {
+        socket.disconnect(true);
+      }
+    }
+
+    dataStore.deleteRoom(roomId, (err: any, result: any) => {
+      if (!err) {
+        res.json({ok: true});
+      } else {
+        res.status(404).json({ok: false});
+      }
+    });
+  })
+});
+
 app.post('/api/v1/rooms/:roomId', (req, res) => {
   dataStore.findRoom(req.params.roomId, (err: any, room: any) => {
     if (!room) {
@@ -56,25 +83,6 @@ app.post('/api/v1/rooms/:roomId', (req, res) => {
       }
     } else {
       res.json(room);
-    }
-  });
-});
-
-app.delete('/api/v1/rooms/:roomId', (req, res) => {
-  const roomId = req.params.roomId;
-  const room = io.of('/').adapter.rooms[roomId];
-  const sockets = room ? room.sockets : [];
-  for (let socketId in sockets) {
-    const socket = io.of('/').sockets[socketId];
-    if (socket) {
-      socket.disconnect(true);
-    }
-  }
-  dataStore.deleteRoom(roomId, (err: any, result: any) => {
-    if (!err) {
-      res.json({ok: true});
-    } else {
-      res.json({ok: false});
     }
   });
 });
