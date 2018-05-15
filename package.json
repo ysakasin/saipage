@@ -9,7 +9,7 @@
     "webpack-watch": "webpack --watch",
     "serv": "npm run server-dev",
     "server-build": "tsc",
-    "server-dev": "npm run server-build && node dist/server/index.js",
+    "server-dev": "npm run server-build && node dist/index.js",
     "lint": "eslint --fix client/*.vue client/*.ts server/*.ts"
   },
   "author": "SAKATA Sinji",

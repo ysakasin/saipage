@@ -11,16 +11,18 @@ const app = chatServer.getApp();
 const io = chatServer.getIo();
 const dataStore = DataStore.obj;
 
+const publicDir = path.join(__dirname, '..', 'public');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/dist', express.static('dist'));
+app.use('/assets', express.static(path.join(publicDir, 'assets')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.get('/rooms/:roomId', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'index.html'));
+  res.sendFile(path.join(publicDir, 'index.html'));
 });
 
 app.get('/api/v1/rooms', (req, res) => {

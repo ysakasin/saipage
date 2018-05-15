@@ -1,12 +1,14 @@
 var path = require('path')
 var webpack = require('webpack')
 
+var isProduction = process.env.NODE_ENV === 'production'
+
 module.exports = {
   entry: './client/main.ts',
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, './public/assets'),
+    publicPath: '/assets/',
     filename: 'build.js'
   },
   module: {
@@ -36,7 +38,12 @@ module.exports = {
       },
       {
         test: /\.png$/,
-        use: 'url-loader',
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 8192
+          }
+        }
       },
       {
         test: /\.mp3$/,
@@ -44,7 +51,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: '[name].[ext]'
+              limit: 8192
             }
           }
         ]
