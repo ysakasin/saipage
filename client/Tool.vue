@@ -2,6 +2,7 @@
   <v-card>
     <form @submit.prevent="diceroll">
       <v-text-field
+        ref="commandField"
         v-model="command"
         label="コマンドを入力..."
         single-line
@@ -29,7 +30,7 @@
       v-for="(command, i) in shortcuts"
       :key="i"
       depressed
-      @click.stop="dicerollByText(command)">{{ command }}</v-btn>
+      @click.stop="execShortcut(command)">{{ command }}</v-btn>
     <v-tooltip bottom>
       <v-btn
         slot="activator"
@@ -57,6 +58,10 @@ import ShortcutDialog from './ShortcutDialog.vue';
   }
 })
 export default class Tool extends Vue{
+  $refs!: {
+    commandField: HTMLInputElement;
+  }
+
   data () {
     return {
       command: '',
@@ -95,6 +100,15 @@ export default class Tool extends Vue{
 
   get showSystemInfo() {
     return this.$store.state.settings.showSystemInfo;
+  }
+
+  execShortcut(command: string) {
+    if (command.match(/[?？]/)) {
+      this.$data.command = command;
+      this.$refs.commandField.focus();
+    } else {
+      this.dicerollByText(command);
+    }
   }
 
   diceroll() {

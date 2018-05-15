@@ -39,6 +39,7 @@ app.post('/api/v1/rooms/create', (req, res) => {
     roomName: req.body.roomName,
     gameType: req.body.gameType || 'DiceBot',
     hashedPassword,
+    shortcuts: ['2d6', '2d6>=?', '1d100'],
     createdAt: new Date(),
   };
   dataStore.createRoom(doc);
