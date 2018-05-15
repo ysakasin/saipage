@@ -57,7 +57,9 @@
 
         <v-card-text>
           「{{ deleteTarget.roomName }}」を削除しますか？
-          <v-container grid-list-md v-if="deleteTarget.hashedPassword">
+          <v-container
+            v-if="deleteTarget.hashedPassword"
+            grid-list-md>
             <v-layout wrap>
               <v-flex xs12>
                 <v-text-field
@@ -81,9 +83,9 @@
             flat
             @click.stop.prevent="password = ''; deleteDaialog = false">やめる</v-btn>
           <v-btn
+            :disabled="deleteTarget.hashedPassword != '' && password == ''"
             color="error"
             depressed
-            :disabled="deleteTarget.hashedPassword != '' && password == ''"
             @click.stop.prevent="deleteRoom()">削除する</v-btn>
         </v-card-actions>
       </v-card>

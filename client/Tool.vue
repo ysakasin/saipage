@@ -30,11 +30,15 @@
       :key="i"
       depressed
       @click.stop="dicerollByText(command)">{{ command }}</v-btn>
-    <v-btn
-      icon
-      @click.stop="edit = true">
-      <v-icon>add</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <v-btn
+        slot="activator"
+        icon
+        @click.stop="edit = true">
+        <v-icon>add</v-icon>
+      </v-btn>
+      <span>ショートカット追加</span>
+    </v-tooltip>
     <ShortcutDialog v-model="edit" />
   </v-card>
 </template>

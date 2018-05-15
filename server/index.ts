@@ -69,7 +69,7 @@ app.post('/api/v1/rooms/delete', (req, res) => {
         res.status(404).json({ok: false});
       }
     });
-  })
+  });
 });
 
 app.post('/api/v1/rooms/:roomId', (req, res) => {

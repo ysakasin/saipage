@@ -4,6 +4,7 @@
     :overlay="false"
     fullscreen
     scrollable
+    transition="dialog-bottom-transition"
   >
     <v-card tile>
       <v-toolbar

@@ -18,20 +18,27 @@
         @click="userNameDialog = true">
         <v-icon>account_circle</v-icon>
       </v-btn>
-      <v-btn
-        icon
-        @click.stop="playSound = !playSound">
-        <v-icon v-if="playSound">volume_up</v-icon>
-        <v-icon v-else>volume_off</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="settings = true">
-        <v-icon>settings</v-icon>
-      </v-btn>
-      <v-menu
-        bottom
-        left>
+      <v-tooltip bottom>
+        <v-btn
+          slot="activator"
+          icon
+          @click.stop="playSound = !playSound">
+          <v-icon v-if="playSound">volume_up</v-icon>
+          <v-icon v-else>volume_off</v-icon>
+        </v-btn>
+        <span v-if="playSound">現在 : ON</span>
+        <span v-else>現在 : OFF</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-btn
+          slot="activator"
+          icon
+          @click.stop="settings = true">
+          <v-icon>settings</v-icon>
+        </v-btn>
+        <span>設定</span>
+      </v-tooltip>
+      <v-menu offset-y>
         <v-btn
           slot="activator"
           icon >
