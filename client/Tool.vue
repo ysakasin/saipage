@@ -112,16 +112,19 @@ export default class Tool extends Vue{
   }
 
   diceroll() {
-    this.dicerollByText(this.$data.command);
-    this.clearForm();
+    this.dicerollByText(this.$data.command, true);
   }
-  dicerollByText(text : string) {
+
+  dicerollByText(text : string, clear: boolean = false) {
     const bcdice = new BCDice();
     bcdice.setGameByTitle(this.gameType);
     bcdice.setMessage(text);
     bcdice.setCollectRandResult(true);
 
     let result = bcdice.dice_command();
+    if (result[0] ==  '1') {
+      return;
+    }
     let diceResults = this.getDiceResults(bcdice);
     const log : Log = {
       userName: this.userName,
@@ -129,6 +132,9 @@ export default class Tool extends Vue{
       drawables: diceResults,
       timestamp: new Date(),
     };
+    if (clear) {
+      this.clearForm();
+    }
 
     this.$store.dispatch('sendLog', log);
   }
