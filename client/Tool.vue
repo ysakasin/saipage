@@ -4,7 +4,9 @@
       <v-text-field
         ref="commandField"
         v-model="command"
+        :append-icon-cb="diceroll"
         label="コマンドを入力..."
+        append-icon="send"
         single-line
         hide-details
         full-width
