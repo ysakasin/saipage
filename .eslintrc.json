@@ -5,8 +5,10 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:prettier/recommended",
     "plugin:vue/recommended",
-    "typescript"
+    "typescript",
+    "prettier"
   ],
   "rules": {
     "no-trailing-spaces": "error",
