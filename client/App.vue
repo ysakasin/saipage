@@ -22,16 +22,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import socket from './socket';
+import Vue from "vue";
+import Component from "vue-class-component";
+import socket from "./socket";
 
-import AppBar from './AppBar.vue';
-import Log from './Log.vue';
-import Tool from './Tool.vue';
-import DiceArea from './DiceArea.vue';
-import DisconnectedDialog from './DisconnectedDialog.vue';
-import PasswordDialog from './PasswordDialog.vue';
+import AppBar from "./AppBar.vue";
+import Log from "./Log.vue";
+import Tool from "./Tool.vue";
+import DiceArea from "./DiceArea.vue";
+import DisconnectedDialog from "./DisconnectedDialog.vue";
+import PasswordDialog from "./PasswordDialog.vue";
 @Component({
   components: {
     AppBar,
@@ -39,15 +39,15 @@ import PasswordDialog from './PasswordDialog.vue';
     Log,
     DiceArea,
     DisconnectedDialog,
-    PasswordDialog,
+    PasswordDialog
   }
 })
 export default class App extends Vue {
-  mounted () {
+  mounted() {
     socket.open();
-    this.$store.commit('connected');
-    this.$store.commit('loadSettings');
-    this.$store.dispatch('joinRoom', this.$route.params.roomId);
+    this.$store.commit("connected");
+    this.$store.commit("loadSettings");
+    this.$store.dispatch("joinRoom", this.$route.params.roomId);
   }
 
   beforeDestroy() {

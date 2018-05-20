@@ -1,7 +1,7 @@
-import { createServer, Server } from 'http';
-import express from 'express';
-import socketIo from 'socket.io';
-import DataStore from './datastore';
+import { createServer, Server } from "http";
+import express from "express";
+import socketIo from "socket.io";
+import DataStore from "./datastore";
 
 let dataStore = DataStore.obj;
 
@@ -22,17 +22,17 @@ export class ChatServer {
 
   public listen(): void {
     this.server.listen(this.port, () => {
-      console.log('Running server on port %s', this.port);
+      console.log("Running server on port %s", this.port);
     });
 
-    this.io.on('connect', (socket: any) => {
-      console.log('Connected client on port %s.', this.port);
-      socket.on('join', (params: any) => {
+    this.io.on("connect", (socket: any) => {
+      console.log("Connected client on port %s.", this.port);
+      socket.on("join", (params: any) => {
         const roomId: string = params.roomId;
         const password: string = params.password;
-        dataStore.auth(roomId, password, (authed) => {
+        dataStore.auth(roomId, password, authed => {
           if (authed) {
-            console.log('[server](join): %s', roomId);
+            console.log("[server](join): %s", roomId);
             socket.join(roomId);
             socket.roomId = roomId;
           } else {
@@ -41,38 +41,38 @@ export class ChatServer {
         });
       });
 
-      socket.on('log', (log: any) => {
-        console.log('[server](message): %s', JSON.stringify(log));
-        socket.broadcast.to(socket.roomId).emit('log', log);
+      socket.on("log", (log: any) => {
+        console.log("[server](message): %s", JSON.stringify(log));
+        socket.broadcast.to(socket.roomId).emit("log", log);
         dataStore.appendLog(socket.roomId, log);
       });
 
-      socket.on('roomName', (roomName: string) => {
-        console.log('[server](roomName): %s', roomName);
-        this.io.to(socket.roomId).emit('roomName', roomName);
+      socket.on("roomName", (roomName: string) => {
+        console.log("[server](roomName): %s", roomName);
+        this.io.to(socket.roomId).emit("roomName", roomName);
         dataStore.updateRoomName(socket.roomId, roomName);
       });
 
-      socket.on('gameType', (gameType: string) => {
-        console.log('[server](gameType): %s', gameType);
-        this.io.to(socket.roomId).emit('gameType', gameType);
+      socket.on("gameType", (gameType: string) => {
+        console.log("[server](gameType): %s", gameType);
+        this.io.to(socket.roomId).emit("gameType", gameType);
         dataStore.updateGameType(socket.roomId, gameType);
       });
 
-      socket.on('addShortcut', (shortcut: string) => {
-        console.log('[server](addShortcut): %s', shortcut);
-        socket.broadcast.to(socket.roomId).emit('addShortcut', shortcut);
+      socket.on("addShortcut", (shortcut: string) => {
+        console.log("[server](addShortcut): %s", shortcut);
+        socket.broadcast.to(socket.roomId).emit("addShortcut", shortcut);
         dataStore.addShortcut(socket.roomId, shortcut);
       });
 
-      socket.on('removeShortcut', (shortcut: string) => {
-        console.log('[server](removeShortcut): %s', shortcut);
-        socket.broadcast.to(socket.roomId).emit('removeShortcut', shortcut);
+      socket.on("removeShortcut", (shortcut: string) => {
+        console.log("[server](removeShortcut): %s", shortcut);
+        socket.broadcast.to(socket.roomId).emit("removeShortcut", shortcut);
         dataStore.removeShortcut(socket.roomId, shortcut);
       });
 
-      socket.on('disconnect', () => {
-        console.log('Client disconnected');
+      socket.on("disconnect", () => {
+        console.log("Client disconnected");
       });
     });
   }

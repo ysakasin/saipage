@@ -24,31 +24,36 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import Dice from './Dice.vue';
-import soundData from './assets/dice_roll.mp3';
+import Vue from "vue";
+import Component from "vue-class-component";
+import Dice from "./Dice.vue";
+import soundData from "./assets/dice_roll.mp3";
 
 @Component({
   components: {
-    Dice,
+    Dice
   }
 })
 export default class DiceArea extends Vue {
-  data () {
+  data() {
     return {
       draw: false,
       soundData: soundData,
-      target: [],
+      target: []
     };
   }
 
   mounted() {
-    this.$store.watch((state) => { return state.readyAnimation; }, (val, old) => {
-      if (val == false) {
-        this.playAnimation();
+    this.$store.watch(
+      state => {
+        return state.readyAnimation;
+      },
+      (val, old) => {
+        if (val == false) {
+          this.playAnimation();
+        }
       }
-    });
+    );
   }
 
   playAnimation() {
@@ -60,10 +65,10 @@ export default class DiceArea extends Vue {
     this.$data.draw = true;
     this.$data.target = target;
     if (target.drawables.length > 0) {
-      this.$store.commit('activateAnimation');
+      this.$store.commit("activateAnimation");
       setTimeout(this.deactivateAnimation, 900);
     } else {
-      this.$store.commit('appendLog', target);
+      this.$store.commit("appendLog", target);
     }
     setTimeout(this.nextAnimation, 1200);
   }
@@ -76,9 +81,9 @@ export default class DiceArea extends Vue {
     return this.$store.state.settings.playDiceAnimation;
   }
 
-  getAudio () {
+  getAudio() {
     if (this.$el !== undefined) {
-      return this.$el.querySelectorAll('audio')[0];
+      return this.$el.querySelectorAll("audio")[0];
     }
     return null;
   }
@@ -96,7 +101,7 @@ export default class DiceArea extends Vue {
     }
   }
 
-  showDice () {
+  showDice() {
     this.$data.draw = true;
   }
 
@@ -105,12 +110,12 @@ export default class DiceArea extends Vue {
   }
 
   deactivateAnimation() {
-    this.$store.commit('deactivateAnimation');
-    this.$store.commit('appendLog', this.$data.target);
+    this.$store.commit("deactivateAnimation");
+    this.$store.commit("appendLog", this.$data.target);
   }
 
   nextAnimation() {
-    this.$store.commit('nextAnimation');
+    this.$store.commit("nextAnimation");
     if (!this.$store.state.readyAnimation) {
       this.playAnimation();
     }
@@ -119,19 +124,19 @@ export default class DiceArea extends Vue {
   get commandResult(): string {
     const result = this.$data.target.body;
     if (!result) {
-      return '';
+      return "";
     }
-    const strs = result.split('＞');
+    const strs = result.split("＞");
     console.log(strs[strs.length - 1]);
     return strs[strs.length - 1];
   }
 
   get isSuccess(): boolean {
-    return this.commandResult.includes('成功');
+    return this.commandResult.includes("成功");
   }
 
   get isFailure(): boolean {
-    return this.commandResult.includes('失敗');
+    return this.commandResult.includes("失敗");
   }
 
   get isActive(): boolean {
@@ -163,13 +168,13 @@ export default class DiceArea extends Vue {
   }
 
   &.success {
-    border: solid 1px #81C784;
-    background-color: #C8E6C9 !important;
+    border: solid 1px #81c784;
+    background-color: #c8e6c9 !important;
   }
 
   &.failure {
-    border: solid 1px #E57373;
-    background-color: #FFCDD2 !important;
+    border: solid 1px #e57373;
+    background-color: #ffcdd2 !important;
   }
 }
 

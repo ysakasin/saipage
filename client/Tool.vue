@@ -47,33 +47,33 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import store from './store';
-import BCDice, {DiceBotLoader} from 'bcdice-js';
+import Vue from "vue";
+import Component from "vue-class-component";
+import store from "./store";
+import BCDice, { DiceBotLoader } from "bcdice-js";
 
-import ShortcutDialog from './ShortcutDialog.vue';
+import ShortcutDialog from "./ShortcutDialog.vue";
 
 @Component({
   components: {
     ShortcutDialog
   }
 })
-export default class Tool extends Vue{
+export default class Tool extends Vue {
   $refs!: {
     commandField: HTMLInputElement;
-  }
+  };
 
-  data () {
+  data() {
     return {
-      command: '',
+      command: "",
       help: false,
-      edit: false,
+      edit: false
     };
   }
 
   clearForm() {
-    this.$data.command = '';
+    this.$data.command = "";
   }
 
   get userName() {
@@ -117,60 +117,71 @@ export default class Tool extends Vue{
     this.dicerollByText(this.$data.command, true);
   }
 
-  dicerollByText(text : string, clear: boolean = false) {
+  dicerollByText(text: string, clear: boolean = false) {
     const bcdice = new BCDice();
     bcdice.setGameByTitle(this.gameType);
     bcdice.setMessage(text);
     bcdice.setCollectRandResult(true);
 
     let result = bcdice.dice_command();
-    if (result[0] ==  '1') {
+    if (result[0] == "1") {
       return;
     }
     let diceResults = this.getDiceResults(bcdice);
-    const log : Log = {
+    const log: Log = {
       userName: this.userName,
       body: result[0],
       drawables: diceResults,
-      timestamp: new Date(),
+      timestamp: new Date()
     };
     if (clear) {
       this.clearForm();
     }
 
-    this.$store.dispatch('sendLog', log);
+    this.$store.dispatch("sendLog", log);
   }
 
-  getDiceResults(bcdice : BCDice) {
-    const randResults:   Result[] = bcdice.getRandResults().map((x) => {return {face: x[1], value: x[0]};});
-    const drawableResults = randResults.reduce((acc : Result[], result : Result) => {
-      if (this.isDrawable(result)) {
-        if (result.face == 100) {
-          acc.push({face: 100, value: Math.floor(result.value / 10)});
-          acc.push({face:  10, value: result.value % 10});
-        } else {
-          acc.push(result);
+  getDiceResults(bcdice: BCDice) {
+    const randResults: Result[] = bcdice.getRandResults().map(x => {
+      return { face: x[1], value: x[0] };
+    });
+    const drawableResults = randResults.reduce(
+      (acc: Result[], result: Result) => {
+        if (this.isDrawable(result)) {
+          if (result.face == 100) {
+            acc.push({ face: 100, value: Math.floor(result.value / 10) });
+            acc.push({ face: 10, value: result.value % 10 });
+          } else {
+            acc.push(result);
+          }
         }
-      }
-      return acc;
-    }, []);
+        return acc;
+      },
+      []
+    );
     return drawableResults;
   }
-  isDrawable(result : Result) : boolean {
-    return result.face == 100 || result.face == 10 || result.face == 4 || result.face == 6 || result.face == 8;
+  isDrawable(result: Result): boolean {
+    return (
+      result.face == 100 ||
+      result.face == 10 ||
+      result.face == 4 ||
+      result.face == 6 ||
+      result.face == 8
+    );
   }
 
-  beforeEnter(el : HTMLElement) {
-    el.style.height = '0';
+  beforeEnter(el: HTMLElement) {
+    el.style.height = "0";
   }
-  enter(el : HTMLElement) {
-    el.style.height = el.scrollHeight + 'px';
+  enter(el: HTMLElement) {
+    el.style.height = el.scrollHeight + "px";
   }
-  beforeLeave(el : HTMLElement) {
-    el.style.height = el.scrollHeight + 'px';
+  beforeLeave(el: HTMLElement) {
+    el.style.height = el.scrollHeight + "px";
   }
-  leave(el : HTMLElement) {
-    el.style.height = '0';
+  leave(el: HTMLElement) {
+    el.style.height = "0";
   }
 }
 
@@ -181,8 +192,9 @@ interface Result {
 </script>
 
 <style lang="scss" scoped>
-.v-enter-active, .v-leave-active {
-  transition: all .25s;
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.25s;
   overflow: hidden;
 }
 .sysinfo {

@@ -16,9 +16,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import store from './store';
+import Vue from "vue";
+import Component from "vue-class-component";
+import store from "./store";
 
 const aDay = 1000 * 60 * 60 * 24;
 const baseTime = Date.now();
@@ -44,7 +44,7 @@ export default class Log extends Vue {
   }
 
   zeroPadding(x: number): string {
-    return ('0' + x).slice(-2);
+    return ("0" + x).slice(-2);
   }
 }
 </script>

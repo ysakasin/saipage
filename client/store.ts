@@ -1,15 +1,15 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import socket from './socket';
-import axios from 'axios';
+import Vue from "vue";
+import Vuex from "vuex";
+import socket from "./socket";
+import axios from "axios";
 
 Vue.use(Vuex);
 
 const state: State = {
-  roomId: 'deadbeef',
-  roomName: 'ロード中...',
-  userName: 'ななし',
-  gameType: 'DiceBot',
+  roomId: "deadbeef",
+  roomName: "ロード中...",
+  userName: "ななし",
+  gameType: "DiceBot",
   shortcuts: [],
   logs: [],
   logBuffer: [],
@@ -18,11 +18,11 @@ const state: State = {
   settings: {
     playSound: true,
     playDiceAnimation: true,
-    showSystemInfo: true,
+    showSystemInfo: true
   },
   disconnected: false,
   needPassword: false,
-  password: '',
+  password: ""
 };
 
 const store = new Vuex.Store({
@@ -49,7 +49,7 @@ const store = new Vuex.Store({
       }
     },
     removeShortcut(state, shortcut: string) {
-      const newList = state.shortcuts.filter((i) => i != shortcut);
+      const newList = state.shortcuts.filter(i => i != shortcut);
       if (state.shortcuts != newList) {
         state.shortcuts = newList;
       }
@@ -87,18 +87,18 @@ const store = new Vuex.Store({
     },
     updateSoundSetting(state, val: boolean) {
       state.settings.playSound = val;
-      localStorage.setItem('settings', JSON.stringify(state.settings));
+      localStorage.setItem("settings", JSON.stringify(state.settings));
     },
     updateAnimationSetting(state, val: boolean) {
       state.settings.playDiceAnimation = val;
-      localStorage.setItem('settings', JSON.stringify(state.settings));
+      localStorage.setItem("settings", JSON.stringify(state.settings));
     },
     updateSystemInfoSetting(state, val: boolean) {
       state.settings.showSystemInfo = val;
-      localStorage.setItem('settings', JSON.stringify(state.settings));
+      localStorage.setItem("settings", JSON.stringify(state.settings));
     },
     loadSettings(state) {
-      const str = localStorage.getItem('settings');
+      const str = localStorage.getItem("settings");
       if (str == null) {
         return;
       }
@@ -130,44 +130,45 @@ const store = new Vuex.Store({
   },
   actions: {
     joinRoom(context, roomId: string) {
-      context.commit('setRoomId', roomId);
-      axios.post('/api/v1/rooms/' + roomId, {password: context.state.password})
+      context.commit("setRoomId", roomId);
+      axios
+        .post("/api/v1/rooms/" + roomId, { password: context.state.password })
         .then(res => {
-          context.commit('updateRoomName', res.data.roomName);
-          context.commit('updateGameType', res.data.gameType);
-          context.commit('initLog', res.data.logs);
-          context.commit('initShortcuts', res.data.shortcuts);
-          socket.emit('join', {roomId, password: context.state.password});
+          context.commit("updateRoomName", res.data.roomName);
+          context.commit("updateGameType", res.data.gameType);
+          context.commit("initLog", res.data.logs);
+          context.commit("initShortcuts", res.data.shortcuts);
+          socket.emit("join", { roomId, password: context.state.password });
         })
         .catch(error => {
           if (error.response.status == 403) {
-            context.commit('needPassword');
+            context.commit("needPassword");
           }
         });
     },
     sendLog(context, log: Log) {
-      context.commit('appendLogBuffer', log);
-      socket.emit('log', log);
+      context.commit("appendLogBuffer", log);
+      socket.emit("log", log);
     },
     updateRoomName(context, roomName: string) {
-      socket.emit('roomName', roomName);
+      socket.emit("roomName", roomName);
     },
     updateGameType(context, gameType: string) {
-      socket.emit('gameType', gameType);
+      socket.emit("gameType", gameType);
     },
     addShortcut(context, shortcut: string) {
-      context.commit('addShortcut', shortcut);
-      socket.emit('addShortcut', shortcut);
+      context.commit("addShortcut", shortcut);
+      socket.emit("addShortcut", shortcut);
     },
     removeShortcut(context, shortcut: string) {
-      context.commit('removeShortcut', shortcut);
-      socket.emit('removeShortcut', shortcut);
+      context.commit("removeShortcut", shortcut);
+      socket.emit("removeShortcut", shortcut);
     }
   },
   getters: {
     readyAnimation(state) {
       return state.readyAnimation;
-    },
-  },
+    }
+  }
 });
 export default store;

@@ -94,11 +94,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import axios from 'axios';
+import Vue from "vue";
+import Component from "vue-class-component";
+import axios from "axios";
 
-import RoomMakeDialog from './RoomMakeDialog.vue';
+import RoomMakeDialog from "./RoomMakeDialog.vue";
 @Component({
   components: {
     RoomMakeDialog
@@ -110,34 +110,37 @@ export default class Lobby extends Vue {
       items: [],
       roomMake: false,
       deleteDaialog: false,
-      password: '',
+      password: "",
       visiblePassword: false,
       failedAuth: false,
       deleteTarget: {},
-      errorMessages: [],
+      errorMessages: []
     };
   }
   mounted() {
     this.loadRooms();
   }
   loadRooms() {
-    axios.get('/api/v1/rooms').then(res => {
+    axios.get("/api/v1/rooms").then(res => {
       this.$data.items = res.data;
     });
   }
   deleteRoom() {
     const data = {
       roomId: this.$data.deleteTarget.roomId,
-      password: this.$data.password,
+      password: this.$data.password
     };
-    axios.post('/api/v1/rooms/delete', data).then(res => {
-      this.$data.deleteDaialog = false;
-      this.$data.deleteTarget = {};
-      this.loadRooms();
-    }).catch(error => {
-      this.$data.failedAuth = true;
-      this.$data.errorMessages = 'パスワードが一致しませんでした';
-    });
+    axios
+      .post("/api/v1/rooms/delete", data)
+      .then(res => {
+        this.$data.deleteDaialog = false;
+        this.$data.deleteTarget = {};
+        this.loadRooms();
+      })
+      .catch(error => {
+        this.$data.failedAuth = true;
+        this.$data.errorMessages = "パスワードが一致しませんでした";
+      });
   }
 }
 </script>

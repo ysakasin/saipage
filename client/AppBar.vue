@@ -62,19 +62,19 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import Settings from './Settings.vue';
-import UserNameDialog from './UserNameDialog.vue';
+import Vue from "vue";
+import Component from "vue-class-component";
+import Settings from "./Settings.vue";
+import UserNameDialog from "./UserNameDialog.vue";
 
 @Component({
   components: {
     Settings,
-    UserNameDialog,
+    UserNameDialog
   }
 })
 export default class AppBar extends Vue {
-  data () {
+  data() {
     return {
       settings: false,
       userNameDialog: false
@@ -92,8 +92,8 @@ export default class AppBar extends Vue {
   get playSound() {
     return this.$store.state.settings.playSound;
   }
-  set playSound(val : boolean) {
-    this.$store.commit('updateSoundSetting', val);
+  set playSound(val: boolean) {
+    this.$store.commit("updateSoundSetting", val);
   }
 }
 </script>

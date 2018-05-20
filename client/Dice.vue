@@ -10,28 +10,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import Vue from "vue";
+import Component from "vue-class-component";
 
 @Component({
   props: {
     face: Number,
-    value: Number,
+    value: Number
   }
 })
 export default class Dice extends Vue {
   get diceClass() {
-    return 'dice-' + this.$props.face;
+    return "dice-" + this.$props.face;
   }
   get valueClass() {
-    return 'value-' + this.$props.value;
+    return "value-" + this.$props.value;
   }
   get isActive() {
     return this.$store.state.activeAnimation;
   }
 
   hide() {
-    this.$emit('hide');
+    this.$emit("hide");
   }
 }
 </script>
@@ -144,69 +144,68 @@ export default class Dice extends Vue {
 @keyframes move_y {
   0% {
     transform: translateY(-16em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   15% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   25% {
     transform: translateY(-12em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   32.5% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   40% {
     transform: translateY(-8em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   45% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   50% {
     transform: translateY(-5em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   56% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   60% {
     transform: translateY(-5em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   64% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   66% {
     transform: translateY(-5em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   70% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   80% {
     transform: translateY(-2em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
   85% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
   90% {
     transform: translateY(-0.5em);
-    animation-timing-function: cubic-bezier(.51,.01,.79,.02);
+    animation-timing-function: cubic-bezier(0.51, 0.01, 0.79, 0.02);
   }
-  95%, 100% {
+  95%,
+  100% {
     transform: translateY(0em);
-    animation-timing-function: cubic-bezier(.19,1,.7,1);
+    animation-timing-function: cubic-bezier(0.19, 1, 0.7, 1);
   }
 }
 </style>
-
-

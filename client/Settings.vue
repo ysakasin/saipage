@@ -87,18 +87,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import {DiceBotLoader} from 'bcdice-js';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { DiceBotLoader } from "bcdice-js";
 
 interface DiceBotInfo {
   name: string;
   gameType: string;
 }
 
-const diceBots : DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map((x) => {
-  return {name: x[2], gameType: x[1]};
-});
+const diceBots: DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map(
+  x => {
+    return { name: x[2], gameType: x[1] };
+  }
+);
 
 diceBots.sort((a, b) => {
   if (a.name > b.name) {
@@ -113,30 +115,30 @@ diceBots.sort((a, b) => {
     value: Boolean
   },
   watch: {
-    value(val : boolean) {
+    value(val: boolean) {
       if (val != this.$data.isActive) {
         this.$data.isActive = val;
       }
     },
-    isActive(val : boolean) {
+    isActive(val: boolean) {
       this.$emit("input", val);
     }
   }
 })
-export default class Settings extends Vue{
-  data () {
+export default class Settings extends Vue {
+  data() {
     return {
       isActive: false,
-      diceBots: diceBots,
+      diceBots: diceBots
     };
   }
 
-  get roomName () {
+  get roomName() {
     return this.$store.state.roomName;
   }
 
-  set roomName (newName) {
-    this.$store.dispatch('updateRoomName', newName);
+  set roomName(newName) {
+    this.$store.dispatch("updateRoomName", newName);
   }
 
   get gameType() {
@@ -144,28 +146,28 @@ export default class Settings extends Vue{
   }
 
   set gameType(newType) {
-    this.$store.dispatch('updateGameType', newType);
+    this.$store.dispatch("updateGameType", newType);
   }
 
   get playSound() {
     return this.$store.state.settings.playSound;
   }
-  set playSound(val : boolean) {
-    this.$store.commit('updateSoundSetting', val);
+  set playSound(val: boolean) {
+    this.$store.commit("updateSoundSetting", val);
   }
 
   get playDiceAnimation() {
     return this.$store.state.settings.playDiceAnimation;
   }
-  set playDiceAnimation(val : boolean) {
-    this.$store.commit('updateAnimationSetting', val);
+  set playDiceAnimation(val: boolean) {
+    this.$store.commit("updateAnimationSetting", val);
   }
 
   get showSystemInfo() {
     return this.$store.state.settings.showSystemInfo;
   }
-  set showSystemInfo(val : boolean) {
-    this.$store.commit('updateSystemInfoSetting', val);
+  set showSystemInfo(val: boolean) {
+    this.$store.commit("updateSystemInfoSetting", val);
   }
 }
 </script>

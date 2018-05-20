@@ -27,20 +27,20 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import Vue from "vue";
+import Component from "vue-class-component";
 
 @Component({
   props: {
     value: Boolean
   },
   watch: {
-    value(val : boolean) {
+    value(val: boolean) {
       if (val != this.$data.isActive) {
         this.$data.isActive = val;
       }
     },
-    isActive(val : boolean) {
+    isActive(val: boolean) {
       this.$emit("input", val);
     }
   }
@@ -56,9 +56,8 @@ export default class UserNameDialog extends Vue {
     return this.$store.state.userName;
   }
 
-  set userName(newName : string) {
-    this.$store.commit('changeUserName', newName);
+  set userName(newName: string) {
+    this.$store.commit("changeUserName", newName);
   }
 }
 </script>
-

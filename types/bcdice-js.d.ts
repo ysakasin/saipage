@@ -1,4 +1,4 @@
-declare module 'bcdice-js' {
+declare module "bcdice-js" {
   class BCDice {
     constructor();
     gameName(): string;
@@ -17,10 +17,10 @@ declare module 'bcdice-js' {
   }
 
   export default BCDice;
-  export {DiceBotLoader};
+  export { DiceBotLoader };
 }
 
-declare module '*.mp3' {
+declare module "*.mp3" {
   const content: string;
-  export = content
+  export = content;
 }

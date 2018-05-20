@@ -33,38 +33,38 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import Vue from "vue";
+import Component from "vue-class-component";
 @Component({
-  props : {
+  props: {
     value: Boolean
   },
-  watch : {
-    value (val : boolean) {
+  watch: {
+    value(val: boolean) {
       if (val != this.$data.isActive) {
         this.$data.isActive = val;
       }
     },
-    isActive (val : boolean) {
-      this.$emit('input', val);
+    isActive(val: boolean) {
+      this.$emit("input", val);
     }
   }
 })
 export default class ShortcutDialog extends Vue {
-  data () {
+  data() {
     return {
       isActive: false,
-      command: '',
+      command: ""
     };
   }
 
-  add () {
-    this.$store.dispatch('addShortcut', this.$data.command);
-    this.$data.command = '';
+  add() {
+    this.$store.dispatch("addShortcut", this.$data.command);
+    this.$data.command = "";
   }
 
-  remove (command : string) {
-    this.$store.dispatch('removeShortcut', command);
+  remove(command: string) {
+    this.$store.dispatch("removeShortcut", command);
   }
 
   get shortcuts() {
@@ -72,5 +72,3 @@ export default class ShortcutDialog extends Vue {
   }
 }
 </script>
-
-

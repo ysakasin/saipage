@@ -1,28 +1,28 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import Vuex from 'vuex';
-import App from './App.vue';
-import Lobby from './Lobby.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import Vuex from "vuex";
+import App from "./App.vue";
+import Lobby from "./Lobby.vue";
 
-import socket from './socket';
-import store from './store';
+import socket from "./socket";
+import store from "./store";
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 Vue.use(Vuex);
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   routes: [
-    { path: '/', component: Lobby },
-    { path: '/rooms/:roomId', component: App },
-  ],
+    { path: "/", component: Lobby },
+    { path: "/rooms/:roomId", component: App }
+  ]
 });
 
 const app = new Vue({
-  el: '#app',
+  el: "#app",
   store,
-  router,
+  router
 });

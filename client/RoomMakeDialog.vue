@@ -63,61 +63,62 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import {DiceBotLoader} from 'bcdice-js';
-import axios from 'axios';
+import Vue from "vue";
+import Component from "vue-class-component";
+import { DiceBotLoader } from "bcdice-js";
+import axios from "axios";
 
 interface DiceBotInfo {
   name: string;
   gameType: string;
 }
 
-const diceBots : DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map((x) => {
-  return {name: x[2], gameType: x[1]};
-});
+const diceBots: DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map(
+  x => {
+    return { name: x[2], gameType: x[1] };
+  }
+);
 
 @Component({
-  props : {
+  props: {
     value: Boolean
   },
-  watch : {
-    value (val : boolean) {
+  watch: {
+    value(val: boolean) {
       if (val != this.$data.isActive) {
         this.$data.isActive = val;
       }
     },
-    isActive (val : boolean) {
-      this.$emit('input', val);
+    isActive(val: boolean) {
+      this.$emit("input", val);
     }
   }
 })
 export default class RoomMakeDialog extends Vue {
-  data () {
+  data() {
     return {
       isActive: false,
-      roomName: '',
+      roomName: "",
       diceBots: diceBots,
-      gameType: 'DiceBot',
-      password: '',
+      gameType: "DiceBot",
+      password: "",
       enablePassword: false,
-      visiblePassword: false,
+      visiblePassword: false
     };
   }
 
   createRoom() {
     if (!this.$data.enablePassword) {
-      this.$data.password = '';
+      this.$data.password = "";
     }
     const data = {
       roomName: this.$data.roomName,
       gameType: this.$data.gameType,
-      password: this.$data.password,
+      password: this.$data.password
     };
-    axios.post('/api/v1/rooms/create', data)
-      .then(response => {
-        this.$router.push('/rooms/' + response.data.roomId);
-      });
+    axios.post("/api/v1/rooms/create", data).then(response => {
+      this.$router.push("/rooms/" + response.data.roomId);
+    });
   }
 }
 </script>

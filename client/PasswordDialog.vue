@@ -37,16 +37,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import axios from 'axios';
+import Vue from "vue";
+import Component from "vue-class-component";
+import axios from "axios";
 
 @Component({})
 export default class PasswordDialog extends Vue {
-  data () {
+  data() {
     return {
       visiblePassword: false,
-      password: '',
+      password: ""
     };
   }
 
@@ -55,8 +55,8 @@ export default class PasswordDialog extends Vue {
   }
 
   joinRoom() {
-    this.$store.commit('updatePassword', this.$data.password);
-    this.$store.dispatch('joinRoom', this.$store.state.roomId);
+    this.$store.commit("updatePassword", this.$data.password);
+    this.$store.dispatch("joinRoom", this.$store.state.roomId);
   }
 }
 </script>
