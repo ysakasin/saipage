@@ -54,7 +54,7 @@ export default class DataStore {
 
   public findAllRooms(callback: any) {
     this.db!.collection("rooms")
-      .aggregate([{$project: {logs: 0, shortcuts: 0}}])
+      .aggregate([{ $project: { logs: 0, shortcuts: 0 } }])
       .toArray(callback);
   }
 

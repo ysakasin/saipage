@@ -83,6 +83,19 @@
       </v-card-text>
       <div style="flex: 1 1 auto;"/>
     </v-card>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="3000"
+      color="success"
+      top>
+      {{ snackbarText }}
+      <v-btn
+        dark
+        flat
+        @click="snackbar = false">
+        閉じる
+      </v-btn>
+    </v-snackbar>
   </v-dialog>
 </template>
 
@@ -129,7 +142,9 @@ export default class Settings extends Vue {
   data() {
     return {
       isActive: false,
-      diceBots: diceBots
+      diceBots: diceBots,
+      snackbar: false,
+      snackbarText: ""
     };
   }
 
@@ -139,6 +154,8 @@ export default class Settings extends Vue {
 
   set roomName(newName) {
     this.$store.dispatch("updateRoomName", newName);
+    this.$data.snackbarText = `ルーム名を「${newName}」に変更しました`;
+    this.$data.snackbar = true;
   }
 
   get gameType() {
@@ -147,6 +164,8 @@ export default class Settings extends Vue {
 
   set gameType(newType) {
     this.$store.dispatch("updateGameType", newType);
+    this.$data.snackbarText = `ダイスボットを「${newType}」に変更しました`;
+    this.$data.snackbar = true;
   }
 
   get playSound() {

@@ -5,7 +5,7 @@
         ref="commandField"
         v-model="command"
         :append-icon-cb="diceroll"
-        label="コマンドを入力..."
+        label="ダイスコマンドを入力..."
         append-icon="send"
         single-line
         hide-details
@@ -43,6 +43,19 @@
       <span>ショートカット追加</span>
     </v-tooltip>
     <ShortcutDialog v-model="edit" />
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="4000"
+      color="error"
+      top>
+      ダイスコマンドを実行できませんでした
+      <v-btn
+        dark
+        flat
+        @click="snackbar = false">
+        閉じる
+      </v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
@@ -68,7 +81,8 @@ export default class Tool extends Vue {
     return {
       command: "",
       help: false,
-      edit: false
+      edit: false,
+      snackbar: false
     };
   }
 
@@ -125,6 +139,7 @@ export default class Tool extends Vue {
 
     let result = bcdice.dice_command();
     if (result[0] == "1") {
+      this.$data.snackbar = true;
       return;
     }
     let diceResults = this.getDiceResults(bcdice);
