@@ -3,10 +3,10 @@ import VueRouter from "vue-router";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import Vuex from "vuex";
-import App from "./App.vue";
-import Lobby from "./Lobby.vue";
 
-import socket from "./socket";
+const App = () => import(/* webpackChunkName: "app" */ './App.vue').then(m => m.default);
+const Lobby = () => import(/* webpackChunkName: "lobby" */ './Lobby.vue').then(m => m.default);
+
 import store from "./store";
 
 Vue.use(VueRouter);

@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+
 var isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -11,6 +13,9 @@ module.exports = {
     publicPath: '/assets/',
     filename: 'build.js'
   },
+  // plugins: [
+  //   new BundleAnalyzerPlugin()
+  // ],
   module: {
     rules: [
       {
@@ -58,7 +63,19 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        use: 'vue-loader',
+        loader: 'vue-loader',
+        options: {
+          'scss': [
+            'vue-style-loader',
+            'css-loader',
+            'sass-loader'
+          ],
+          'sass': [
+            'vue-style-loader',
+            'css-loader',
+            'sass-loader?indentedSyntax'
+          ]
+        }
       }
     ]
   },
