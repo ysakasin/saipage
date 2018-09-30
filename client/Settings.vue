@@ -102,26 +102,14 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { DiceBotLoader } from "bcdice-js";
+import { fetchDicebots } from "./dice";
 
 interface DiceBotInfo {
   name: string;
   gameType: string;
 }
 
-const diceBots: DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map(
-  x => {
-    return { name: x[2], gameType: x[1] };
-  }
-);
-
-diceBots.sort((a, b) => {
-  if (a.name > b.name) {
-    return 1;
-  } else {
-    return -1;
-  }
-});
+const diceBots: DiceBotInfo[] = [];
 
 @Component({
   props: {
@@ -146,6 +134,14 @@ export default class Settings extends Vue {
       snackbar: false,
       snackbarText: ""
     };
+  }
+
+  mounted() {
+    if (this.$data.diceBots.length == 0) {
+      fetchDicebots().then(dicebots => {
+        this.$data.diceBots = dicebots;
+      });
+    }
   }
 
   get roomName() {

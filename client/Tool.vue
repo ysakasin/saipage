@@ -63,13 +63,26 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import store from "./store";
-import BCDice, { DiceBotLoader } from "bcdice-js";
+import { diceRoll, fetchDicebotInfo } from "./dice";
 
 import ShortcutDialog from "./ShortcutDialog.vue";
+
+interface DiceA {
+  faces: string;
+  value: number;
+}
 
 @Component({
   components: {
     ShortcutDialog
+  },
+  watch: {
+    gameType(val: string) {
+      fetchDicebotInfo(val).then(res => {
+        this.$data.system = res.name;
+        this.$data.systeminfo = res.info;
+      });
+    }
   }
 })
 export default class Tool extends Vue {
@@ -82,6 +95,8 @@ export default class Tool extends Vue {
       command: "",
       help: false,
       edit: false,
+      system: "",
+      systeminfo: "",
       snackbar: false
     };
   }
@@ -102,18 +117,6 @@ export default class Tool extends Vue {
     return this.$store.state.shortcuts;
   }
 
-  get diceBot() {
-    return DiceBotLoader.loadUnknownGame(this.gameType);
-  }
-
-  get system() {
-    return this.diceBot.gameName();
-  }
-
-  get systeminfo() {
-    return this.diceBot.getHelpMessage();
-  }
-
   get showSystemInfo() {
     return this.$store.state.settings.showSystemInfo;
   }
@@ -132,34 +135,30 @@ export default class Tool extends Vue {
   }
 
   dicerollByText(text: string, clear: boolean = false) {
-    const bcdice = new BCDice();
-    bcdice.setGameByTitle(this.gameType);
-    bcdice.setMessage(text);
-    bcdice.setCollectRandResult(true);
+    diceRoll(this.gameType, text)
+      .then(res => {
+        const dices = res.dices.map((d: DiceA) => {
+          return { face: d.faces, value: d.value };
+        });
+        const log: Log = {
+          userName: this.userName,
+          body: res.result,
+          drawables: this.selectDiceResults(dices),
+          timestamp: new Date()
+        };
 
-    let result = bcdice.dice_command();
-    if (result[0] == "1") {
-      this.$data.snackbar = true;
-      return;
-    }
-    let diceResults = this.getDiceResults(bcdice);
-    const log: Log = {
-      userName: this.userName,
-      body: result[0],
-      drawables: diceResults,
-      timestamp: new Date()
-    };
-    if (clear) {
-      this.clearForm();
-    }
+        if (clear) {
+          this.clearForm();
+        }
 
-    this.$store.dispatch("sendLog", log);
+        this.$store.dispatch("sendLog", log);
+      })
+      .catch(() => {
+        this.$data.snackbar = true;
+      });
   }
 
-  getDiceResults(bcdice: BCDice) {
-    const randResults: Result[] = bcdice.getRandResults().map(x => {
-      return { face: x[1], value: x[0] };
-    });
+  selectDiceResults(randResults: Result[]) {
     const drawableResults = randResults.reduce(
       (acc: Result[], result: Result) => {
         if (this.isDrawable(result)) {

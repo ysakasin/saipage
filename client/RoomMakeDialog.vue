@@ -65,19 +65,15 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { DiceBotLoader } from "bcdice-js";
 import axios from "axios";
+import { fetchDicebots } from "./dice";
 
 interface DiceBotInfo {
   name: string;
   gameType: string;
 }
 
-const diceBots: DiceBotInfo[] = DiceBotLoader.collectDiceBotDescriptions().map(
-  x => {
-    return { name: x[2], gameType: x[1] };
-  }
-);
+const DiceBots: DiceBotInfo[] = [];
 
 @Component({
   props: {
@@ -99,12 +95,20 @@ export default class RoomMakeDialog extends Vue {
     return {
       isActive: false,
       roomName: "",
-      diceBots: diceBots,
+      diceBots: DiceBots,
       gameType: "DiceBot",
       password: "",
       enablePassword: false,
       visiblePassword: false
     };
+  }
+
+  mounted() {
+    if (this.$data.diceBots.length == 0) {
+      fetchDicebots().then(dicebots => {
+        this.$data.diceBots = dicebots;
+      });
+    }
   }
 
   createRoom() {

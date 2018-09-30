@@ -34,3 +34,8 @@ declare interface State {
   needPassword: boolean;
   password: string;
 }
+
+declare module "*.mp3" {
+  const content: string;
+  export = content;
+}

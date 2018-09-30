@@ -13,6 +13,7 @@
   "rules": {
     "no-trailing-spaces": "error",
     "no-console": "off",
+    "require-jsdoc": "off",
     "typescript/explicit-member-accessibility": "none"
   }
 }

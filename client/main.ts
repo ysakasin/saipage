@@ -4,8 +4,10 @@ import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import Vuex from "vuex";
 
-const App = () => import(/* webpackChunkName: "app" */ './App.vue').then(m => m.default);
-const Lobby = () => import(/* webpackChunkName: "lobby" */ './Lobby.vue').then(m => m.default);
+const App = () =>
+  import(/* webpackChunkName: "app" */ "./App.vue").then(m => m.default);
+const Lobby = () =>
+  import(/* webpackChunkName: "lobby" */ "./Lobby.vue").then(m => m.default);
 
 import store from "./store";
 
