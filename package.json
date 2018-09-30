@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "A TRPG session tool",
   "scripts": {
+    "start": "npm run webpack && npm run server-build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --progress --hide-modules",
     "webpack-dev": "webpack-dev-server --open --hot",

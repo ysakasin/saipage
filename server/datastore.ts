@@ -3,9 +3,11 @@ import { connect } from "net";
 import bcrypt from "bcrypt";
 
 export default class DataStore {
+  public static readonly MONGO_URI: string = "mongodb://localhost:27017";
   private static _obj: DataStore;
   private client: MongoClient | undefined;
   private db: Db | undefined;
+  private mongoURI: string;
 
   public static get obj(): DataStore {
     if (!this._obj) {
@@ -15,7 +17,8 @@ export default class DataStore {
   }
 
   constructor(config: any) {
-    MongoClient.connect("mongodb://localhost:27017", (err, client) => {
+    this.mongoURI = process.env.MONGO_URI || DataStore.MONGO_URI;
+    MongoClient.connect(this.mongoURI, (err, client) => {
       if (err) throw err;
       this.client = client;
       this.db = this.client.db("saibox");

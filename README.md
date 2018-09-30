@@ -2,6 +2,11 @@
 
 A TRPG session tool
 
+## Requires
+
+- Node (>= 8)
+- MongoDB
+
 
 ## Build
 
@@ -9,12 +14,25 @@ A TRPG session tool
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
+# build client and start web server
+npm run start
 ```
+
+## Configure
+
+Saibox are configured by environment variables.
+
+### `PORT`
+
+Port of web server
+
+default: `8080`
+
+### `MONGO_URI`
+
+URI of connecting mongodb
+
+default: `mongodb://localhost:27017`
 
 
 ## LICENSE
