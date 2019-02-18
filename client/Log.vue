@@ -35,7 +35,7 @@ export default class Log extends Vue {
     const h = this.zeroPadding(date.getHours());
     const m = this.zeroPadding(date.getMinutes());
     if (diff >= aDay) {
-      const month = date.getMonth();
+      const month = date.getMonth() + 1;
       const day = date.getDate();
       return `${month}月${day}日 ${h}:${m}`;
     } else {
