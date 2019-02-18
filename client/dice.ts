@@ -1,6 +1,5 @@
 import axios from "axios";
-import querystring from "querystring";
-import { read } from "fs";
+import querystring from "query-string";
 
 const BCDICEAPI_URL = "https://www.taruki.com/bcdice-api";
 const API_NAMES: string = BCDICEAPI_URL + "/v1/names";

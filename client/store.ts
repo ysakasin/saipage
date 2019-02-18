@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import socket from "./socket";
 import axios from "axios";
 
 Vue.use(Vuex);
@@ -138,7 +137,7 @@ const store = new Vuex.Store({
           context.commit("updateGameType", res.data.gameType);
           context.commit("initLog", res.data.logs);
           context.commit("initShortcuts", res.data.shortcuts);
-          socket.emit("join", { roomId, password: context.state.password });
+          // socket.emit("join", { roomId, password: context.state.password });
         })
         .catch(error => {
           if (error.response.status == 403) {
@@ -148,21 +147,21 @@ const store = new Vuex.Store({
     },
     sendLog(context, log: Log) {
       context.commit("appendLogBuffer", log);
-      socket.emit("log", log);
+      // socket.emit("log", log);
     },
     updateRoomName(context, roomName: string) {
-      socket.emit("roomName", roomName);
+      // socket.emit("roomName", roomName);
     },
     updateGameType(context, gameType: string) {
-      socket.emit("gameType", gameType);
+      // socket.emit("gameType", gameType);
     },
     addShortcut(context, shortcut: string) {
       context.commit("addShortcut", shortcut);
-      socket.emit("addShortcut", shortcut);
+      // socket.emit("addShortcut", shortcut);
     },
     removeShortcut(context, shortcut: string) {
       context.commit("removeShortcut", shortcut);
-      socket.emit("removeShortcut", shortcut);
+      // socket.emit("removeShortcut", shortcut);
     }
   },
   getters: {
