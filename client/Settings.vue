@@ -24,14 +24,6 @@
           subheader>
           <v-subheader>ルーム設定</v-subheader>
           <v-list-tile avatar>
-            <v-text-field
-              :value="roomName"
-              name="roomname"
-              label="ルーム名"
-              @change="v => roomName = v"
-            />
-          </v-list-tile>
-          <v-list-tile avatar>
             <v-select
               v-model="gameType"
               :items="diceBots"
@@ -144,22 +136,12 @@ export default class Settings extends Vue {
     }
   }
 
-  get roomName() {
-    return this.$store.state.roomName;
-  }
-
-  set roomName(newName) {
-    this.$store.dispatch("updateRoomName", newName);
-    this.$data.snackbarText = `ルーム名を「${newName}」に変更しました`;
-    this.$data.snackbar = true;
-  }
-
   get gameType() {
     return this.$store.state.gameType;
   }
 
   set gameType(newType) {
-    this.$store.dispatch("updateGameType", newType);
+    this.$store.commit("updateGameType", newType);
     this.$data.snackbarText = `ダイスボットを「${newType}」に変更しました`;
     this.$data.snackbar = true;
   }

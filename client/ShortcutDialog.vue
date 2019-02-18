@@ -59,12 +59,12 @@ export default class ShortcutDialog extends Vue {
   }
 
   add() {
-    this.$store.dispatch("addShortcut", this.$data.command);
+    this.$store.commit("addShortcut", this.$data.command);
     this.$data.command = "";
   }
 
   remove(command: string) {
-    this.$store.dispatch("removeShortcut", command);
+    this.$store.commit("removeShortcut", command);
   }
 
   get shortcuts() {

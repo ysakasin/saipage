@@ -101,12 +101,15 @@ export default class Tool extends Vue {
     };
   }
 
-  clearForm() {
-    this.$data.command = "";
+  mounted() {
+    fetchDicebotInfo(this.gameType).then(res => {
+      this.$data.system = res.name;
+      this.$data.systeminfo = res.info;
+    });
   }
 
-  get userName() {
-    return this.$store.state.userName;
+  clearForm() {
+    this.$data.command = "";
   }
 
   get gameType() {
@@ -141,7 +144,7 @@ export default class Tool extends Vue {
           return { face: d.faces, value: d.value };
         });
         const log: Log = {
-          userName: this.userName,
+          gameType: this.gameType,
           body: res.result,
           drawables: this.selectDiceResults(dices),
           timestamp: new Date()
@@ -151,7 +154,7 @@ export default class Tool extends Vue {
           this.clearForm();
         }
 
-        this.$store.dispatch("sendLog", log);
+        this.$store.commit("appendLogBuffer", log);
       })
       .catch(() => {
         this.$data.snackbar = true;

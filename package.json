@@ -8,11 +8,8 @@
     "webpack": "webpack --progress --hide-modules",
     "webpack-dev": "webpack-dev-server --open --hot --content-base public/",
     "webpack-watch": "webpack --watch",
-    "serv": "npm run server-dev",
-    "server-build": "tsc -p tsconfig.server.json",
-    "server-dev": "npm run server-build && node dist/index.js",
-    "lint": "eslint client/* server/* types/*",
-    "fmt": "eslint --fix client/* server/* types/*"
+    "lint": "eslint client/* types/*",
+    "fmt": "eslint --fix client/* types/*"
   },
   "author": "SAKATA Sinji",
   "license": "MIT",

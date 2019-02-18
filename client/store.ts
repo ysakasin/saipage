@@ -1,13 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
 
 Vue.use(Vuex);
 
+const defaultShotcuts = ["2D6", "2D6<=?", "1D100"];
+
 const state: State = {
-  roomId: "deadbeef",
-  roomName: "ロード中...",
-  userName: "ななし",
   gameType: "DiceBot",
   shortcuts: [],
   logs: [],
@@ -18,39 +16,27 @@ const state: State = {
     playSound: true,
     playDiceAnimation: true,
     showSystemInfo: true
-  },
-  disconnected: false,
-  needPassword: false,
-  password: ""
+  }
 };
 
 const store = new Vuex.Store({
   state,
   mutations: {
-    setRoomId(state, roomId) {
-      state.roomId = roomId;
-    },
-    updateRoomName(state, newName) {
-      state.roomName = newName;
-    },
-    changeUserName(state, newName) {
-      state.userName = newName;
-    },
     updateGameType(state, newType) {
       state.gameType = newType;
-    },
-    initShortcuts(state, shortcuts) {
-      state.shortcuts = shortcuts || [];
+      localStorage.setItem("gameType", newType);
     },
     addShortcut(state, shortcut) {
       if (state.shortcuts.indexOf(shortcut) == -1) {
         state.shortcuts.push(shortcut);
+        localStorage.setItem("shortcuts", JSON.stringify(state.shortcuts));
       }
     },
     removeShortcut(state, shortcut: string) {
       const newList = state.shortcuts.filter(i => i != shortcut);
       if (state.shortcuts != newList) {
         state.shortcuts = newList;
+        localStorage.setItem("shortcuts", JSON.stringify(state.shortcuts));
       }
     },
     appendLogBuffer(state, log: Log) {
@@ -66,11 +52,7 @@ const store = new Vuex.Store({
     },
     appendLog(state, log: Log) {
       state.logs.unshift(log);
-    },
-    initLog(state, logs: Log[]) {
-      if (logs) {
-        state.logs = logs.reverse();
-      }
+      localStorage.setItem("logs", JSON.stringify(state.logs));
     },
     nextAnimation(state) {
       state.logBuffer.shift();
@@ -96,6 +78,13 @@ const store = new Vuex.Store({
       state.settings.showSystemInfo = val;
       localStorage.setItem("settings", JSON.stringify(state.settings));
     },
+    loadGameType(state) {
+      const str = localStorage.getItem("gameType");
+      if (str == null) {
+        return;
+      }
+      state.gameType = str;
+    },
     loadSettings(state) {
       const str = localStorage.getItem("settings");
       if (str == null) {
@@ -113,55 +102,36 @@ const store = new Vuex.Store({
         state.settings.showSystemInfo = settings.showSystemInfo;
       }
     },
-    connected(state) {
-      state.disconnected = false;
+    loadLogs(state) {
+      const str = localStorage.getItem("logs");
+      if (str == null) {
+        return;
+      }
+
+      const logs = JSON.parse(str);
+      if (logs != null) {
+        state.logs = logs;
+      }
     },
-    disconnected(state) {
-      state.disconnected = true;
-    },
-    needPassword(state) {
-      state.needPassword = true;
-    },
-    updatePassword(state, password: string) {
-      state.password = password;
-      state.needPassword = false;
+    loadShortcuts(state) {
+      const str = localStorage.getItem("shortcuts");
+      if (str == null) {
+        state.shortcuts = defaultShotcuts;
+        return;
+      }
+
+      const shortcuts = JSON.parse(str);
+      if (shortcuts != null) {
+        state.shortcuts = shortcuts;
+      }
     }
   },
   actions: {
-    joinRoom(context, roomId: string) {
-      context.commit("setRoomId", roomId);
-      axios
-        .post("/api/v1/rooms/" + roomId, { password: context.state.password })
-        .then(res => {
-          context.commit("updateRoomName", res.data.roomName);
-          context.commit("updateGameType", res.data.gameType);
-          context.commit("initLog", res.data.logs);
-          context.commit("initShortcuts", res.data.shortcuts);
-          // socket.emit("join", { roomId, password: context.state.password });
-        })
-        .catch(error => {
-          if (error.response.status == 403) {
-            context.commit("needPassword");
-          }
-        });
-    },
-    sendLog(context, log: Log) {
-      context.commit("appendLogBuffer", log);
-      // socket.emit("log", log);
-    },
-    updateRoomName(context, roomName: string) {
-      // socket.emit("roomName", roomName);
-    },
-    updateGameType(context, gameType: string) {
-      // socket.emit("gameType", gameType);
-    },
-    addShortcut(context, shortcut: string) {
-      context.commit("addShortcut", shortcut);
-      // socket.emit("addShortcut", shortcut);
-    },
-    removeShortcut(context, shortcut: string) {
-      context.commit("removeShortcut", shortcut);
-      // socket.emit("removeShortcut", shortcut);
+    initialize(context) {
+      context.commit("loadGameType");
+      context.commit("loadSettings");
+      context.commit("loadLogs");
+      context.commit("loadShortcuts");
     }
   },
   getters: {

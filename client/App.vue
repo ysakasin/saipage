@@ -16,8 +16,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <DisconnectedDialog />
-    <PasswordDialog />
   </v-app>
 </template>
 
@@ -35,16 +33,12 @@ import DisconnectedDialog from "./DisconnectedDialog.vue";
     AppBar,
     Tool,
     Log,
-    DiceArea,
-    DisconnectedDialog
+    DiceArea
   }
 })
 export default class App extends Vue {
   mounted() {
-    this.$store.commit("loadSettings");
-  }
-
-  beforeDestroy() {
+    this.$store.dispatch("initialize");
   }
 }
 </script>

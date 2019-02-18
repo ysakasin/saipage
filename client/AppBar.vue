@@ -1,16 +1,15 @@
 <template>
   <div>
     <v-toolbar>
-      <v-icon>room</v-icon>
-      <v-toolbar-title>{{ roomName }}</v-toolbar-title>
+      <v-toolbar-title><small>どどんとふのダイスが手軽に使える</small>Saipage</v-toolbar-title>
       <v-spacer/>
       <v-btn
         flat
         large
-        class="hidden-xs-only"
+        class="hidden-xs-only game-type"
         @click="userNameDialog = true">
-        <v-icon class="nameicon">account_circle</v-icon>
-        <span>{{ userName }}</span>
+        <v-icon class="nameicon">book</v-icon>
+        <span>{{ gameType }}</span>
       </v-btn>
       <v-btn
         icon
@@ -38,19 +37,6 @@
         </v-btn>
         <span>設定</span>
       </v-tooltip>
-      <v-menu offset-y>
-        <v-btn
-          slot="activator"
-          icon >
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile
-            :to="'/'">
-            <v-list-tile-title>ルームから退出</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
     </v-toolbar>
     <Settings
       v-model="settings"
@@ -81,12 +67,8 @@ export default class AppBar extends Vue {
     };
   }
 
-  get userName() {
-    return this.$store.state.userName;
-  }
-
-  get roomName() {
-    return this.$store.state.roomName;
+  get gameType() {
+    return this.$store.state.gameType;
   }
 
   get playSound() {
@@ -104,5 +86,9 @@ export default class AppBar extends Vue {
 }
 .nameicon {
   padding-right: 8px;
+}
+
+.game-type {
+  text-transform: none;
 }
 </style>

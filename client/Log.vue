@@ -5,7 +5,7 @@
         <v-list-tile :key="i">
           <v-list-tile-content class="log">
             <v-list-tile-sub-title>
-              <span>{{ item.userName }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
+              <span>{{ item.gameType }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
             </v-list-tile-sub-title>
             <v-list-tile-title>{{ item.body }}</v-list-tile-title>
           </v-list-tile-content>

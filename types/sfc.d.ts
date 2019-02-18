@@ -9,16 +9,13 @@ declare interface Dice {
 }
 
 declare interface Log {
-  userName: string;
+  gameType: string;
   body: string;
   drawables: Dice[];
   timestamp: Date;
 }
 
 declare interface State {
-  roomId: string;
-  roomName: string;
-  userName: string;
   gameType: string;
   shortcuts: string[];
   logs: Log[];
@@ -30,9 +27,6 @@ declare interface State {
     playDiceAnimation: boolean;
     showSystemInfo: boolean;
   };
-  disconnected: boolean;
-  needPassword: boolean;
-  password: string;
 }
 
 declare module "*.mp3" {

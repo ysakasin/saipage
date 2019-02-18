@@ -16,17 +16,19 @@ interface DiceName {
   name: string;
 }
 
-export async function fetchDicebots() : Promise<DiceName[]> {
+export async function fetchDicebots(): Promise<DiceName[]> {
   const res = await axios.get(API_NAMES);
-  return res.data.names.map((x: NameRes) => {
-    return { gameType: x.system, name: x.name };
-  }).sort((a : DiceName, b: DiceName) => {
-    if (a.name > b.name) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });;
+  return res.data.names
+    .map((x: NameRes) => {
+      return { gameType: x.system, name: x.name };
+    })
+    .sort((a: DiceName, b: DiceName) => {
+      if (a.name > b.name) {
+        return 1;
+      } else {
+        return -1;
+      }
+    });
 }
 
 export async function diceRoll(gameType: string, cmd: string) {
