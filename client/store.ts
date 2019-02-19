@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import {fetchDicebotInfo} from "./dice";
 
 Vue.use(Vuex);
 
@@ -7,6 +8,8 @@ const defaultShotcuts = ["2D6", "2D6<=?", "1D100"];
 
 const state: State = {
   gameType: "DiceBot",
+  gameName: "",
+  gameInfo: "ロード中…",
   shortcuts: [],
   logs: [],
   logBuffer: [],
@@ -22,11 +25,17 @@ const state: State = {
 const store = new Vuex.Store({
   state,
   mutations: {
-    updateGameType(state, newType) {
-      state.gameType = newType;
-      localStorage.setItem("gameType", newType);
+    updateGameType(state, gameType : string) {
+      state.gameType = gameType;
+      localStorage.setItem("gameType", state.gameType);
     },
-    addShortcut(state, shortcut) {
+    updateGameName(state, gameName : string) {
+      state.gameName = gameName;
+    },
+    updateGameInfo(state, gameInfo : string) {
+      state.gameInfo = gameInfo;
+    },
+    addShortcut(state, shortcut : string) {
       if (state.shortcuts.indexOf(shortcut) == -1) {
         state.shortcuts.push(shortcut);
         localStorage.setItem("shortcuts", JSON.stringify(state.shortcuts));
@@ -128,10 +137,20 @@ const store = new Vuex.Store({
   },
   actions: {
     initialize(context) {
-      context.commit("loadGameType");
+      context.dispatch("loadGameType");
       context.commit("loadSettings");
       context.commit("loadLogs");
       context.commit("loadShortcuts");
+    },
+    loadGameType(context) {
+      context.commit("loadGameType");
+      context.dispatch("updateGameInfos", context.state.gameType);
+    },
+    updateGameInfos(context, gameType : string) {
+      fetchDicebotInfo(gameType).then(res => {
+        context.commit("updateGameName", res.name);
+        context.commit("updateGameInfo", res.info);
+      });
     }
   },
   getters: {

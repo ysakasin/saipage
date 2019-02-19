@@ -22,8 +22,8 @@
       @leave="leave">
       <div v-show="help">
         <v-card-text>
-          <div>{{ system }}</div>
-          <div class="sysinfo">{{ systeminfo }}</div>
+          <div>{{ gameName }}</div>
+          <div class="sysinfo">{{ gameInfo }}</div>
         </v-card-text>
         <v-divider />
       </div>
@@ -75,14 +75,6 @@ interface DiceA {
 @Component({
   components: {
     ShortcutDialog
-  },
-  watch: {
-    gameType(val: string) {
-      fetchDicebotInfo(val).then(res => {
-        this.$data.system = res.name;
-        this.$data.systeminfo = res.info;
-      });
-    }
   }
 })
 export default class Tool extends Vue {
@@ -95,17 +87,8 @@ export default class Tool extends Vue {
       command: "",
       help: false,
       edit: false,
-      system: "",
-      systeminfo: "",
       snackbar: false
     };
-  }
-
-  mounted() {
-    fetchDicebotInfo(this.gameType).then(res => {
-      this.$data.system = res.name;
-      this.$data.systeminfo = res.info;
-    });
   }
 
   clearForm() {
@@ -114,6 +97,14 @@ export default class Tool extends Vue {
 
   get gameType() {
     return this.$store.state.gameType;
+  }
+
+  get gameName() {
+    return this.$store.state.gameName;
+  }
+
+  get gameInfo() {
+    return this.$store.state.gameInfo;
   }
 
   get shortcuts() {

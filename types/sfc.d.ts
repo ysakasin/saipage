@@ -17,6 +17,8 @@ declare interface Log {
 
 declare interface State {
   gameType: string;
+  gameName: string;
+  gameInfo: string;
   shortcuts: string[];
   logs: Log[];
   logBuffer: Log[];

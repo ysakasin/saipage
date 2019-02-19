@@ -141,7 +141,7 @@ export default class Settings extends Vue {
   }
 
   set gameType(newType) {
-    this.$store.commit("updateGameType", newType);
+    this.$store.dispatch("updateGameType", newType);
     this.$data.snackbarText = `ダイスボットを「${newType}」に変更しました`;
     this.$data.snackbar = true;
   }
