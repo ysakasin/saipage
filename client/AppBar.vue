@@ -3,14 +3,16 @@
     <v-toolbar>
       <v-toolbar-title><small>どどんとふのダイスが手軽に使える</small>Saipage</v-toolbar-title>
       <v-spacer/>
-      <v-btn
-        flat
-        large
-        class="hidden-xs-only game-type"
-        @click="settings = true">
-        <v-icon class="nameicon">book</v-icon>
-        <span>{{ gameType }}</span>
-      </v-btn>
+      <v-select
+        v-model="gameType"
+        :menu-props="{ maxHeight: '400'}"
+        :items="diceBots"
+        class="game-type"
+        prepend-icon="book"
+        item-text="name"
+        item-value="gameType"
+        placeholder="ロード中……"
+      />
       <v-tooltip bottom>
         <v-btn
           slot="activator"
@@ -43,6 +45,14 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Settings from "./Settings.vue";
+import { fetchDicebots } from "./dice";
+
+interface DiceBotInfo {
+  name: string;
+  gameType: string;
+}
+
+const diceBots: DiceBotInfo[] = [];
 
 @Component({
   components: {
@@ -52,12 +62,27 @@ import Settings from "./Settings.vue";
 export default class AppBar extends Vue {
   data() {
     return {
-      settings: false
+      settings: false,
+      diceBots: diceBots
     };
+  }
+
+  mounted() {
+    if (this.$data.diceBots.length == 0) {
+      fetchDicebots().then(dicebots => {
+        this.$data.diceBots = dicebots;
+      });
+    }
   }
 
   get gameType() {
     return this.$store.state.gameType;
+  }
+
+  set gameType(newType) {
+    this.$store.dispatch("updateGameType", newType);
+    // this.$data.snackbarText = `ダイスボットを「${newType}」に変更しました`;
+    // this.$data.snackbar = true;
   }
 
   get playSound() {
@@ -78,6 +103,11 @@ export default class AppBar extends Vue {
 }
 
 .game-type {
-  text-transform: none;
+  max-width: 270px !important;
+  padding-top: 16px;
+  padding-right: 15px;
+  .v-icon {
+    color: #000 !important;
+  }
 }
 </style>

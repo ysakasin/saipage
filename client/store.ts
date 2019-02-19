@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {fetchDicebotInfo} from "./dice";
+import { fetchDicebotInfo } from "./dice";
 
 Vue.use(Vuex);
 
@@ -25,17 +25,17 @@ const state: State = {
 const store = new Vuex.Store({
   state,
   mutations: {
-    updateGameType(state, gameType : string) {
+    updateGameType(state, gameType: string) {
       state.gameType = gameType;
       localStorage.setItem("gameType", state.gameType);
     },
-    updateGameName(state, gameName : string) {
+    updateGameName(state, gameName: string) {
       state.gameName = gameName;
     },
-    updateGameInfo(state, gameInfo : string) {
+    updateGameInfo(state, gameInfo: string) {
       state.gameInfo = gameInfo;
     },
-    addShortcut(state, shortcut : string) {
+    addShortcut(state, shortcut: string) {
       if (state.shortcuts.indexOf(shortcut) == -1) {
         state.shortcuts.push(shortcut);
         localStorage.setItem("shortcuts", JSON.stringify(state.shortcuts));
@@ -146,7 +146,11 @@ const store = new Vuex.Store({
       context.commit("loadGameType");
       context.dispatch("updateGameInfos", context.state.gameType);
     },
-    updateGameInfos(context, gameType : string) {
+    updateGameType(context, gameType: string) {
+      context.commit("updateGameType", gameType);
+      context.dispatch("updateGameInfos", gameType);
+    },
+    updateGameInfos(context, gameType: string) {
       context.commit("updateGameType", gameType);
       fetchDicebotInfo(gameType).then(res => {
         context.commit("updateGameName", res.name);
