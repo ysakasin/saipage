@@ -7,19 +7,14 @@
         flat
         large
         class="hidden-xs-only game-type"
-        @click="userNameDialog = true">
+        @click="settings = true">
         <v-icon class="nameicon">book</v-icon>
         <span>{{ gameType }}</span>
-      </v-btn>
-      <v-btn
-        icon
-        class="hidden-sm-and-up"
-        @click="userNameDialog = true">
-        <v-icon>account_circle</v-icon>
       </v-btn>
       <v-tooltip bottom>
         <v-btn
           slot="activator"
+          class="hidden-xs-only"
           icon
           @click.stop="playSound = !playSound">
           <v-icon v-if="playSound">volume_up</v-icon>
@@ -41,9 +36,6 @@
     <Settings
       v-model="settings"
     />
-    <UserNameDialog
-      v-model="userNameDialog"
-      @close="userNameDialog = false" />
   </div>
 </template>
 
@@ -51,19 +43,16 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Settings from "./Settings.vue";
-import UserNameDialog from "./UserNameDialog.vue";
 
 @Component({
   components: {
-    Settings,
-    UserNameDialog
+    Settings
   }
 })
 export default class AppBar extends Vue {
   data() {
     return {
-      settings: false,
-      userNameDialog: false
+      settings: false
     };
   }
 
