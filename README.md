@@ -1,17 +1,16 @@
 # Saipage
 
-A TRPG session tool
+A diceroll tool for TRPG
 
 
 ## Demonstration
 
-https://saibox.sakasin.net/
+https://ysakasin.github.io/saipage/
 
 
-## Requires
+## Build Requires
 
-- Node (>= 8)
-- MongoDB
+- Node (^10.0.0)
 
 
 ## Build
@@ -20,26 +19,15 @@ https://saibox.sakasin.net/
 # install dependencies
 npm install
 
-# build client and start web server
-npm run start
+# build client
+npm build
 ```
 
-## Configure
+## Run dev-server
 
-Saibox are configured by environment variables.
-
-### `PORT`
-
-Port of web server
-
-default: `8080`
-
-### `MONGO_URI`
-
-URI of connecting mongodb
-
-default: `mongodb://localhost:27017`
-
+```
+npm start
+```
 
 ## LICENSE
 

@@ -1,7 +1,7 @@
 {
   "name": "saipage",
   "version": "0.0.0",
-  "description": "A TRPG session tool",
+  "description": "A diceroll tool for TRPG",
   "scripts": {
     "start": "webpack-dev-server --open --hot --content-base public/",
     "test": "echo \"Error: no test specified\" && exit 1",
