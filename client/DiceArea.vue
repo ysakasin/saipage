@@ -97,6 +97,7 @@ export default class DiceArea extends Vue {
     if (audio != null) {
       audio.pause();
       audio.currentTime = 0.15;
+      audio.volume = this.$store.state.settings.soundVolume;
       audio.play();
     }
   }
@@ -141,6 +142,10 @@ export default class DiceArea extends Vue {
 
   get isActive(): boolean {
     return this.$store.state.activeAnimation;
+  }
+
+  get soundVolume(): number {
+    return this.$store.state.settings.soundVolume;
   }
 }
 </script>

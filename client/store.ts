@@ -24,7 +24,8 @@ const state: State = {
   settings: {
     playSound: true,
     playDiceAnimation: true,
-    showSystemInfo: true
+    showSystemInfo: true,
+    soundVolume: 0.5
   }
 };
 
@@ -93,6 +94,10 @@ const store = new Vuex.Store({
       state.settings.showSystemInfo = val;
       localStorage.setItem("settings", JSON.stringify(state.settings));
     },
+    updateSoundVolumeSetting(state, val: number) {
+      state.settings.soundVolume = val;
+      localStorage.setItem("settings", JSON.stringify(state.settings));
+    },
     loadGameType(state) {
       const str = localStorage.getItem("gameType");
       if (str == null) {
@@ -115,6 +120,9 @@ const store = new Vuex.Store({
       }
       if (settings.showSystemInfo != null) {
         state.settings.showSystemInfo = settings.showSystemInfo;
+      }
+      if (settings.soundVolume != null) {
+        state.settings.soundVolume = settings.soundVolume;
       }
     },
     loadLogs(state) {

@@ -29,6 +29,7 @@ declare interface State {
     playSound: boolean;
     playDiceAnimation: boolean;
     showSystemInfo: boolean;
+    soundVolume: number;
   };
 }
 

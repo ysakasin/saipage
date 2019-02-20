@@ -73,6 +73,16 @@
               <v-list-tile-sub-title>ダイスコマンド入力時にヘルプを表示する</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-list-tile>
+            <span class="setting-title">音量</span>
+            <v-slider
+              v-model="volume"
+              class="volume"
+              max="10"
+              append-icon="volume_up"
+              prepend-icon="volume_down"
+            />
+          </v-list-tile>
         </v-list>
       </v-card-text>
       <div style="flex: 1 1 auto;"/>
@@ -184,5 +194,24 @@ export default class Settings extends Vue {
   set showSystemInfo(val: boolean) {
     this.$store.commit("updateSystemInfoSetting", val);
   }
+
+  get volume() {
+    return this.$store.state.settings.soundVolume * 10;
+  }
+
+  set volume(val: number) {
+    const newVolume = val / 10;
+    this.$store.commit("updateSoundVolumeSetting", newVolume);
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.volume {
+  max-width: 400px;
+}
+
+.setting-title {
+  padding-right: 1rem;
+}
+</style>
