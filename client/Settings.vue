@@ -88,10 +88,10 @@
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text>
           <div class="headline">Saipage {{ version }}</div>
+          <!-- eslint-disable-next-line no-irregular-whitespace -->
           <p>Created by <a href="https://twitter.com/ysakasin">酒田　シンジ</a></p>
 
           <p>ご要望やバグ報告は<a href="https://github.com/ysakasin/saipage/issues">Github issue</a>または<a href="https://twitter.com/ysakasin">Twitter</a>までお寄せください</p>
-              </div>
         </v-card-text>
       </v-card-text>
       <div style="flex: 1 1 auto;"/>

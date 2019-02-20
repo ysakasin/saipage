@@ -21,7 +21,7 @@ interface DiceName {
   name: string;
 }
 
-export function setBcdiceURL(url: string) {
+export function setBcdiceURL(url: string): void {
   bcdiceURL = url;
   api_names = bcdiceURL + PATH_NAMES;
   api_diceroll = bcdiceURL + PATH_DICEROLL;
@@ -47,13 +47,13 @@ export async function fetchDicebots(): Promise<DiceName[]> {
     });
 }
 
-export async function diceRoll(gameType: string, cmd: string) {
+export async function diceRoll(gameType: string, cmd: string): Promise<any> {
   const query = querystring.stringify({ system: gameType, command: cmd });
   const res = await axios.get(api_diceroll + query);
   return res.data;
 }
 
-export async function fetchDicebotInfo(gameType: string) {
+export async function fetchDicebotInfo(gameType: string): Promise<any> {
   const query = querystring.stringify({ system: gameType });
   const res = await axios.get(api_systeminfo + query);
   return res.data.systeminfo;

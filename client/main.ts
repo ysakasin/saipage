@@ -2,9 +2,7 @@ import Vue from "vue";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
 import Vuex from "vuex";
-
-const App = () => import("./App.vue").then(m => m.default);
-
+import App from "./App.vue";
 import store from "./store";
 
 Vue.use(Vuetify);

@@ -67,11 +67,6 @@ import { diceRoll, fetchDicebotInfo } from "./dice";
 
 import ShortcutDialog from "./ShortcutDialog.vue";
 
-interface DiceA {
-  faces: string;
-  value: number;
-}
-
 @Component({
   components: {
     ShortcutDialog
@@ -132,7 +127,7 @@ export default class Tool extends Vue {
   dicerollByText(text: string, clear: boolean = false) {
     diceRoll(this.gameType, text)
       .then(res => {
-        const dices = res.dices.map((d:  DiceA) => {
+        const dices = res.dices.map((d: any) => {
           return { face: d.faces, value: d.value };
         });
         const log: Log = {
