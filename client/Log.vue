@@ -1,6 +1,13 @@
 <template>
   <v-card>
     <v-list>
+      <v-list-tile v-if="logs.length == 0">
+        <v-list-tile-content class="log">
+          <v-list-tile-sub-title>
+            ダイスログはまだありません
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
       <template v-for="(item, i) in logs">
         <v-list-tile :key="i">
           <v-list-tile-content class="log">
