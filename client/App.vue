@@ -44,6 +44,7 @@ import DisconnectedDialog from "./DisconnectedDialog.vue";
 export default class App extends Vue {
   mounted() {
     this.$store.dispatch("initialize");
+    this.$ga.page("/");
   }
 }
 </script>
