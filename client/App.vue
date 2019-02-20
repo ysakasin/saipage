@@ -14,6 +14,9 @@
         <v-flex xs12>
           <Log />
         </v-flex>
+        <v-flex xs12>
+          <Tips />
+        </v-flex>
       </v-layout>
     </v-container>
   </v-app>
@@ -26,6 +29,7 @@ import Component from "vue-class-component";
 import AppBar from "./AppBar.vue";
 import Log from "./Log.vue";
 import Tool from "./Tool.vue";
+import Tips from "./Tips.vue";
 import DiceArea from "./DiceArea.vue";
 import DisconnectedDialog from "./DisconnectedDialog.vue";
 @Component({
@@ -33,7 +37,8 @@ import DisconnectedDialog from "./DisconnectedDialog.vue";
     AppBar,
     Tool,
     Log,
-    DiceArea
+    DiceArea,
+    Tips
   }
 })
 export default class App extends Vue {
