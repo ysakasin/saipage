@@ -1,6 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { fetchDicebotInfo } from "./dice";
+import {
+  DEFAULT_URL,
+  fetchDicebotInfo,
+  setBcdiceURL,
+  getBcdiceURL
+} from "./dice";
 
 Vue.use(Vuex);
 
@@ -10,6 +15,7 @@ const state: State = {
   gameType: "DiceBot",
   gameName: "",
   gameInfo: "ロード中…",
+  apiURL: "",
   shortcuts: [],
   logs: [],
   logBuffer: [],
@@ -133,14 +139,24 @@ const store = new Vuex.Store({
       if (shortcuts != null) {
         state.shortcuts = shortcuts;
       }
+    },
+    updateApiURL(state, url: string) {
+      setBcdiceURL(url);
+      localStorage.setItem("apiURL", url);
+      state.apiURL = url;
     }
   },
   actions: {
     initialize(context) {
+      context.dispatch("loadApiURL");
       context.dispatch("loadGameType");
       context.commit("loadSettings");
       context.commit("loadLogs");
       context.commit("loadShortcuts");
+    },
+    loadApiURL(context) {
+      const str = localStorage.getItem("apiURL") || DEFAULT_URL;
+      context.commit("updateApiURL", str);
     },
     loadGameType(context) {
       context.commit("loadGameType");

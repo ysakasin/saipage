@@ -32,6 +32,15 @@
               item-value="gameType"
             />
           </v-list-tile>
+          <v-list-tile avatar>
+            <v-text-field
+              :value="apiURL"
+              label="BCDice-APIのURL"
+              append-icon="restore"
+              @change="v => apiURL = v"
+              @click:append="resetApiURL"
+            />
+          </v-list-tile>
         </v-list>
         <v-divider/>
         <v-list
@@ -94,7 +103,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { fetchDicebots } from "./dice";
+import { DEFAULT_URL, fetchDicebots } from "./dice";
 
 interface DiceBotInfo {
   name: string;
@@ -134,6 +143,22 @@ export default class Settings extends Vue {
         this.$data.diceBots = dicebots;
       });
     }
+  }
+
+  resetApiURL() {
+    this.$store.commit("updateApiURL", DEFAULT_URL);
+    this.$data.snackbarText = `APIをデフォルト設定に戻しました`;
+    this.$data.snackbar = true;
+  }
+
+  get apiURL() {
+    return this.$store.state.apiURL;
+  }
+
+  set apiURL(newURL: string) {
+    this.$store.commit("updateApiURL", newURL);
+    this.$data.snackbarText = `変更しました`;
+    this.$data.snackbar = true;
   }
 
   get gameType() {

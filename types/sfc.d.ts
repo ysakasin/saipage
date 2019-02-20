@@ -19,6 +19,7 @@ declare interface State {
   gameType: string;
   gameName: string;
   gameInfo: string;
+  apiURL: string;
   shortcuts: string[];
   logs: Log[];
   logBuffer: Log[];
