@@ -4,7 +4,7 @@ import {
   DEFAULT_URL,
   fetchDicebotInfo,
   setBcdiceURL,
-  getBcdiceURL
+  fetchDicebots
 } from "./dice";
 
 Vue.use(Vuex);
@@ -16,6 +16,7 @@ const state: State = {
   gameName: "",
   gameInfo: "ロード中…",
   apiURL: "",
+  diceBots: [],
   shortcuts: [],
   logs: [],
   logBuffer: [],
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
     },
     updateGameInfo(state, gameInfo: string) {
       state.gameInfo = gameInfo;
+    },
+    updateDiceBots(state, diceBots: DiceBotInfo[]) {
+      state.diceBots = diceBots;
     },
     addShortcut(state, shortcut: string) {
       if (state.shortcuts.indexOf(shortcut) == -1) {
@@ -173,10 +177,20 @@ const store = new Vuex.Store({
     loadApiURL(context) {
       const str = localStorage.getItem("apiURL") || DEFAULT_URL;
       context.commit("updateApiURL", str);
+      context.dispatch("loadDiceBots");
     },
     loadGameType(context) {
       context.commit("loadGameType");
       context.dispatch("updateGameInfos", context.state.gameType);
+    },
+    loadDiceBots(context) {
+      fetchDicebots().then(dicebots => {
+        context.commit("updateDiceBots", dicebots);
+      });
+    },
+    updateApiURL(context, url: string) {
+      context.commit("updateApiURL", url);
+      context.dispatch("loadDiceBots");
     },
     updateGameType(context, gameType: string) {
       context.commit("updateGameType", gameType);

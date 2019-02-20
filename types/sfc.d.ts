@@ -15,11 +15,17 @@ declare interface Log {
   timestamp: Date;
 }
 
+declare interface DiceBotInfo {
+  name: string;
+  gameType: string;
+}
+
 declare interface State {
   gameType: string;
   gameName: string;
   gameInfo: string;
   apiURL: string;
+  diceBots: DiceBotInfo[];
   shortcuts: string[];
   logs: Log[];
   logBuffer: Log[];

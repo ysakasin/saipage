@@ -126,15 +126,8 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { DEFAULT_URL, fetchDicebots } from "./dice";
+import { DEFAULT_URL } from "./dice";
 import * as saipage from "../package.json";
-
-interface DiceBotInfo {
-  name: string;
-  gameType: string;
-}
-
-const diceBots: DiceBotInfo[] = [];
 
 @Component({
   props: {
@@ -155,24 +148,19 @@ export default class Settings extends Vue {
   data() {
     return {
       isActive: false,
-      diceBots: diceBots,
       snackbar: false,
       snackbarText: ""
     };
   }
 
-  mounted() {
-    if (this.$data.diceBots.length == 0) {
-      fetchDicebots().then(dicebots => {
-        this.$data.diceBots = dicebots;
-      });
-    }
-  }
-
   resetApiURL() {
-    this.$store.commit("updateApiURL", DEFAULT_URL);
+    this.$store.dispatch("updateApiURL", DEFAULT_URL);
     this.$data.snackbarText = `APIをデフォルト設定に戻しました`;
     this.$data.snackbar = true;
+  }
+
+  get diceBots() {
+    return this.$store.state.diceBots;
   }
 
   get version() {
@@ -184,7 +172,7 @@ export default class Settings extends Vue {
   }
 
   set apiURL(newURL: string) {
-    this.$store.commit("updateApiURL", newURL);
+    this.$store.dispatch("updateApiURL", newURL);
     this.$data.snackbarText = `変更しました`;
     this.$data.snackbar = true;
   }

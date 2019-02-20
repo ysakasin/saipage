@@ -47,14 +47,11 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import Settings from "./Settings.vue";
-import { fetchDicebots } from "./dice";
 
 interface DiceBotInfo {
   name: string;
   gameType: string;
 }
-
-const diceBots: DiceBotInfo[] = [];
 
 @Component({
   components: {
@@ -64,17 +61,12 @@ const diceBots: DiceBotInfo[] = [];
 export default class AppBar extends Vue {
   data() {
     return {
-      settings: false,
-      diceBots: diceBots
+      settings: false
     };
   }
 
-  mounted() {
-    if (this.$data.diceBots.length == 0) {
-      fetchDicebots().then(dicebots => {
-        this.$data.diceBots = dicebots;
-      });
-    }
+  get diceBots() {
+    return this.$store.state.diceBots;
   }
 
   get gameType() {
