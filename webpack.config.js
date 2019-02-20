@@ -8,7 +8,7 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   output: {
     path: path.resolve(__dirname, './public/assets'),
-    publicPath: '/assets/',
+    publicPath: './assets/',
     filename: 'build.js'
   },
   module: {

@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "description": "A TRPG session tool",
   "scripts": {
-    "start": "npm run webpack-dev",
+    "start": "webpack-dev-server --open --hot --content-base public/",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --progress --hide-modules",
-    "webpack-dev": "webpack-dev-server --open --hot --content-base public/",
-    "webpack-watch": "webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "clean": "rm public/assets/*",
+    "deploy": "gh-pages -d public",
     "lint": "eslint client/* types/*",
     "fmt": "eslint --fix client/* types/*"
   },
@@ -16,6 +16,7 @@
   "dependencies": {
     "@types/query-string": "^6.2.0",
     "axios": "^0.18.0",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "node-sass": "^4.9.0",
@@ -42,6 +43,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-typescript": "^0.12.0",
     "eslint-plugin-vue": "^4.5.0",
+    "gh-pages": "^2.0.1",
     "prettier": "1.12.1",
     "typescript-eslint-parser": "^17.0.1",
     "vue-eslint-parser": "^2.0.3",
