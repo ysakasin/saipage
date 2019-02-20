@@ -22,7 +22,6 @@
         <v-list
           three-line
           subheader>
-          <v-subheader>ルーム設定</v-subheader>
           <v-list-tile avatar>
             <v-select
               v-model="gameType"
@@ -41,12 +40,6 @@
               @click:append="resetApiURL"
             />
           </v-list-tile>
-        </v-list>
-        <v-divider/>
-        <v-list
-          three-line
-          subheader>
-          <v-subheader>ユーザー設定</v-subheader>
           <v-list-tile avatar>
             <v-list-tile-action>
               <v-switch
