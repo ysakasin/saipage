@@ -39,7 +39,7 @@ export default class Dice extends Vue {
 <style lang="scss" scoped>
 .dice-container {
   display: inline-block;
-  z-index: 1000;
+  z-index: 200;
   &.active {
     animation: rightmove 0.8s linear;
   }
@@ -49,7 +49,7 @@ export default class Dice extends Vue {
   width: 100px;
   height: 100px;
   position: relative;
-  z-index: 1000;
+  z-index: 200;
 }
 
 .dice-4 {

@@ -154,7 +154,7 @@ export default class DiceArea extends Vue {
 .dice-area {
   position: absolute;
   top: 0;
-  z-index: 1000;
+  z-index: 200;
 }
 
 .result {
