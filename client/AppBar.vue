@@ -1,13 +1,15 @@
 <template>
   <div>
     <v-toolbar>
-      <v-toolbar-title><small>どどんとふのダイスが手軽に使える</small>Saipage</v-toolbar-title>
+      <v-toolbar-title>
+        <small class="hidden-xs-only">どどんとふのダイスが手軽に使える</small>Saipage
+      </v-toolbar-title>
       <v-spacer/>
       <v-select
         v-model="gameType"
         :menu-props="{ maxHeight: '400'}"
         :items="diceBots"
-        class="game-type"
+        class="hidden-xs-only game-type"
         prepend-icon="book"
         item-text="name"
         item-value="gameType"

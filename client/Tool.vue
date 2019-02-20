@@ -21,9 +21,9 @@
       @before-leave="beforeLeave"
       @leave="leave">
       <div v-show="help">
-        <v-card-text>
+        <v-card-text class="sysinfo">
           <div>{{ gameName }}</div>
-          <div class="sysinfo">{{ gameInfo }}</div>
+          <span v-html="gameInfo"/>
         </v-card-text>
         <v-divider />
       </div>
@@ -100,7 +100,7 @@ export default class Tool extends Vue {
   }
 
   get gameInfo() {
-    return this.$store.state.gameInfo;
+    return this.$store.state.gameInfo.replace(/\n/, "<br />");
   }
 
   get shortcuts() {
@@ -205,8 +205,5 @@ interface Result {
 .v-leave-active {
   transition: all 0.25s;
   overflow: hidden;
-}
-.sysinfo {
-  white-space: pre;
 }
 </style>
