@@ -1,24 +1,18 @@
 <template>
-  <v-card>
-    <v-list>
-      <v-list-tile v-if="logs.length == 0">
-        <v-list-tile-content class="log">
-          <v-list-tile-sub-title>
-            ダイスログはまだありません
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <template v-for="(item, i) in logs">
-        <v-list-tile :key="i">
-          <v-list-tile-content class="log">
-            <v-list-tile-sub-title>
-              <span>{{ item.gameType }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
-            </v-list-tile-sub-title>
-            <v-list-tile-title>{{ item.body }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </template>
-    </v-list>
+  <v-card class="log-area">
+    <v-card-text class="log" v-if="logs.length == 0">
+      <div class="meta">
+        ダイスログはまだありません
+      </div>
+    </v-card-text>
+    <template v-for="(item, i) in logs">
+      <v-card-text class="log" :key="i">
+        <div class="meta">
+          <span>{{ item.gameType }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
+        </div>
+        <div class="subheading">{{ item.body }}</div>
+      </v-card-text>
+    </template>
   </v-card>
 </template>
 
@@ -57,12 +51,25 @@ export default class Log extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.log-area{
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+}
+
 .log {
-  user-select: text;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+  .meta {
+    line-height: 1.4;
+    font-size: 14px;
+    color: rgba(0,0,0,.54);
+  }
   .timestamp::before {
     content: "・";
+  }
+  .subheading {
+    word-wrap: break-word;
+    line-height: 1.2;
   }
 }
 </style>
