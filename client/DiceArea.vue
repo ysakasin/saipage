@@ -62,9 +62,9 @@ export default class DiceArea extends Vue {
     }
     this.play();
     const target = this.$store.state.logBuffer[0];
-    this.$data.draw = true;
-    this.$data.target = target;
     if (target.drawables.length > 0) {
+      this.$data.draw = true;
+      this.$data.target = target;
       this.$store.commit("activateAnimation");
       setTimeout(this.deactivateAnimation, 900);
     } else {
@@ -148,7 +148,7 @@ export default class DiceArea extends Vue {
 <style lang="scss" scoped>
 .dice-area {
   position: absolute;
-  top: 100px;
+  top: 0;
   z-index: 1000;
 }
 
