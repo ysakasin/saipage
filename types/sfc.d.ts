@@ -38,7 +38,7 @@ declare module "*.mp3" {
   export = content;
 }
 
-declare module '*.json' {
+declare module "*.json" {
   const value: any;
   export = value;
 }

@@ -48,7 +48,7 @@
       :timeout="4000"
       color="error"
       top>
-      ダイスコマンドを実行できませんでした
+      {{ errorMsg }}
       <v-btn
         dark
         flat
@@ -87,7 +87,8 @@ export default class Tool extends Vue {
       command: "",
       help: false,
       edit: false,
-      snackbar: false
+      snackbar: false,
+      errorMsg: ""
     };
   }
 
@@ -131,7 +132,7 @@ export default class Tool extends Vue {
   dicerollByText(text: string, clear: boolean = false) {
     diceRoll(this.gameType, text)
       .then(res => {
-        const dices = res.dices.map((d: DiceA) => {
+        const dices = res.dices.map((d:  DiceA) => {
           return { face: d.faces, value: d.value };
         });
         const log: Log = {
@@ -147,7 +148,12 @@ export default class Tool extends Vue {
 
         this.$store.commit("appendLogBuffer", log);
       })
-      .catch(() => {
+      .catch(error => {
+        if (error.response) {
+          this.$data.errorMsg = "ダイスコマンドを実行できませんでした";
+        } else {
+          this.$data.errorMsg = "APIサーバーに接続できませんでした";
+        }
         this.$data.snackbar = true;
       });
   }
