@@ -25,6 +25,7 @@ const state: State = {
     playSound: true,
     playDiceAnimation: true,
     showSystemInfo: true,
+    showTips: true,
     soundVolume: 0.5
   }
 };
@@ -94,6 +95,10 @@ const store = new Vuex.Store({
       state.settings.showSystemInfo = val;
       localStorage.setItem("settings", JSON.stringify(state.settings));
     },
+    updateTipsSetting(state, val: boolean) {
+      state.settings.showTips = val;
+      localStorage.setItem("settings", JSON.stringify(state.settings));
+    },
     updateSoundVolumeSetting(state, val: number) {
       state.settings.soundVolume = val;
       localStorage.setItem("settings", JSON.stringify(state.settings));
@@ -120,6 +125,9 @@ const store = new Vuex.Store({
       }
       if (settings.showSystemInfo != null) {
         state.settings.showSystemInfo = settings.showSystemInfo;
+      }
+      if (settings.showTips != null) {
+        state.settings.showTips = settings.showTips;
       }
       if (settings.soundVolume != null) {
         state.settings.soundVolume = settings.soundVolume;

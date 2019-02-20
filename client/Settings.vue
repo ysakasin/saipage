@@ -73,6 +73,17 @@
               <v-list-tile-sub-title>ダイスコマンド入力時にヘルプを表示する</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
+          <v-list-tile avatar>
+            <v-list-tile-action>
+              <v-switch
+                v-model="showTips"
+                color="primary" />
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Tips表示</v-list-tile-title>
+              <v-list-tile-sub-title>SaipageのTipsを表示する</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
           <v-list-tile>
             <span class="setting-title">音量</span>
             <v-slider
@@ -207,6 +218,13 @@ export default class Settings extends Vue {
   }
   set showSystemInfo(val: boolean) {
     this.$store.commit("updateSystemInfoSetting", val);
+  }
+
+  get showTips() {
+    return this.$store.state.settings.showTips;
+  }
+  set showTips(val: boolean) {
+    this.$store.commit("updateTipsSetting", val);
   }
 
   get volume() {

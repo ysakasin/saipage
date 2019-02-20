@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-show="showTips">
     <v-card-title>
       <h3 class="headline">Tips</h3>
     </v-card-title>
@@ -19,3 +19,15 @@
     </v-card-text>
   </v-card>
 </template>
+
+<script lang="ts">
+import Vue from "vue";
+import Component from "vue-class-component";
+
+@Component
+export default class Tool extends Vue {
+  get showTips() {
+    return this.$store.state.settings.showTips;
+  }
+}
+</script>
