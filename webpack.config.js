@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 var VueLoaderPlugin = require('vue-loader/lib/plugin')
+var VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 var isProduction = process.env.NODE_ENV === 'production'
 
@@ -14,7 +15,8 @@ module.exports = {
     filename: 'build.js'
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new VuetifyLoaderPlugin()
   ],
   module: {
     rules: [
@@ -40,6 +42,14 @@ module.exports = {
         use: [
           'vue-style-loader',
           'css-loader',
+        ]
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'stylus-loader'
         ]
       },
       {
