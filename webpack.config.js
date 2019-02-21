@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
+var VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 var isProduction = process.env.NODE_ENV === 'production'
 
 module.exports = {
@@ -11,6 +13,9 @@ module.exports = {
     publicPath: isProduction ? './assets/' : '/assets/',
     filename: 'build.js'
   },
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   module: {
     rules: [
       {
@@ -25,14 +30,15 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          'style-loader',
+          'vue-style-loader',
           'css-loader',
+          'sass-loader',
         ]
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          'vue-style-loader',
           'css-loader',
         ]
       },
@@ -59,18 +65,6 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          'scss': [
-            'vue-style-loader',
-            'css-loader',
-            'sass-loader'
-          ],
-          'sass': [
-            'vue-style-loader',
-            'css-loader',
-            'sass-loader?indentedSyntax'
-          ]
-        }
       }
     ]
   },
