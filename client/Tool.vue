@@ -132,6 +132,7 @@ export default class Tool extends Vue {
         });
         const log: Log = {
           gameType: this.gameType,
+          command: text,
           body: res.result,
           drawables: this.selectDiceResults(dices),
           timestamp: new Date()

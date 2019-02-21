@@ -1,16 +1,20 @@
 <template>
   <v-card class="log-area">
-    <v-card-text class="log" v-if="logs.length == 0">
+    <v-card-text
+      v-if="logs.length == 0"
+      class="log">
       <div class="meta">
         ダイスログはまだありません
       </div>
     </v-card-text>
     <template v-for="(item, i) in logs">
-      <v-card-text class="log" :key="i">
+      <v-card-text
+        :key="i"
+        class="log">
         <div class="meta">
           <span>{{ item.gameType }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
         </div>
-        <div class="subheading">{{ item.body }}</div>
+        <div class="subheading">{{ item.command }} {{ item.body }}</div>
       </v-card-text>
     </template>
   </v-card>
@@ -51,7 +55,7 @@ export default class Log extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.log-area{
+.log-area {
   padding-top: 0.7rem;
   padding-bottom: 0.7rem;
 }
@@ -62,7 +66,7 @@ export default class Log extends Vue {
   .meta {
     line-height: 1.4;
     font-size: 14px;
-    color: rgba(0,0,0,.54);
+    color: rgba(0, 0, 0, 0.54);
   }
   .timestamp::before {
     content: "・";

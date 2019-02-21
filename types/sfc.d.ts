@@ -10,6 +10,7 @@ declare interface Dice {
 
 declare interface Log {
   gameType: string;
+  command: string;
   body: string;
   drawables: Dice[];
   timestamp: Date;
