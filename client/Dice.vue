@@ -1,11 +1,10 @@
 <template>
-  <div
-    :class="{active: isActive}"
-    class="dice-container">
+  <div :class="{ active: isActive }" class="dice-container">
     <div
-      :class="[diceClass, valueClass, {active: isActive}]"
+      :class="[diceClass, valueClass, { active: isActive }]"
+      @click="hide()"
       class="dice"
-      @click="hide()"/>
+    />
   </div>
 </template>
 

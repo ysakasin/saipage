@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable no-irregular-whitespace -->
   <v-dialog
     v-model="isActive"
     :overlay="false"
@@ -7,21 +8,14 @@
     transition="dialog-bottom-transition"
   >
     <v-card tile>
-      <v-toolbar
-        card
-        dark>
-        <v-btn
-          icon
-          dark
-          @click.native="isActive = false">
+      <v-toolbar card dark>
+        <v-btn @click.native="isActive = false" icon dark>
           <v-icon>close</v-icon>
         </v-btn>
         <v-toolbar-title>設定</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-list
-          three-line
-          subheader>
+        <v-list three-line subheader>
           <v-list-tile avatar>
             <v-select
               v-model="gameType"
@@ -34,54 +28,54 @@
           <v-list-tile avatar>
             <v-text-field
               :value="apiURL"
+              @change="v => (apiURL = v)"
+              @click:append="resetApiURL"
               label="BCDice-APIのURL"
               append-icon="restore"
-              @change="v => apiURL = v"
-              @click:append="resetApiURL"
             />
           </v-list-tile>
           <v-list-tile avatar>
             <v-list-tile-action>
-              <v-switch
-                v-model="playDiceAnimation"
-                color="primary" />
+              <v-switch v-model="playDiceAnimation" color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>ダイスロールアニメーション</v-list-tile-title>
-              <v-list-tile-sub-title>ダイスロール時のアニメーションを表示する</v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                >ダイスロール時のアニメーションを表示する</v-list-tile-sub-title
+              >
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile avatar>
             <v-list-tile-action>
-              <v-switch
-                v-model="playSound"
-                color="primary" />
+              <v-switch v-model="playSound" color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>効果音</v-list-tile-title>
-              <v-list-tile-sub-title>ダイスロール時に効果音を鳴らす</v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                >ダイスロール時に効果音を鳴らす</v-list-tile-sub-title
+              >
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile avatar>
             <v-list-tile-action>
-              <v-switch
-                v-model="showSystemInfo"
-                color="primary" />
+              <v-switch v-model="showSystemInfo" color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>ヘルプ表示</v-list-tile-title>
-              <v-list-tile-sub-title>ダイスコマンド入力時にヘルプを表示する</v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                >ダイスコマンド入力時にヘルプを表示する</v-list-tile-sub-title
+              >
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile avatar>
             <v-list-tile-action>
-              <v-switch
-                v-model="showTips"
-                color="primary" />
+              <v-switch v-model="showTips" color="primary" />
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>Tips表示</v-list-tile-title>
-              <v-list-tile-sub-title>SaipageのTipsを表示する</v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                >SaipageのTipsを表示する</v-list-tile-sub-title
+              >
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
@@ -95,28 +89,28 @@
             />
           </v-list-tile>
         </v-list>
-        <v-divider/>
+        <v-divider />
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text>
           <div class="headline">Saipage {{ version }}</div>
-          <!-- eslint-disable-next-line no-irregular-whitespace -->
-          <p>Created by <a href="https://twitter.com/ysakasin">酒田　シンジ</a></p>
+          <p>
+            Created by <a href="https://twitter.com/ysakasin">酒田　シンジ</a>
+          </p>
 
-          <p>ご要望やバグ報告は<a href="https://github.com/ysakasin/saipage/issues">Github issue</a>または<a href="https://twitter.com/ysakasin">Twitter</a>までお寄せください</p>
+          <p>
+            ご要望やバグ報告は<a
+              href="https://github.com/ysakasin/saipage/issues"
+              >Github issue</a
+            >または<a href="https://twitter.com/ysakasin">Twitter</a
+            >までお寄せください
+          </p>
         </v-card-text>
       </v-card-text>
-      <div style="flex: 1 1 auto;"/>
+      <div style="flex: 1 1 auto;" />
     </v-card>
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="3000"
-      color="success"
-      top>
+    <v-snackbar v-model="snackbar" :timeout="3000" color="success" top>
       {{ snackbarText }}
-      <v-btn
-        dark
-        flat
-        @click="snackbar = false">
+      <v-btn @click="snackbar = false" dark flat>
         閉じる
       </v-btn>
     </v-snackbar>

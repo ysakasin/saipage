@@ -2,16 +2,16 @@
   <v-card>
     <form @submit.prevent="diceroll">
       <v-text-field
-        ref="commandField"
         v-model="command"
         :append-icon-cb="diceroll"
+        @blur="help = false"
+        @focus="help = showSystemInfo"
+        ref="commandField"
         label="ダイスコマンドを入力..."
         append-icon="send"
         single-line
         hide-details
         full-width
-        @focus="help = showSystemInfo"
-        @blur="help = false"
       />
     </form>
     <v-divider />
@@ -19,11 +19,12 @@
       @before-enter="beforeEnter"
       @enter="enter"
       @before-leave="beforeLeave"
-      @leave="leave">
+      @leave="leave"
+    >
       <div v-show="help">
         <v-card-text class="sysinfo">
           <div>{{ gameName }}</div>
-          <span v-html="gameInfo"/>
+          <span v-html="gameInfo" />
         </v-card-text>
         <v-divider />
       </div>
@@ -31,28 +32,20 @@
     <v-btn
       v-for="(command, i) in shortcuts"
       :key="i"
+      @click.stop="execShortcut(command)"
       depressed
-      @click.stop="execShortcut(command)">{{ command }}</v-btn>
+      >{{ command }}</v-btn
+    >
     <v-tooltip bottom>
-      <v-btn
-        slot="activator"
-        icon
-        @click.stop="edit = true">
+      <v-btn @click.stop="edit = true" slot="activator" icon>
         <v-icon>add</v-icon>
       </v-btn>
       <span>ショートカット追加</span>
     </v-tooltip>
     <ShortcutDialog v-model="edit" />
-    <v-snackbar
-      v-model="snackbar"
-      :timeout="4000"
-      color="error"
-      top>
+    <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn
-        dark
-        flat
-        @click="snackbar = false">
+      <v-btn @click="snackbar = false" dark flat>
         閉じる
       </v-btn>
     </v-snackbar>
@@ -62,10 +55,14 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import store from "./store";
-import { diceRoll, fetchDicebotInfo } from "./dice";
+import { diceRoll } from "./dice";
 
 import ShortcutDialog from "./ShortcutDialog.vue";
+
+interface Dice {
+  faces: number;
+  value: number;
+}
 
 @Component({
   components: {
@@ -127,7 +124,7 @@ export default class Tool extends Vue {
   dicerollByText(text: string, clear: boolean = false) {
     diceRoll(this.gameType, text)
       .then(res => {
-        const dices = res.dices.map((d: any) => {
+        const dices = res.dices.map((d: Dice) => {
           return { face: d.faces, value: d.value };
         });
         const log: Log = {

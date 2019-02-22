@@ -3,13 +3,13 @@ import querystring from "query-string";
 
 export const DEFAULT_URL = "https://www.taruki.com/bcdice-api";
 const PATH_NAMES = "/v1/names";
-const PATH_DICEROLL = "/v1/diceroll?";
+const PATHDiceROLL = "/v1/diceroll?";
 const PATH_SYSTEMINFO = "/v1/systeminfo?";
 
 let bcdiceURL = DEFAULT_URL;
-let api_names = bcdiceURL + PATH_NAMES;
-let api_diceroll = bcdiceURL + PATH_DICEROLL;
-let api_systeminfo = bcdiceURL + PATH_SYSTEMINFO;
+let apiNames = bcdiceURL + PATH_NAMES;
+let apiDiceroll = bcdiceURL + PATHDiceROLL;
+let apiSysteminfo = bcdiceURL + PATH_SYSTEMINFO;
 
 interface NameRes {
   name: string;
@@ -23,9 +23,9 @@ interface DiceName {
 
 export function setBcdiceURL(url: string): void {
   bcdiceURL = url;
-  api_names = bcdiceURL + PATH_NAMES;
-  api_diceroll = bcdiceURL + PATH_DICEROLL;
-  api_systeminfo = bcdiceURL + PATH_SYSTEMINFO;
+  apiNames = bcdiceURL + PATH_NAMES;
+  apiDiceroll = bcdiceURL + PATHDiceROLL;
+  apiSysteminfo = bcdiceURL + PATH_SYSTEMINFO;
 }
 
 export function getBcdiceURL(): string {
@@ -33,7 +33,7 @@ export function getBcdiceURL(): string {
 }
 
 export async function fetchDicebots(): Promise<DiceName[]> {
-  const res = await axios.get(api_names);
+  const res = await axios.get(apiNames);
   return res.data.names
     .map((x: NameRes) => {
       return { gameType: x.system, name: x.name };
@@ -47,14 +47,16 @@ export async function fetchDicebots(): Promise<DiceName[]> {
     });
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export async function diceRoll(gameType: string, cmd: string): Promise<any> {
   const query = querystring.stringify({ system: gameType, command: cmd });
-  const res = await axios.get(api_diceroll + query);
+  const res = await axios.get(apiDiceroll + query);
   return res.data;
 }
 
+/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
 export async function fetchDicebotInfo(gameType: string): Promise<any> {
   const query = querystring.stringify({ system: gameType });
-  const res = await axios.get(api_systeminfo + query);
+  const res = await axios.get(apiSysteminfo + query);
   return res.data.systeminfo;
 }

@@ -3,9 +3,10 @@
     <div>
       <div
         v-show="draw"
-        :class="{success: isSuccess, failure: isFailure, active: isActive}"
+        :class="{ success: isSuccess, failure: isFailure, active: isActive }"
+        @click.stop="draw = false"
         class="result"
-        @click.stop="draw = false">
+      >
         {{ commandResult }}
       </div>
     </div>
@@ -15,10 +16,11 @@
         :key="i"
         :face="result.face"
         :value="result.value"
-        @hide="draw = false" />
+        @hide="draw = false"
+      />
     </template>
     <audio preload>
-      <source :src="soundData">
+      <source :src="soundData" />
     </audio>
   </div>
 </template>
@@ -48,7 +50,7 @@ export default class DiceArea extends Vue {
       state => {
         return state.readyAnimation;
       },
-      (val, old) => {
+      val => {
         if (val == false) {
           this.playAnimation();
         }

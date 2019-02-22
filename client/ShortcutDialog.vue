@@ -1,7 +1,5 @@
 <template>
-  <v-dialog
-    v-model="isActive"
-    max-width="500px">
+  <v-dialog v-model="isActive" max-width="500px">
     <v-card>
       <v-card-title>
         ショートカット編集
@@ -17,19 +15,19 @@
         <v-chip
           v-for="(command, i) in shortcuts"
           :key="i"
+          @input="remove(command)"
           close
-          @input="remove(command)">{{ command }}</v-chip>
+          >{{ command }}</v-chip
+        >
       </v-card-text>
       <v-card-actions>
-        <v-spacer/>
-        <v-btn
-          color="primary"
-          flat
-          @click.stop="isActive = false">閉じる</v-btn>
+        <v-spacer />
+        <v-btn @click.stop="isActive = false" color="primary" flat
+          >閉じる</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
-
 </template>
 
 <script lang="ts">

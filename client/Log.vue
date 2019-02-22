@@ -1,18 +1,15 @@
 <template>
   <v-card class="log-area">
-    <v-card-text
-      v-if="logs.length == 0"
-      class="log">
+    <v-card-text v-if="logs.length == 0" class="log">
       <div class="meta">
         ダイスログはまだありません
       </div>
     </v-card-text>
     <template v-for="(item, i) in logs">
-      <v-card-text
-        :key="i"
-        class="log">
+      <v-card-text :key="i" class="log">
         <div class="meta">
-          <span>{{ item.gameType }}</span><span class="timestamp">{{ format(item.timestamp) }}</span>
+          <span>{{ item.gameType }}</span
+          ><span class="timestamp">{{ format(item.timestamp) }}</span>
         </div>
         <div class="subheading">{{ item.command }} {{ item.body }}</div>
       </v-card-text>
@@ -23,7 +20,6 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import store from "./store";
 
 const aDay = 1000 * 60 * 60 * 24;
 const baseTime = Date.now();
@@ -34,7 +30,7 @@ export default class Log extends Vue {
     return this.$store.state.logs;
   }
 
-  format(dateOrg: any): string {
+  format(dateOrg: string | Date): string {
     const date = new Date(dateOrg);
     const diff = baseTime - date.getTime();
     const h = this.zeroPadding(date.getHours());

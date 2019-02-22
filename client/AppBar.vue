@@ -2,12 +2,13 @@
   <div>
     <v-toolbar>
       <v-toolbar-title>
-        <small class="hidden-xs-only">どどんとふのダイスが手軽に使える</small>Saipage
+        <small class="hidden-xs-only">どどんとふのダイスが手軽に使える</small
+        >Saipage
       </v-toolbar-title>
-      <v-spacer/>
+      <v-spacer />
       <v-select
         v-model="gameType"
-        :menu-props="{ maxHeight: '400'}"
+        :menu-props="{ maxHeight: '400' }"
         :items="diceBots"
         class="hidden-xs-only game-type"
         prepend-icon="book"
@@ -17,10 +18,11 @@
       />
       <v-tooltip bottom>
         <v-btn
+          @click.stop="playSound = !playSound"
           slot="activator"
           class="hidden-xs-only"
           icon
-          @click.stop="playSound = !playSound">
+        >
           <v-icon v-if="playSound">volume_up</v-icon>
           <v-icon v-else>volume_off</v-icon>
         </v-btn>
@@ -28,18 +30,13 @@
         <span v-else>現在 : OFF</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          icon
-          @click.stop="settings = true">
+        <v-btn @click.stop="settings = true" slot="activator" icon>
           <v-icon>settings</v-icon>
         </v-btn>
         <span>設定</span>
       </v-tooltip>
     </v-toolbar>
-    <Settings
-      v-model="settings"
-    />
+    <Settings v-model="settings" />
   </div>
 </template>
 

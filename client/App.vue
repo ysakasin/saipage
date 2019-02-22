@@ -2,12 +2,8 @@
   <v-app>
     <AppBar />
     <v-container grid-list-lg>
-      <v-layout
-        row
-        wrap>
-        <v-flex
-          xs12
-          style="position: relative">
+      <v-layout row wrap>
+        <v-flex xs12 style="position: relative">
           <Tool />
           <DiceArea />
         </v-flex>
@@ -31,7 +27,6 @@ import Log from "./Log.vue";
 import Tool from "./Tool.vue";
 import Tips from "./Tips.vue";
 import DiceArea from "./DiceArea.vue";
-import DisconnectedDialog from "./DisconnectedDialog.vue";
 @Component({
   components: {
     AppBar,

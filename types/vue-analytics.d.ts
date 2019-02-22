@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // https://qiita.com/geerpm/items/ae4f3df8703d31236968
-import _Vue, { PluginFunction } from "vue";
+import _Vue from "vue";
 
 declare class VueAnalytics {
   analyticsMiddleware: any;
