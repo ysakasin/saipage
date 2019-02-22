@@ -1,19 +1,22 @@
 {
   "parser": "vue-eslint-parser",
   "parserOptions": {
-    "parser": "typescript-eslint-parser"
+    "parser": "@typescript-eslint/parser"
   },
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
     "plugin:vue/recommended",
-    "typescript",
+    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
   "rules": {
+    "no-undef": "off",
+    "no-unused-vars": "off",
     "no-trailing-spaces": "error",
     "no-console": "off",
     "require-jsdoc": "off",
-    "typescript/explicit-member-accessibility": "none"
+    "typescript/explicit-member-accessibility": "none",
+    "@typescript-eslint/indent": ["error", 2]
   }
 }

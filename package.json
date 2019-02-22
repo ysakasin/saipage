@@ -8,7 +8,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "clean": "rm public/assets/*",
     "deploy": "gh-pages -d public",
-    "lint": "eslint client/* types/*",
+    "lint": "eslint client/*.vue client/*.ts types/*",
     "fmt": "eslint --fix client/* types/*"
   },
   "author": "SAKATA Sinji",
@@ -42,16 +42,15 @@
     "webpack-cli": "3.2.2"
   },
   "devDependencies": {
-    "eslint": "^4.19.1",
+    "@typescript-eslint/eslint-plugin": "^1.4.0",
+    "@typescript-eslint/parser": "^1.4.0",
+    "eslint": "^5.14.1",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-config-typescript": "^1.0.2",
     "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-typescript": "^0.12.0",
-    "eslint-plugin-vue": "^4.5.0",
+    "eslint-plugin-vue": "^4.2.2",
     "gh-pages": "^2.0.1",
     "prettier": "1.12.1",
-    "typescript-eslint-parser": "^17.0.1",
-    "vue-eslint-parser": "^2.0.3",
+    "vue-eslint-parser": "^6.0.2",
     "webpack-dev-server": "^3.1.14"
   },
   "private": true
