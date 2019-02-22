@@ -5,10 +5,11 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:vue/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier"
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "prettier/vue"
   ],
   "rules": {
     "no-undef": "off",
@@ -16,7 +17,6 @@
     "no-trailing-spaces": "error",
     "no-console": "off",
     "require-jsdoc": "off",
-    "typescript/explicit-member-accessibility": "none",
-    "@typescript-eslint/indent": ["error", 2]
+    "typescript/explicit-member-accessibility": "none"
   }
 }

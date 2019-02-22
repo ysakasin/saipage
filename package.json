@@ -9,7 +9,7 @@
     "clean": "rm public/assets/*",
     "deploy": "gh-pages -d public",
     "lint": "eslint client/*.vue client/*.ts types/*",
-    "fmt": "eslint --fix client/* types/*"
+    "fmt": "eslint --fix client/*.vue client/*.ts types/*"
   },
   "author": "SAKATA Sinji",
   "license": "MIT",
@@ -45,11 +45,11 @@
     "@typescript-eslint/eslint-plugin": "^1.4.0",
     "@typescript-eslint/parser": "^1.4.0",
     "eslint": "^5.14.1",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "eslint-plugin-vue": "^4.2.2",
     "gh-pages": "^2.0.1",
-    "prettier": "1.12.1",
+    "prettier": "^1.16.4",
     "vue-eslint-parser": "^6.0.2",
     "webpack-dev-server": "^3.1.14"
   },
