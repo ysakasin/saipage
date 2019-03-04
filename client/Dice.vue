@@ -122,6 +122,38 @@ export default class Dice extends Vue {
   }
 }
 
+.dice-12 {
+  background: url(assets/12_dice.png) no-repeat;
+  &.active {
+    animation: roll12 0.8s steps(12), move_y 0.8s linear;
+  }
+}
+
+@keyframes roll12 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -1200px 0;
+  }
+}
+
+.dice-20 {
+  background: url(assets/20_dice.png) no-repeat;
+  &.active {
+    animation: roll20 0.8s steps(20), move_y 0.8s linear;
+  }
+}
+
+@keyframes roll20 {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -2000px 0;
+  }
+}
+
 @for $i from 1 through 20 {
   .value-#{$i} {
     background-position-x: -100px * ($i - 1);

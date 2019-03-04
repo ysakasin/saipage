@@ -172,6 +172,8 @@ export default class Tool extends Vue {
     return (
       result.face == 100 ||
       result.face == 10 ||
+      result.face == 12 ||
+      result.face == 20 ||
       result.face == 4 ||
       result.face == 6 ||
       result.face == 8
