@@ -92,7 +92,9 @@
         <v-divider />
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text>
-          <div class="headline">Saipage {{ version }}</div>
+          <div class="headline">
+            Saipage {{ version }} <small>- {{ commitHash }}</small>
+          </div>
           <p>
             Created by <a href="https://twitter.com/ysakasin">酒田　シンジ</a>
           </p>
@@ -121,7 +123,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { DEFAULT_URL } from "./dice";
-import * as saipage from "../package.json";
+import { VERSION, COMMIT_HASH, STAGED, UNSTAGED } from "./constants";
 
 @Component({
   props: {
@@ -158,7 +160,15 @@ export default class Settings extends Vue {
   }
 
   get version() {
-    return "v" + saipage.version;
+    return "v" + VERSION;
+  }
+
+  get commitHash() {
+    if (STAGED || UNSTAGED) {
+      return COMMIT_HASH + "+";
+    } else {
+      return COMMIT_HASH;
+    }
   }
 
   get apiURL() {
