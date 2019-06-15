@@ -97,7 +97,7 @@ export default class Tool extends Vue {
   }
 
   get gameInfo() {
-    return this.$store.state.gameInfo.replace(/\n/, "<br />");
+    return this.$store.state.gameInfo.trim().replace(/\n/g, "<br />");
   }
 
   get shortcuts() {
