@@ -33,7 +33,7 @@ npm start
 
 ## LICENSE
 
-[MIT License](LISENCE)
+[The MIT License](LICENSE)
 
 
 ## Author
