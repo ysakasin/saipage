@@ -1,5 +1,7 @@
 # Saipage
 
+[![Build Status](https://travis-ci.org/ysakasin/saipage.svg?branch=master)](https://travis-ci.org/ysakasin/saipage)
+
 A diceroll tool for TRPG
 
 
