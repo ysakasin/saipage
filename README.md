@@ -3,7 +3,7 @@
 A diceroll tool for TRPG
 
 
-## Demonstration
+## Official site
 
 https://ysakasin.github.io/saipage/
 
