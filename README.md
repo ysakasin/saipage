@@ -10,7 +10,7 @@ https://ysakasin.github.io/saipage/
 
 ## Build Requires
 
-- Node (^10.0.0)
+- Node (>=10.0.0)
 
 
 ## Build
