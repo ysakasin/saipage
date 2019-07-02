@@ -22,7 +22,7 @@ https://ysakasin.github.io/saipage/
 npm install
 
 # build client
-npm build
+npm run build
 ```
 
 ## Run dev-server
