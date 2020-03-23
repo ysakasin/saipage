@@ -113,7 +113,7 @@
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text>
           <div class="headline">
-            Saipage {{ version }} <small>- {{ commitHash }}</small>
+            Saipage <small>- {{ commitHash }}</small>
           </div>
           <p>
             Created by <a href="https://twitter.com/ysakasin">酒田　シンジ</a>
