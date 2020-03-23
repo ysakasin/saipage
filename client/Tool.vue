@@ -2,11 +2,11 @@
   <v-card>
     <form @submit.prevent="diceroll">
       <v-text-field
+        ref="commandField"
         v-model="command"
         :append-icon-cb="diceroll"
         @blur="help = false"
         @focus="help = showSystemInfo"
-        ref="commandField"
         label="ダイスコマンドを入力..."
         append-icon="send"
         single-line
@@ -37,7 +37,7 @@
       >{{ command }}</v-btn
     >
     <v-tooltip bottom>
-      <v-btn @click.stop="edit = true" slot="activator" icon>
+      <v-btn slot="activator" @click.stop="edit = true" icon>
         <v-icon>add</v-icon>
       </v-btn>
       <span>ショートカット追加</span>

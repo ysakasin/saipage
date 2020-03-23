@@ -18,8 +18,8 @@
       />
       <v-tooltip bottom>
         <v-btn
-          @click.stop="playSound = !playSound"
           slot="activator"
+          @click.stop="playSound = !playSound"
           class="hidden-xs-only"
           icon
         >
@@ -30,7 +30,7 @@
         <span v-else>現在 : OFF</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn @click.stop="settings = true" slot="activator" icon>
+        <v-btn slot="activator" @click.stop="settings = true" icon>
           <v-icon>settings</v-icon>
         </v-btn>
         <span>設定</span>
