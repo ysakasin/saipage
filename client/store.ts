@@ -75,6 +75,10 @@ const store = new Vuex.Store({
       state.logs.unshift(log);
       localStorage.setItem("logs", JSON.stringify(state.logs));
     },
+    removeAllLogs(state) {
+      state.logs = [];
+      localStorage.removeItem("logs");
+    },
     nextAnimation(state) {
       state.logBuffer.shift();
       if (state.logBuffer.length < 1) {

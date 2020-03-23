@@ -90,6 +90,26 @@
           </v-list-tile>
         </v-list>
         <v-divider />
+        <v-subheader class="red--text">Danger Zone</v-subheader>
+        <v-list three-line subheader>
+          <v-list-tile>
+            <v-list-tile-content>
+              <v-list-tile-title>ログを削除</v-list-tile-title>
+              <v-list-tile-sub-title
+                >このSaipageで行ったダイスロールの全ログをブラウザから削除します</v-list-tile-sub-title
+              >
+            </v-list-tile-content>
+            <v-list-tile-action class="danger-zone-action">
+              <v-btn
+                @click.stop="removeLogDialog = true"
+                depressed
+                color="error"
+                >ログを削除</v-btn
+              >
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+        <v-divider />
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text>
           <div class="headline">
@@ -110,6 +130,34 @@
       </v-card-text>
       <div style="flex: 1 1 auto;" />
     </v-card>
+
+    <v-dialog v-model="removeLogDialog" max-width="500">
+      <v-card>
+        <v-card-title class="headline">ログを削除</v-card-title>
+        <v-card-text>
+          <p>
+            このSaipageで行ったダイスロールの全ログをブラウザから削除します。ログを削除すると復旧することはできません。
+          </p>
+          <p>
+            ログを削除しますか？
+          </p>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            @click="removeLogDialog = false"
+            color="green darken-1"
+            flat="flat"
+          >
+            キャンセル
+          </v-btn>
+          <v-btn @click="removeAllLogs" depressed color="error">
+            削除する
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-snackbar v-model="snackbar" :timeout="3000" color="success" top>
       {{ snackbarText }}
       <v-btn @click="snackbar = false" dark flat>
@@ -145,13 +193,22 @@ export default class Settings extends Vue {
     return {
       isActive: false,
       snackbar: false,
-      snackbarText: ""
+      snackbarText: "",
+      removeLogDialog: false
     };
   }
 
   resetApiURL() {
     this.$store.dispatch("updateApiURL", DEFAULT_URL);
     this.$data.snackbarText = `APIをデフォルト設定に戻しました`;
+    this.$data.snackbar = true;
+  }
+
+  removeAllLogs() {
+    this.$store.commit("removeAllLogs");
+    this.$data.removeLogDialog = false;
+
+    this.$data.snackbarText = `ログを削除しました`;
     this.$data.snackbar = true;
   }
 
@@ -237,5 +294,10 @@ export default class Settings extends Vue {
 
 .setting-title {
   padding-right: 1rem;
+}
+
+.danger-zone-action {
+  margin-left: 4px;
+  min-width: auto;
 }
 </style>
