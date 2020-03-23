@@ -1,7 +1,7 @@
 import axios from "axios";
 import querystring from "query-string";
 
-export const DEFAULT_URL = "https://www.taruki.com/bcdice-api";
+export const DEFAULT_URL = "https://bcdice.onlinesession.app";
 const PATH_NAMES = "/v1/names";
 const PATHDiceROLL = "/v1/diceroll?";
 const PATH_SYSTEMINFO = "/v1/systeminfo?";
