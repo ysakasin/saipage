@@ -10,22 +10,53 @@
         <div class="meta">
           <span>{{ item.gameType }}</span
           ><span class="timestamp">{{ format(item.timestamp) }}</span>
+          <v-tooltip right>
+            <template v-slot:activator="{ on }">
+              <v-icon
+                v-ripple
+                v-on="on"
+                @click="dicerollByText(item.gameType, item.command)"
+                >replay</v-icon
+              >
+            </template>
+            <span>もう一度ダイスロール</span>
+          </v-tooltip>
         </div>
         <div class="subheading">{{ item.command }} {{ item.body }}</div>
       </v-card-text>
     </template>
+    <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
+      {{ errorMsg }}
+      <v-btn @click="snackbar = false" dark flat>
+        閉じる
+      </v-btn>
+    </v-snackbar>
   </v-card>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
+import { diceRoll, selectDiceResults } from "./dice";
+import { Log as LogI } from "./interface";
+
+interface Dice {
+  faces: number;
+  value: number;
+}
 
 const aDay = 1000 * 60 * 60 * 24;
 const baseTime = Date.now();
 
 @Component
 export default class Log extends Vue {
+  data() {
+    return {
+      snackbar: false,
+      errorMsg: ""
+    };
+  }
+
   get logs() {
     return this.$store.state.logs;
   }
@@ -47,6 +78,32 @@ export default class Log extends Vue {
   zeroPadding(x: number): string {
     return ("0" + x).slice(-2);
   }
+
+  dicerollByText(gameType: string, text: string) {
+    diceRoll(gameType, text)
+      .then(res => {
+        const dices = res.dices.map((d: Dice) => {
+          return { face: d.faces, value: d.value };
+        });
+        const log: LogI = {
+          gameType: gameType,
+          command: text,
+          body: res.result,
+          drawables: selectDiceResults(dices),
+          timestamp: new Date()
+        };
+
+        this.$store.commit("appendLogBuffer", log);
+      })
+      .catch(error => {
+        if (error.response) {
+          this.$data.errorMsg = "ダイスコマンドを実行できませんでした";
+        } else {
+          this.$data.errorMsg = "APIサーバーに接続できませんでした";
+        }
+        this.$data.snackbar = true;
+      });
+  }
 }
 </script>
 
@@ -63,6 +120,11 @@ export default class Log extends Vue {
     line-height: 1.4;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.54);
+
+    .v-icon {
+      font-size: 14px;
+      padding: 1px;
+    }
   }
   .timestamp::before {
     content: "・";

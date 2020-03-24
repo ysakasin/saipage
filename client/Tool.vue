@@ -55,7 +55,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Component from "vue-class-component";
-import { diceRoll } from "./dice";
+import { diceRoll, selectDiceResults } from "./dice";
 
 import ShortcutDialog from "./ShortcutDialog.vue";
 
@@ -131,7 +131,7 @@ export default class Tool extends Vue {
           gameType: this.gameType,
           command: text,
           body: res.result,
-          drawables: this.selectDiceResults(dices),
+          drawables: selectDiceResults(dices),
           timestamp: new Date()
         };
 
@@ -151,35 +151,6 @@ export default class Tool extends Vue {
       });
   }
 
-  selectDiceResults(randResults: Result[]) {
-    const drawableResults = randResults.reduce(
-      (acc: Result[], result: Result) => {
-        if (this.isDrawable(result)) {
-          if (result.face == 100) {
-            acc.push({ face: 100, value: Math.floor(result.value / 10) });
-            acc.push({ face: 10, value: result.value % 10 });
-          } else {
-            acc.push(result);
-          }
-        }
-        return acc;
-      },
-      []
-    );
-    return drawableResults;
-  }
-  isDrawable(result: Result): boolean {
-    return (
-      result.face == 100 ||
-      result.face == 10 ||
-      result.face == 12 ||
-      result.face == 20 ||
-      result.face == 4 ||
-      result.face == 6 ||
-      result.face == 8
-    );
-  }
-
   beforeEnter(el: HTMLElement) {
     el.style.height = "0";
   }
@@ -192,11 +163,6 @@ export default class Tool extends Vue {
   leave(el: HTMLElement) {
     el.style.height = "0";
   }
-}
-
-interface Result {
-  face: number;
-  value: number;
 }
 </script>
 

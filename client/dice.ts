@@ -1,6 +1,8 @@
 import axios from "axios";
 import querystring from "query-string";
 
+import { Dice } from "./interface";
+
 export const DEFAULT_URL = "https://bcdice.onlinesession.app";
 const PATH_NAMES = "/v1/names";
 const PATHDiceROLL = "/v1/diceroll?";
@@ -59,4 +61,31 @@ export async function fetchDicebotInfo(gameType: string): Promise<any> {
   const query = querystring.stringify({ system: gameType });
   const res = await axios.get(apiSysteminfo + query);
   return res.data.systeminfo;
+}
+
+function isDrawable(result: Dice): boolean {
+  return (
+    result.face == 100 ||
+    result.face == 10 ||
+    result.face == 12 ||
+    result.face == 20 ||
+    result.face == 4 ||
+    result.face == 6 ||
+    result.face == 8
+  );
+}
+
+export function selectDiceResults(randResults: Dice[]) {
+  const drawableResults = randResults.reduce((acc: Dice[], result: Dice) => {
+    if (isDrawable(result)) {
+      if (result.face == 100) {
+        acc.push({ face: 100, value: Math.floor(result.value / 10) });
+        acc.push({ face: 10, value: result.value % 10 });
+      } else {
+        acc.push(result);
+      }
+    }
+    return acc;
+  }, []);
+  return drawableResults;
 }
