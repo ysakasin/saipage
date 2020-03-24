@@ -8,8 +8,8 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "clean": "rm public/assets/*",
     "deploy": "gh-pages -d public",
-    "lint": "eslint client/*.vue client/*.ts types/*",
-    "fmt": "eslint --fix client/*.vue client/*.ts types/*"
+    "lint": "eslint src/*.vue src/*.ts types/*",
+    "fmt": "eslint --fix src/*.vue src/*.ts types/*"
   },
   "author": "SAKATA Sinji",
   "license": "MIT",
