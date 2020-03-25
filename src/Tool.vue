@@ -121,7 +121,7 @@ export default class Tool extends Vue {
     this.dicerollByText(this.$data.command, true);
   }
 
-  dicerollByText(text: string, clear: boolean = false) {
+  dicerollByText(text: string, clear = false) {
     diceRoll(this.gameType, text)
       .then(res => {
         const dices = res.dices.map((d: Dice) => {

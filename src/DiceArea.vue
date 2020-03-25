@@ -130,7 +130,6 @@ export default class DiceArea extends Vue {
       return "";
     }
     const strs = result.split("＞");
-    console.log(strs[strs.length - 1]);
     return strs[strs.length - 1];
   }
 

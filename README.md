@@ -12,7 +12,7 @@ https://ysakasin.github.io/saipage/
 
 ## Build Requires
 
-- Node (>=10.0.0)
+- Node (>=12.0.0)
 
 
 ## Build
@@ -28,7 +28,7 @@ npm run build
 ## Run dev-server
 
 ```
-npm start
+npm run serve
 ```
 
 ## LICENSE
