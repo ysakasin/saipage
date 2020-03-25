@@ -171,7 +171,7 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import { DEFAULT_URL } from "./dice";
-import { VERSION, COMMIT_HASH, STAGED, UNSTAGED } from "./constants";
+import { COMMIT_HASH, STAGED, UNSTAGED } from "./constants";
 
 @Component({
   props: {
@@ -214,10 +214,6 @@ export default class Settings extends Vue {
 
   get diceBots() {
     return this.$store.state.diceBots;
-  }
-
-  get version() {
-    return "v" + VERSION;
   }
 
   get commitHash() {
