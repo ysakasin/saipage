@@ -10,7 +10,7 @@
         <div class="meta">
           <span>{{ item.gameType }}</span
           ><span class="timestamp">{{ format(item.timestamp) }}</span>
-          <v-tooltip right>
+          <v-tooltip right transition="slide-x-transition">
             <template v-slot:activator="{ on }">
               <v-icon
                 v-ripple
