@@ -11,7 +11,7 @@
         :menu-props="{ maxHeight: '400' }"
         :items="diceBots"
         class="hidden-xs-only game-type"
-        prepend-icon="book"
+        prepend-icon="mdi-book-open-page-variant"
         item-text="name"
         item-value="gameType"
         placeholder="ロード中……"
@@ -24,8 +24,8 @@
             class="hidden-xs-only"
             icon
           >
-            <v-icon v-if="playSound">volume_up</v-icon>
-            <v-icon v-else>volume_off</v-icon>
+            <v-icon v-if="playSound">mdi-volume-high</v-icon>
+            <v-icon v-else>mdi-volume-off</v-icon>
           </v-btn>
         </template>
         <span v-if="playSound">現在 : ON</span>
@@ -34,7 +34,7 @@
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" @click.stop="settings = true" icon>
-            <v-icon>settings</v-icon>
+            <v-icon>mdi-cog</v-icon>
           </v-btn>
         </template>
         <span>設定</span>

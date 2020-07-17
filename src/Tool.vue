@@ -8,7 +8,7 @@
         @blur="help = false"
         @focus="help = showSystemInfo"
         label="ダイスコマンドを入力..."
-        append-icon="send"
+        append-icon="mdi-send"
         hide-details
         full-width
         class="command-field"
@@ -39,7 +39,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <v-btn v-on="on" @click.stop="edit = true" icon>
-          <v-icon>add</v-icon>
+          <v-icon>mdi-plus</v-icon>
         </v-btn>
       </template>
       <span>ショートカット追加</span>

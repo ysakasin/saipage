@@ -10,7 +10,7 @@
     <v-card>
       <v-toolbar dark flat>
         <v-btn @click.native="isActive = false" icon dark>
-          <v-icon>close</v-icon>
+          <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>設定</v-toolbar-title>
       </v-toolbar>
@@ -31,7 +31,7 @@
               @change="v => (apiURL = v)"
               @click:append="resetApiURL"
               label="BCDice-APIのURL"
-              append-icon="restore"
+              append-icon="mdi-history"
             />
           </v-list-tile>
           <v-list-tile avatar>
@@ -84,8 +84,8 @@
               v-model="volume"
               class="volume"
               max="10"
-              append-icon="volume_up"
-              prepend-icon="volume_down"
+              append-icon="mdi-volume-high"
+              prepend-icon="mdi-volume-medium"
             />
           </v-list-tile>
         </v-list>

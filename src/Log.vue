@@ -16,7 +16,7 @@
                 v-ripple
                 v-on="on"
                 @click="dicerollByText(item.gameType, item.command)"
-                >replay</v-icon
+                >mdi-replay</v-icon
               >
             </template>
             <span>もう一度ダイスロール</span>

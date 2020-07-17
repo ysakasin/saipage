@@ -13,9 +13,10 @@
           />
         </form>
         <v-chip
+          class="mr-2"
           v-for="(command, i) in shortcuts"
           :key="i"
-          @input="remove(command)"
+          @click:close="remove(command)"
           close
           >{{ command }}</v-chip
         >
