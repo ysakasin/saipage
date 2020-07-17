@@ -37,9 +37,11 @@
       >{{ command }}</v-btn
     >
     <v-tooltip bottom>
-      <v-btn slot="activator" @click.stop="edit = true" icon>
-        <v-icon>add</v-icon>
-      </v-btn>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" @click.stop="edit = true" icon>
+          <v-icon>add</v-icon>
+        </v-btn>
+      </template>
       <span>ショートカット追加</span>
     </v-tooltip>
     <ShortcutDialog v-model="edit" />
