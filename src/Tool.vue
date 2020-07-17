@@ -4,7 +4,7 @@
       <v-text-field
         ref="commandField"
         v-model="command"
-        :append-icon-cb="diceroll"
+        @click:append="diceroll"
         @blur="help = false"
         @focus="help = showSystemInfo"
         label="ダイスコマンドを入力..."
