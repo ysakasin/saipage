@@ -27,9 +27,11 @@
     </template>
     <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn @click="snackbar = false" dark text>
-        閉じる
-      </v-btn>
+      <template v-slot:action="{ attrs }">
+        <v-btn drak text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
     </v-snackbar>
   </v-card>
 </template>

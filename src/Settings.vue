@@ -156,9 +156,11 @@
 
     <v-snackbar v-model="snackbar" :timeout="3000" color="success" top>
       {{ snackbarText }}
-      <v-btn @click="snackbar = false" dark text>
-        閉じる
-      </v-btn>
+      <template v-slot:action="{ attrs }">
+        <v-btn drak text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
     </v-snackbar>
   </v-dialog>
 </template>
