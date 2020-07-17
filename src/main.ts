@@ -2,7 +2,6 @@
 
 import Vue from "vue";
 import Vuetify from "vuetify/lib";
-import "vuetify/src/stylus/app.styl";
 import Vuex from "vuex";
 import App from "./App.vue";
 import store from "./store";
@@ -19,6 +18,7 @@ Vue.use(VueAnalytics, {
 });
 
 const app = new Vue({
+  vuetify: new Vuetify({}),
   el: "#app",
   render: h => h(App),
   store

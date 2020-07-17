@@ -13,16 +13,17 @@
           />
         </form>
         <v-chip
+          class="mr-2"
           v-for="(command, i) in shortcuts"
           :key="i"
-          @input="remove(command)"
+          @click:close="remove(command)"
           close
           >{{ command }}</v-chip
         >
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click.stop="isActive = false" color="primary" flat
+        <v-btn @click.stop="isActive = false" color="primary" text
           >閉じる</v-btn
         >
       </v-card-actions>

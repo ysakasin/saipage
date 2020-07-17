@@ -12,13 +12,17 @@
       </p>
       <p>
         設定は右上にある
-        <strong>歯車のアイコン<v-icon small>settings</v-icon></strong>
+        <strong
+          >歯車のアイコン<v-icon small class="tip-icon">mdi-cog</v-icon></strong
+        >
         からできます。
       </p>
       <p>
         よく使うコマンドをワンタッチで実行できるように<strong>「ショートカット機能」</strong>を用意しました。
         コマンド入力欄の下にある
-        <strong>追加ボタン<v-icon small>add</v-icon></strong>
+        <strong
+          >追加ボタン<v-icon small class="tip-icon">mdi-plus</v-icon></strong
+        >
         から好みに合わせてカスタマイズしてみてください。
       </p>
     </v-card-text>
@@ -36,3 +40,13 @@ export default class Tool extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+p {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.tip-icon {
+  vertical-align: text-bottom;
+}
+</style>

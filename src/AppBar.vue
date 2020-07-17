@@ -11,28 +11,32 @@
         :menu-props="{ maxHeight: '400' }"
         :items="diceBots"
         class="hidden-xs-only game-type"
-        prepend-icon="book"
+        prepend-icon="mdi-book-open-page-variant"
         item-text="name"
         item-value="gameType"
         placeholder="ロード中……"
       />
       <v-tooltip bottom>
-        <v-btn
-          slot="activator"
-          @click.stop="playSound = !playSound"
-          class="hidden-xs-only"
-          icon
-        >
-          <v-icon v-if="playSound">volume_up</v-icon>
-          <v-icon v-else>volume_off</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-on="on"
+            @click.stop="playSound = !playSound"
+            class="hidden-xs-only"
+            icon
+          >
+            <v-icon v-if="playSound">mdi-volume-high</v-icon>
+            <v-icon v-else>mdi-volume-off</v-icon>
+          </v-btn>
+        </template>
         <span v-if="playSound">現在 : ON</span>
         <span v-else>現在 : OFF</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn slot="activator" @click.stop="settings = true" icon>
-          <v-icon>settings</v-icon>
-        </v-btn>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" @click.stop="settings = true" icon>
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+        </template>
         <span>設定</span>
       </v-tooltip>
     </v-toolbar>
@@ -95,7 +99,7 @@ export default class AppBar extends Vue {
 
 .game-type {
   max-width: 270px !important;
-  padding-top: 16px;
+  padding-top: 18px !important;
   padding-right: 15px;
   .v-icon {
     color: #000 !important;

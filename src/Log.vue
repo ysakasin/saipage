@@ -10,13 +10,13 @@
         <div class="meta">
           <span>{{ item.gameType }}</span
           ><span class="timestamp">{{ format(item.timestamp) }}</span>
-          <v-tooltip right>
+          <v-tooltip right transition="slide-x-transition">
             <template v-slot:activator="{ on }">
               <v-icon
                 v-ripple
                 v-on="on"
                 @click="dicerollByText(item.gameType, item.command)"
-                >replay</v-icon
+                >mdi-replay</v-icon
               >
             </template>
             <span>もう一度ダイスロール</span>
@@ -27,9 +27,11 @@
     </template>
     <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn @click="snackbar = false" dark flat>
-        閉じる
-      </v-btn>
+      <template v-slot:action="{ attrs }">
+        <v-btn drak text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
     </v-snackbar>
   </v-card>
 </template>
@@ -130,6 +132,7 @@ export default class Log extends Vue {
     content: "・";
   }
   .subheading {
+    color: rgba(0, 0, 0, 0.87);
     word-wrap: break-word;
     line-height: 1.2;
   }

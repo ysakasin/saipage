@@ -4,17 +4,16 @@
       <v-text-field
         ref="commandField"
         v-model="command"
-        :append-icon-cb="diceroll"
+        @click:append="diceroll"
         @blur="help = false"
         @focus="help = showSystemInfo"
         label="ダイスコマンドを入力..."
-        append-icon="send"
-        single-line
+        append-icon="mdi-send"
         hide-details
         full-width
+        class="command-field"
       />
     </form>
-    <v-divider />
     <transition
       @before-enter="beforeEnter"
       @enter="enter"
@@ -34,20 +33,25 @@
       :key="i"
       @click.stop="execShortcut(command)"
       depressed
+      class="btn-shortcut"
       >{{ command }}</v-btn
     >
     <v-tooltip bottom>
-      <v-btn slot="activator" @click.stop="edit = true" icon>
-        <v-icon>add</v-icon>
-      </v-btn>
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on" @click.stop="edit = true" icon>
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
       <span>ショートカット追加</span>
     </v-tooltip>
     <ShortcutDialog v-model="edit" />
     <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn @click="snackbar = false" dark flat>
-        閉じる
-      </v-btn>
+      <template v-slot:action="{ attrs }">
+        <v-btn drak text v-bind="attrs" @click="snackbar = false">
+          閉じる
+        </v-btn>
+      </template>
     </v-snackbar>
   </v-card>
 </template>
@@ -171,5 +175,19 @@ export default class Tool extends Vue {
 .v-leave-active {
   transition: all 0.25s;
   overflow: hidden;
+}
+
+.btn-shortcut {
+  margin: 6px 8px;
+}
+</style>
+
+<style lang="scss">
+.command-field {
+  padding-top: 4px;
+
+  .v-input__slot {
+    padding: 0 10px;
+  }
 }
 </style>

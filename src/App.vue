@@ -2,7 +2,7 @@
   <v-app>
     <AppBar />
     <v-container grid-list-lg>
-      <v-layout row wrap>
+      <v-layout wrap>
         <v-flex xs12 style="position: relative">
           <Tool />
           <DiceArea />
