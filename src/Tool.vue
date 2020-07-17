@@ -9,12 +9,11 @@
         @focus="help = showSystemInfo"
         label="ダイスコマンドを入力..."
         append-icon="send"
-        single-line
         hide-details
         full-width
+        class="command-field"
       />
     </form>
-    <v-divider />
     <transition
       @before-enter="beforeEnter"
       @enter="enter"
@@ -34,6 +33,7 @@
       :key="i"
       @click.stop="execShortcut(command)"
       depressed
+      class="btn-shortcut"
       >{{ command }}</v-btn
     >
     <v-tooltip bottom>
@@ -45,7 +45,7 @@
     <ShortcutDialog v-model="edit" />
     <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn @click="snackbar = false" dark flat>
+      <v-btn @click="snackbar = false" dark text>
         閉じる
       </v-btn>
     </v-snackbar>
@@ -171,5 +171,19 @@ export default class Tool extends Vue {
 .v-leave-active {
   transition: all 0.25s;
   overflow: hidden;
+}
+
+.btn-shortcut {
+  margin: 6px 8px;
+}
+</style>
+
+<style lang="scss">
+.command-field {
+  padding-top: 4px;
+
+  .v-input__slot {
+    padding: 0 10px;
+  }
 }
 </style>

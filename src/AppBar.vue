@@ -95,7 +95,7 @@ export default class AppBar extends Vue {
 
 .game-type {
   max-width: 270px !important;
-  padding-top: 16px;
+  padding-top: 18px !important;
   padding-right: 15px;
   .v-icon {
     color: #000 !important;

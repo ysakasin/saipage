@@ -27,7 +27,7 @@
     </template>
     <v-snackbar v-model="snackbar" :timeout="4000" color="error" top>
       {{ errorMsg }}
-      <v-btn @click="snackbar = false" dark flat>
+      <v-btn @click="snackbar = false" dark text>
         閉じる
       </v-btn>
     </v-snackbar>

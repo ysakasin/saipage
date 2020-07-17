@@ -1,14 +1,14 @@
 <template>
   <!-- eslint-disable no-irregular-whitespace -->
+
   <v-dialog
     v-model="isActive"
-    :overlay="false"
     fullscreen
-    scrollable
-    transition="dialog-bottom-transition"
+    hide-overlay
+    transition="dialog-left-transition"
   >
-    <v-card tile>
-      <v-toolbar card dark>
+    <v-card>
+      <v-toolbar dark flat>
         <v-btn @click.native="isActive = false" icon dark>
           <v-icon>close</v-icon>
         </v-btn>
@@ -144,11 +144,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            @click="removeLogDialog = false"
-            color="green darken-1"
-            flat="flat"
-          >
+          <v-btn @click="removeLogDialog = false" color="green darken-1" text>
             キャンセル
           </v-btn>
           <v-btn @click="removeAllLogs" depressed color="error">
@@ -160,7 +156,7 @@
 
     <v-snackbar v-model="snackbar" :timeout="3000" color="success" top>
       {{ snackbarText }}
-      <v-btn @click="snackbar = false" dark flat>
+      <v-btn @click="snackbar = false" dark text>
         閉じる
       </v-btn>
     </v-snackbar>
@@ -284,6 +280,10 @@ export default class Settings extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.v-toolbar {
+  margin-bottom: 20px;
+}
+
 .volume {
   max-width: 400px;
 }
@@ -295,5 +295,14 @@ export default class Settings extends Vue {
 .danger-zone-action {
   margin-left: 4px;
   min-width: auto;
+}
+</style>
+
+<style lang="scss">
+.dialog-left-transition {
+  &-enter,
+  &-leave-to {
+    transform: translateX(100%);
+  }
 }
 </style>

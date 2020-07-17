@@ -22,7 +22,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click.stop="isActive = false" color="primary" flat
+        <v-btn @click.stop="isActive = false" color="primary" text
           >閉じる</v-btn
         >
       </v-card-actions>
