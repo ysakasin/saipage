@@ -15,8 +15,8 @@
         <v-toolbar-title>設定</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-list three-line subheader>
-          <v-list-tile avatar>
+        <v-list two-line subheader>
+          <v-list-item>
             <v-select
               v-model="gameType"
               :items="diceBots"
@@ -24,8 +24,8 @@
               item-text="name"
               item-value="gameType"
             />
-          </v-list-tile>
-          <v-list-tile avatar>
+          </v-list-item>
+          <v-list-item>
             <v-text-field
               :value="apiURL"
               @change="v => (apiURL = v)"
@@ -33,85 +33,85 @@
               label="BCDice-APIのURL"
               append-icon="mdi-history"
             />
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action-text>
               <v-switch v-model="playDiceAnimation" color="primary" />
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>ダイスロールアニメーション</v-list-tile-title>
-              <v-list-tile-sub-title
-                >ダイスロール時のアニメーションを表示する</v-list-tile-sub-title
+            </v-list-item-action-text>
+            <v-list-item-content class="ml-4">
+              <v-list-item-title>ダイスロールアニメーション</v-list-item-title>
+              <v-list-item-subtitle
+                >ダイスロール時のアニメーションを表示する</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action-text>
               <v-switch v-model="playSound" color="primary" />
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>効果音</v-list-tile-title>
-              <v-list-tile-sub-title
-                >ダイスロール時に効果音を鳴らす</v-list-tile-sub-title
+            </v-list-item-action-text>
+            <v-list-item-content class="ml-4">
+              <v-list-item-title>効果音</v-list-item-title>
+              <v-list-item-subtitle
+                >ダイスロール時に効果音を鳴らす</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action-text>
               <v-switch v-model="showSystemInfo" color="primary" />
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>ヘルプ表示</v-list-tile-title>
-              <v-list-tile-sub-title
-                >ダイスコマンド入力時にヘルプを表示する</v-list-tile-sub-title
+            </v-list-item-action-text>
+            <v-list-item-content class="ml-4">
+              <v-list-item-title>ヘルプ表示</v-list-item-title>
+              <v-list-item-subtitle
+                >ダイスコマンド入力時にヘルプを表示する</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-action-text>
               <v-switch v-model="showTips" color="primary" />
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Tips表示</v-list-tile-title>
-              <v-list-tile-sub-title
-                >SaipageのTipsを表示する</v-list-tile-sub-title
+            </v-list-item-action-text>
+            <v-list-item-content class="ml-4">
+              <v-list-item-title>Tips表示</v-list-item-title>
+              <v-list-item-subtitle
+                >SaipageのTipsを表示する</v-list-item-subtitle
               >
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <span class="setting-title">音量</span>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <span>音量</span>
             <v-slider
               v-model="volume"
-              class="volume"
+              class="volume pt-5 ml-4"
               max="10"
               append-icon="mdi-volume-high"
               prepend-icon="mdi-volume-medium"
             />
-          </v-list-tile>
+          </v-list-item>
         </v-list>
         <v-divider />
-        <v-subheader class="red--text">Danger Zone</v-subheader>
-        <v-list three-line subheader>
-          <v-list-tile>
-            <v-list-tile-content>
-              <v-list-tile-title>ログを削除</v-list-tile-title>
-              <v-list-tile-sub-title
-                >このSaipageで行ったダイスロールの全ログをブラウザから削除します</v-list-tile-sub-title
+        <v-subheader class="red--text danger-zone">Danger Zone</v-subheader>
+        <v-list two-line subheader>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title>ログを削除</v-list-item-title>
+              <v-list-item-subtitle
+                >このSaipageで行ったダイスロールの全ログをブラウザから削除します</v-list-item-subtitle
               >
-            </v-list-tile-content>
-            <v-list-tile-action class="danger-zone-action">
+            </v-list-item-content>
+            <v-list-item-action class="danger-zone-action">
               <v-btn
                 @click.stop="removeLogDialog = true"
                 depressed
                 color="error"
                 >ログを削除</v-btn
               >
-            </v-list-tile-action>
-          </v-list-tile>
+            </v-list-item-action>
+          </v-list-item>
         </v-list>
         <v-divider />
         <v-subheader>アプリケーション情報</v-subheader>
-        <v-card-text>
+        <v-card-text class="pt-0">
           <div class="headline">
             Saipage <small>- {{ commitHash }}</small>
           </div>
@@ -294,9 +294,18 @@ export default class Settings extends Vue {
   padding-right: 1rem;
 }
 
+.danger-zone {
+  margin-bottom: -12px;
+}
+
 .danger-zone-action {
   margin-left: 4px;
   min-width: auto;
+}
+
+p,
+.headline {
+  color: rgba(0, 0, 0, 0.87);
 }
 </style>
 
