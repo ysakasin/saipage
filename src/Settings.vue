@@ -15,7 +15,7 @@
         <v-toolbar-title>設定</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        <v-list two-line subheader>
+        <v-list three-line subheader>
           <v-list-item>
             <v-select
               v-model="gameType"
@@ -91,12 +91,12 @@
         </v-list>
         <v-divider />
         <v-subheader class="red--text danger-zone">Danger Zone</v-subheader>
-        <v-list two-line subheader>
+        <v-list three-line subheader>
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title>ログを削除</v-list-item-title>
               <v-list-item-subtitle
-                >このSaipageで行ったダイスロールの全ログをブラウザから削除します</v-list-item-subtitle
+                >ダイスロールの全ログをブラウザから削除します</v-list-item-subtitle
               >
             </v-list-item-content>
             <v-list-item-action class="danger-zone-action">
