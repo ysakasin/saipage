@@ -36,3 +36,9 @@ export default class Tool extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+p {
+  color: rgba(0, 0, 0, 0.87);
+}
+</style>

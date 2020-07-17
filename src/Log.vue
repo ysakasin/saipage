@@ -130,6 +130,7 @@ export default class Log extends Vue {
     content: "・";
   }
   .subheading {
+    color: rgba(0, 0, 0, 0.87);
     word-wrap: break-word;
     line-height: 1.2;
   }
