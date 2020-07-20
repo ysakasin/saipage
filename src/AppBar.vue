@@ -6,7 +6,7 @@
         >Saipage
       </v-toolbar-title>
       <v-spacer />
-      <v-select
+      <v-autocomplete
         v-model="gameType"
         :menu-props="{ maxHeight: '400' }"
         :items="diceBots"

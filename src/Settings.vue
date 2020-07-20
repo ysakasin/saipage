@@ -17,7 +17,7 @@
       <v-card-text>
         <v-list three-line subheader>
           <v-list-item>
-            <v-select
+            <v-autocomplete
               v-model="gameType"
               :items="diceBots"
               label="ダイスボット"
