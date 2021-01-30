@@ -1,0 +1,13 @@
+name: Deploy
+on: [push, pull_request]
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm ci
+    - run: npm run lint
+    - run: npm run build
