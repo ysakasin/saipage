@@ -48,7 +48,6 @@ export async function diceRoll(gameType: string, cmd: string): Promise<any> {
   const res = await axios.get(
     apiDiceroll + encodeURIComponent(gameType) + "/roll?" + query
   );
-  console.log(res.data);
   return res.data;
 }
 

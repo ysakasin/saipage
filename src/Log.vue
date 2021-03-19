@@ -97,7 +97,6 @@ export default class Log extends Vue {
         this.$store.commit("appendLogBuffer", log);
       })
       .catch(error => {
-        console.log(error);
         if (error.response) {
           this.$data.errorMsg = "ダイスコマンドを実行できませんでした";
         } else {
