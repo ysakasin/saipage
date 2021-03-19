@@ -204,7 +204,7 @@ const store = new Vuex.Store({
       context.commit("updateGameType", gameType);
       fetchDicebotInfo(gameType).then(res => {
         context.commit("updateGameName", res.name);
-        context.commit("updateGameInfo", res.info);
+        context.commit("updateGameInfo", res.help_message);
       });
     }
   },

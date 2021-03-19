@@ -134,11 +134,11 @@ export default class DiceArea extends Vue {
   }
 
   get isSuccess(): boolean {
-    return this.commandResult.includes("成功");
+    return this.$data.target.success;
   }
 
   get isFailure(): boolean {
-    return this.commandResult.includes("失敗");
+    return this.$data.target.failure;
   }
 
   get isActive(): boolean {

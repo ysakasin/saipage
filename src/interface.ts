@@ -9,4 +9,6 @@ export interface Log {
   body: string;
   drawables: Dice[];
   timestamp: Date;
+  success: boolean;
+  failure: boolean;
 }

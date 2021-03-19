@@ -9,6 +9,7 @@
         @focus="help = showSystemInfo"
         label="ダイスコマンドを入力..."
         append-icon="mdi-send"
+        autocomplete="off"
         hide-details
         full-width
         class="command-field"
@@ -128,15 +129,14 @@ export default class Tool extends Vue {
   dicerollByText(text: string, clear = false) {
     diceRoll(this.gameType, text)
       .then(res => {
-        const dices = res.dices.map((d: Dice) => {
-          return { face: d.faces, value: d.value };
-        });
         const log: Log = {
           gameType: this.gameType,
           command: text,
-          body: res.result,
-          drawables: selectDiceResults(dices),
-          timestamp: new Date()
+          body: res.text,
+          drawables: selectDiceResults(res.rands),
+          timestamp: new Date(),
+          success: res.success,
+          failure: res.failure
         };
 
         if (clear) {
