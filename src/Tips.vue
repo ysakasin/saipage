@@ -1,7 +1,7 @@
 <template>
   <v-card v-show="showTips">
     <v-card-title>
-      <h3 class="headline">Tips</h3>
+      <h3 class="text-h5">Tips</h3>
     </v-card-title>
     <v-card-text>
       <p>

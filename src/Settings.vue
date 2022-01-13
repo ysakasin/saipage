@@ -112,7 +112,7 @@
         <v-divider />
         <v-subheader>アプリケーション情報</v-subheader>
         <v-card-text class="pt-0">
-          <div class="headline">
+          <div class="text-h5">
             Saipage <small>- {{ commitHash }}</small>
           </div>
           <p>
@@ -133,7 +133,7 @@
 
     <v-dialog v-model="removeLogDialog" max-width="500">
       <v-card>
-        <v-card-title class="headline">ログを削除</v-card-title>
+        <v-card-title class="text-h5">ログを削除</v-card-title>
         <v-card-text>
           <p>
             このSaipageで行ったダイスロールの全ログをブラウザから削除します。ログを削除すると復旧することはできません。
